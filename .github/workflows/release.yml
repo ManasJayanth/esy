@@ -57,13 +57,13 @@ jobs:
         node scripts/subst-release-version.js
         cd release
         npm pack;
-        shasum esy-$(git describe).tgz > SHA1
-        shasum -a 512 esy-$(git describe).tgz > SHA512
+        shasum esy-$(node scripts/echo-version).tgz > SHA1
+        shasum -a 512 esy-$(node scripts/echo-version).tgz > SHA512
       shell: bash
     - uses: actions/upload-artifact@v2
       with:
-        name: esy-$(git describe).tgz
-        path: release/esy-$(git describe).tgz
+        name: esy-$(node scripts/echo-version).tgz
+        path: release/esy-$(node scripts/echo-version).tgz
     - uses: actions/upload-artifact@v2
       with:
         name: SHA1

@@ -62,7 +62,7 @@ jobs:
       shell: bash
     - uses: actions/upload-artifact@v2
       with:
-        name: esy-$(node scripts/echo-version).tgz
+        name: esy.tgz
         path: release/*.tgz
     - uses: actions/upload-artifact@v2
       with:

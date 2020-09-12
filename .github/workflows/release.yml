@@ -50,15 +50,13 @@ jobs:
             echo "Build log for build that produced the cache: $LATEST_BUILD_PAGE"
             echo "Build badge for build that produced the cache: $LATEST_BUILD_BADGE"
             echo "Build artifact from build that produced the cache: $LATEST_ART_URL"
-		  fi
-		}
-
-    fetchArtifactURL
-		downloadArtifact
-		node scripts/subst-release-version.js
-		
-		cd release
-		npm pack;
+          fi
+	}
+        fetchArtifactURL
+	downloadArtifact
+	node scripts/subst-release-version.js
+	cd release
+	npm pack;
     shell: bash
 
 

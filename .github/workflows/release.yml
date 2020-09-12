@@ -20,7 +20,7 @@ jobs:
         REST_BASE="https://dev.azure.com/esy-dev"
         PROJ="esy"
         ART_NAME="release" # yes, no .zip
-        fetchLatestBuild() {
+        function fetchLatestBuild() {
           PREFIX="branchName=refs%2Fheads%2F"
           BRANCH="$PREFIXmaster"
           FILTER='deletedFilter=excludeDeleted&statusFilter=completed&resultFilter=succeeded'
@@ -33,12 +33,12 @@ jobs:
           if [[ $REST_BUILDS_RESP =~ (\"id\":)([^,]*) ]]; then LATEST_BUILD_ID="${BASH_REMATCH[2]}"; else LATEST_BUILD_ID=""; fi
         }
         fetchLatestBuild
-        fetchArtifactURL() {
+        function fetchArtifactURL() {
           REST_ART="$REST_BASE/$PROJ/_apis/build/builds/$LATEST_BUILD_ID/artifacts?artifactName=$ART_NAME&api-version=4.1"
           echo "Rest call for artifacts: $REST_ART"
           if [[ $(curl $REST_ART) =~ (downloadUrl\":\")([^\"]*) ]]; then LATEST_ART_URL="${BASH_REMATCH[2]}"; else LATEST_ART_URL=""; fi
         }
-        downloadArtifact() {
+        function downloadArtifact() {
           if [ -z "$LATEST_ART_URL" ]
           then
             echo "No latest artifact for merge-target branch found at URL $REST_ART"

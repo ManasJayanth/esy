@@ -63,7 +63,7 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: esy-$(node scripts/echo-version).tgz
-        path: release/esy-$(node scripts/echo-version).tgz
+        path: "release/esy-$(node scripts/echo-version).tgz"
     - uses: actions/upload-artifact@v2
       with:
         name: SHA1

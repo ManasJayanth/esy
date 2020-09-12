@@ -1,4 +1,4 @@
-name: Deploy (production)
+name: Prepare NPM tarball
 
 on:
   release:
@@ -15,7 +15,7 @@ jobs:
       with:
         node-version: '12'
         check-latest: true
-    - name: Install parcel-bundler
+    - name: Create NPM tarball
       run: |
         REST_BASE="https://dev.azure.com/esy-dev"
         PROJ="esy"
@@ -57,6 +57,21 @@ jobs:
         node scripts/subst-release-version.js
         cd release
         npm pack;
+        shasum esy-$(git describe).tgz > SHA1
+        shasum -a 512 esy-$(git describe).tgz > SHA512
       shell: bash
+    - uses: actions/upload-artifact@v2
+      with:
+        name: esy-$(git describe).tgz
+        path: release/esy-$(git describe).tgz
+    - uses: actions/upload-artifact@v2
+      with:
+        name: SHA1
+        path: release/SHA1
+    - uses: actions/upload-artifact@v2
+      with:
+        name: SHA512
+        path: release/SHA512
+ 
 
 

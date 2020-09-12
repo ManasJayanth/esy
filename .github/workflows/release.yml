@@ -64,7 +64,7 @@ jobs:
       with:
         name: release
         path: |
-        release/*.tgz
-        release/SHA1.txt
-        release/SHA512.txt
+          release/*.tgz
+          release/SHA1.txt
+          release/SHA512.txt
 

@@ -1,0 +1,143 @@
+* Questions
+** When manifestaggregate is driving the project (ie a list of opam files), why check for npm formula?
+   [[file:~/development/esy/esy/esy-solve/Sandbox.re::let devDeps = switch (pkg.InstallManifest.devDependencies) { | InstallManifest.Dependencies.OpamFormula(deps) => deps @ devDeps | InstallManifest.Dependencies.NpmFormula(_) => devDeps };]]
+** Unnecessary wrap unwrap of computation 
+   [[file:~/development/esy/esy/bin/Project.re::); return({planForDev, root});]]
+** This can errorf() - why? How will EsySolve.solve() work later? 
+   [[file:~/development/esy/esy/bin/Project.re::let%lwt solved = makeSolved( projcfg, workflow, buildCfg, solveSandbox, installSandbox, files, );]]
+** It's not clear what the difference between solveDev and solveAll is just by reading this file
+   [[file:~/development/esy/esy/esy-solve/SolveSpec.re::type t = { solveDev: DepSpec.t, solveAll: DepSpec.t, };]]
+** It enters the if branch (ie overrides are not empty)
+   [[file:~/development/esy/esy/esy-solve/Resolver.re::if (!Overrides.isEmpty(overrides)) { switch (source) { | Source.Link({path, manifest, kind}) => let pkg = emptyLink(~name, ~path, ~manifest, ~kind, ()); return(Ok(pkg)); | _ => let pkg = emptyInstall(~name, ~source=resolvedDist, ()); return(Ok(pkg)); }; } else { errorf("no manifest found at %a", Source.pp, source); }]]
+** Why does =addPackage= add only esy manifests? 
+ #+BEGIN_SRC reason
+   let rec addPackage = (manifest: InstallManifest.t) =>
+     if (!Universe.mem(~pkg=manifest, universe^)) {
+       switch (manifest.kind) {
+       | InstallManifest.Esy =>
+         universe := Universe.add(~pkg=manifest, universe^);
+         let%bind dependencies =
+           RunAsync.ofRun(evalDependencies(solver, manifest));
+         let%bind () =
+           RunAsync.contextf(
+             addDependencies(dependencies),
+             "resolving %a",
+             InstallManifest.pp,
+             manifest,
+           );
+
+         universe := Universe.add(~pkg=manifest, universe^);
+         return();
+       | InstallManifest.Npm => return()
+       };
+     } else {
+       return();
+     }
+
+ #+END_SRC
+ [[file:~/development/esy/esy/esy-solve/Solver.re::let rec addPackage = (manifest: InstallManifest.t) => if (!Universe.mem(~pkg=manifest, universe^)) { switch (manifest.kind) { | InstallManifest.Esy => universe := Universe.add(~pkg=manifest, universe^); let%bind dependencies = RunAsync.ofRun(evalDependencies(solver, manifest)); let%bind () = RunAsync.contextf( addDependencies(dependencies), "resolving %a", InstallManifest.pp, manifest, ); universe := Universe.add(~pkg=manifest, universe^); return(); | InstallManifest.Npm => return() }; } else { return(); }]]
+* esy-solve
+** Workflow.re 
+
+   What is a spec?
+
+   =Workflow.t= contains the specs for the following
+   1. Solver
+   2. Install
+   3. Build
+   4. Exec env
+   5. Command env
+   6. Build env
+
+
+ #+BEGIN_SRC reason
+ type t = {
+   solvespec: EsySolve.SolveSpec.t,
+   installspec: Solution.Spec.t,
+   buildspec: BuildSpec.t,
+   execenvspec: EnvSpec.t,
+   commandenvspec: EnvSpec.t,
+   buildenvspec: EnvSpec.t,
+ };
+
+ let buildAll: Solution.DepSpec.t;
+ let buildDev: Solution.DepSpec.t;
+
+ let default: t;
+
+ #+END_SRC
+ [[file:~/development/esy/bin/Workflow.rei::type%20t%20=%20{%20solvespec:%20EsySolve.SolveSpec.t,%20installspec:%20Solution.Spec.t,%20buildspec:%20BuildSpec.t,%20execenvspec:%20EnvSpec.t,%20commandenvspec:%20EnvSpec.t,%20buildenvspec:%20EnvSpec.t,%20};%20let%20buildAll:%20Solution.DepSpec.t;%20let%20buildDev:%20Solution.DepSpec.t;%20let%20default:%20t;]]
+** BuildSpec
+ #+BEGIN_SRC reason
+ type t =
+   EsyInstall.Solution.Spec.t = {
+     all: EsyInstall.Solution.DepSpec.t,
+     dev: EsyInstall.Solution.DepSpec.t,
+   };
+
+
+ #+END_SRC
+ [[file:~/development/esy/esy-build/BuildSpec.re::type%20t%20=%20EsyInstall.Solution.Spec.t%20=%20{%20all:%20EsyInstall.Solution.DepSpec.t,%20dev:%20EsyInstall.Solution.DepSpec.t,%20};]]
+** EnvSpec
+ #+BEGIN_SRC reason
+ type t = {
+   augmentDeps: option(EsyInstall.Solution.DepSpec.t),
+   buildIsInProgress: bool,
+   includeCurrentEnv: bool,
+   includeBuildEnv: bool,
+   includeEsyIntrospectionEnv: bool,
+   includeNpmBin: bool,
+ };
+ #+END_SRC
+ [[file:~/development/esy/esy-build/EnvSpec.re::type%20t%20=%20{%20augmentDeps:%20option(EsyInstall.Solution.DepSpec.t),%20buildIsInProgress:%20bool,%20includeCurrentEnv:%20bool,%20includeBuildEnv:%20bool,%20includeEsyIntrospectionEnv:%20bool,%20includeNpmBin:%20bool,%20};]]
+
+ Docs mention depspec in the context of specifying environment
+
+ https://esy.sh/docs/en/low-level-commands.html#depspec
+** For the most part, =Sandbox= is just a record and calculation of digest
+ #+BEGIN_SRC reason
+ let solve =
+     (~dumpCudfInput=None, ~dumpCudfOutput=None, solvespec, sandbox: Sandbox.t) => {
+   open RunAsync.Syntax;
+
+ #+END_SRC
+ [[file:~/development/esy/esy-solve/Solver.re::let%20solve%20=%20(~dumpCudfInput=None,%20~dumpCudfOutput=None,%20solvespec,%20sandbox:%20Sandbox.t)%20=>%20{%20open%20RunAsync.Syntax;]]
+** Looks like a =solver= isnt needed here. evaldependencies only needs solvespec and a manifest
+
+   A solver has =Universe.t= in addition to =solvespec= and =sandbox=.
+  
+ #+BEGIN_SRC reason
+       RunAsync.ofRun(evalDependencies(solver, sandbox.root));
+
+ #+END_SRC
+ [[file:~/development/esy/esy/esy-solve/Solver.re::RunAsync.ofRun(evalDependencies(solver, sandbox.root));]]
+** Whatever created =EsySolve.Sandbox.t= here, it created too =sandbox.root=
+  
+   =sandbox.root= is EsyPackageconfig.InstallManifest.t 
+ #+BEGIN_SRC reason
+       RunAsync.ofRun(evalDependencies(solver, sandbox.root));
+
+ #+END_SRC
+ [[file:~/development/esy/esy/esy-solve/Solver.re::RunAsync.ofRun(evalDependencies(solver, sandbox.root));]]
+** Dependencies can be NpmFormula or Opamformula 
+ #+BEGIN_SRC reason
+     let%bind rootDependencies =
+       RunAsync.ofRun(evalDependencies(solver, sandbox.root));
+
+ #+END_SRC
+ [[file:~/development/esy/esy/esy-solve/Solver.re::let%bind rootDependencies = RunAsync.ofRun(evalDependencies(solver, sandbox.root));]]
+** inline comment 
+ #+BEGIN_SRC reason
+     | Dependencies.OpamFormula(_) =>
+       let f = (req: Req.t) => addDependency(req);
+       /* =toApproximateRequests= doesn't need to take the whole =dependencies= 
+	since it only works opam reqs */
+       let reqs = Dependencies.toApproximateRequests(dependencies);
+       RunAsync.List.mapAndWait(~f, reqs);
+
+ #+END_SRC
+ [[file:~/development/esy/esy/esy-solve/Solver.re::| Dependencies.OpamFormula(_) => let f = (req: Req.t) => addDependency(req); /* =toApproximateRequests= doesn't need to take the whole =dependencies= since it only works opam reqs */ let reqs = Dependencies.toApproximateRequests(dependencies); RunAsync.List.mapAndWait(~f, reqs);]]
+* EsySolve.Sandbox.make
+  
+  
+

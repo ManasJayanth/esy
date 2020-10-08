@@ -500,6 +500,8 @@ let add = (~dependencies: Dependencies.t, solver) => {
 
     | Dependencies.OpamFormula(_) =>
       let f = (req: Req.t) => addDependency(req);
+      /* =toApproximateRequests= doesn't need to take the whole =dependencies= 
+       since it only works opam reqs */
       let reqs = Dependencies.toApproximateRequests(dependencies);
       RunAsync.List.mapAndWait(~f, reqs);
     }
@@ -976,6 +978,8 @@ let solve =
           ocamlReq,
         );
 
+      /* It is not the graph of deps yet. Just a spec. Description. Just whether is NpmFormula of deps with ocaml version.
+         Will be sent to a solver soon.*/
       let%bind dependencies =
         switch (ocamlVersion, rootDependencies) {
         | (

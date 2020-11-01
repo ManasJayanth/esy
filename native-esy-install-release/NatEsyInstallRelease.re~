@@ -1,0 +1,34 @@
+let main = (ocamlPkgName, ocamlVersion) =>
+  print_endline(ocamlPkgName ++ " " ++  ocamlVersion);
+
+open Cmdliner;
+
+let ocamlPkgName = {
+  let doc = "OCaml package name";
+  Arg.(value & opt(string, "ocaml") & info(["ocaml-pkg-name"], ~docv="RELEASE CONFIG", ~doc));
+};
+
+let ocamlVersion = {
+  let doc = "OCaml package version";
+  Arg.(value & opt(string, "n.00.0000") & info(["ocaml-version"], ~docv="RELEASE CONFIG", ~doc));
+};
+
+let main_t = Term.(const(main) $ ocamlPkgName $ ocamlVersion);
+
+let info = {
+  let doc = "Export native builds and rewrite prefixes in them";
+  let man = [
+    `S(Manpage.s_bugs),
+    `P(""),
+  ];
+
+  Term.info(
+    "NatEsyInstallRelease",
+    ~version="0.0.0",
+    ~doc,
+    ~exits=Term.default_exits,
+    ~man,
+  );
+};
+
+let () = Term.exit @@ Term.eval((main_t, info));

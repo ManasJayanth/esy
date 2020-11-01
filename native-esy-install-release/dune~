@@ -1,0 +1,5 @@
+(executable
+ (name NatEsyInstallRelease)
+ (public_name NatEsyInstallRelease)
+ (libraries cmdliner))
+  

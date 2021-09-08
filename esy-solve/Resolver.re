@@ -325,8 +325,9 @@ let packageOfSource =
       | (Source.Dist(_), _) => return(Source.Dist(resolvedDist))
       | (Source.Link({kind, _}), Dist.LocalPath({path, manifest})) =>
         return(Source.Link({path, manifest, kind}))
-      | (Source.Link(_), dist) =>
-        errorf("unable to link to %a", Dist.pp, dist)
+      | (Source.Link(a), dist) =>
+        let%lwt () = Logs_lwt.debug(m => m(">>>%a", Dist.pp, dist));
+        errorf("unable to link >>>>>>>>> to %a", Dist.pp, dist)
       };
 
     let* pkg =
@@ -517,6 +518,7 @@ let package =
       }
 
     | Version.Source(source) =>
+        let%lwt () = Logs_lwt.debug(m => m(">>>--------11111"));
       packageOfSource(
         ~gitUsername,
         ~gitPassword,
@@ -537,6 +539,7 @@ let package =
         | SourceOverride({source, override}) =>
           let override = Override.ofJson(override);
           let overrides = Overrides.(add(override, empty));
+        let%lwt () = Logs_lwt.debug(m => m(">>>--------2222"));
           packageOfSource(
             ~gitUsername,
             ~gitPassword,

@@ -1,0 +1,2493 @@
+Running slowtests!commit 34b8b4585e8743797a8d927ce08fae2995339482
+Author: Manas <3097018+ManasJayanth@users.noreply.github.com>
+Date:   Sat Jun 12 15:21:49 2021 +0530
+
+    @slowtest Top 100 opam packages as of Jun 12, 2021.
+
+Running test suite: e2e (slow tests)
+*** building OCaml toolchain at /tmp/2a3bdbd5728e9e67 ***
+EXEC: /Users/manas/development/esy/esy/_build/install/default/bin/esy install
+info install 0.6.10 (using package.json)
+info resolving esy packages: done
+info solving esy constraints: done
+info resolving npm packages: done
+info fetching: done
+info installing: done
+EXEC: /Users/manas/development/esy/esy/_build/install/default/bin/esy build
+info esy build 0.6.10 (using package.json)
+info building ocaml@4.10.2000@d41d8cd9
+info building ocaml@4.10.2000@d41d8cd9: done
+*** building opam-depext with ocaml@4.10.x ***
+*** sandbox.path: /tmp/7e03d7cc18ded0c1
+EXEC: /Users/manas/development/esy/esy/_build/install/default/bin/esy install
+info install 0.6.10 (using package.json)
+info checking https://github.com/ocaml/opam-repository for updates...
+info checking https://github.com/esy-ocaml/esy-opam-override for updates...
+info resolving esy packages: done
+info solving esy constraints: done
+info resolving npm packages: done
+info fetching: done
+info installing: done
+EXEC: /Users/manas/development/esy/esy/_build/install/default/bin/esy build
+info esy build 0.6.10 (using package.json)
+info building @esy-ocaml/substs@0.0.1@d41d8cd9
+info building @esy-ocaml/substs@0.0.1@d41d8cd9: done
+info building @opam/opam-depext@opam:1.1.5@ad31943c
+info building @opam/opam-depext@opam:1.1.5@ad31943c: done
+*** building time_now with ocaml@4.10.x ***
+*** sandbox.path: /tmp/0dfafa730dea6980
+EXEC: /Users/manas/development/esy/esy/_build/install/default/bin/esy install --skip-repository-update
+info install 0.6.10 (using package.json)
+info resolving esy packages: done
+info solving esy constraints: done
+info resolving npm packages: done
+info fetching: done
+info installing: done
+EXEC: /Users/manas/development/esy/esy/_build/install/default/bin/esy build
+info esy build 0.6.10 (using package.json)
+info building @opam/base-unix@opam:base@87d0b2eb
+info building @opam/base-threads@opam:base@36803084
+info building @opam/base-unix@opam:base@87d0b2eb: done
+info building @opam/base-threads@opam:base@36803084: done
+info building @opam/dune@opam:2.8.5@01003f12
+info building @opam/dune@opam:2.8.5@01003f12: done
+info building @opam/csexp@opam:1.5.1@8a8fb3a7
+info building @opam/result@opam:1.5@1c6a6533
+info building @opam/sexplib0@opam:v0.14.0@155c136c
+info building @opam/jane-street-headers@opam:v0.14.0@b38e12bf
+info building @opam/ocaml-compiler-libs@opam:v0.12.3@316a19dc
+info building @opam/ocaml-migrate-parsetree@opam:2.1.0@a3b6747d
+info building @opam/ppx_derivers@opam:1.2.1@ecf0aa45
+info building @opam/stdlib-shims@opam:0.3.0@0d088929
+info building @opam/jane-street-headers@opam:v0.14.0@b38e12bf: done
+info building @opam/octavius@opam:1.2.2@2205cc65
+info building @opam/ppx_derivers@opam:1.2.1@ecf0aa45: done
+info building @opam/csexp@opam:1.5.1@8a8fb3a7: done
+info building @opam/result@opam:1.5@1c6a6533: done
+info building @opam/stdlib-shims@opam:0.3.0@0d088929: done
+info building @opam/dune-configurator@opam:2.8.5@428293ca
+info building @opam/sexplib0@opam:v0.14.0@155c136c: done
+info building @opam/ocaml-compiler-libs@opam:v0.12.3@316a19dc: done
+info building @opam/octavius@opam:1.2.2@2205cc65: done
+info building @opam/dune-configurator@opam:2.8.5@428293ca: done
+info building @opam/base@opam:v0.14.1@9b424fee
+info building @opam/ocaml-migrate-parsetree@opam:2.1.0@a3b6747d: done
+info building @opam/ppxlib@opam:0.22.1@35bedf99
+info building @opam/base@opam:v0.14.1@9b424fee: done
+info building @opam/stdio@opam:v0.14.0@a5affb43
+info building @opam/stdio@opam:v0.14.0@a5affb43: done
+info building @opam/ppxlib@opam:0.22.1@35bedf99: done
+info building @opam/ppx_optcomp@opam:v0.14.1@9b4f311f
+info building @opam/ppx_js_style@opam:v0.14.0@7afb1a49
+info building @opam/ppx_enumerate@opam:v0.14.0@2be34197
+info building @opam/ppx_sexp_conv@opam:v0.14.3@8f42b1ac
+info building @opam/ppx_here@opam:v0.14.0@c05577d4
+info building @opam/ppx_compare@opam:v0.14.0@fbd22977
+info building @opam/ppx_cold@opam:v0.14.0@91b05a20
+info building @opam/ppx_optcomp@opam:v0.14.1@9b4f311f: done
+info building @opam/ppx_cold@opam:v0.14.0@91b05a20: done
+info building @opam/ppx_here@opam:v0.14.0@c05577d4: done
+info building @opam/ppx_enumerate@opam:v0.14.0@2be34197: done
+info building @opam/ppx_compare@opam:v0.14.0@fbd22977: done
+info building @opam/ppx_js_style@opam:v0.14.0@7afb1a49: done
+info building @opam/ppx_sexp_conv@opam:v0.14.3@8f42b1ac: done
+info building @opam/ppx_hash@opam:v0.14.0@455f5f56
+info building @opam/ppx_assert@opam:v0.14.0@f5d6cf6a
+info building @opam/ppx_hash@opam:v0.14.0@455f5f56: done
+info building @opam/ppx_base@opam:v0.14.0@3221121a
+info building @opam/ppx_assert@opam:v0.14.0@f5d6cf6a: done
+info building @opam/jst-config@opam:v0.14.0@d33e0e2a
+info building @opam/ppx_base@opam:v0.14.0@3221121a: done
+info building @opam/jst-config@opam:v0.14.0@d33e0e2a: done
+info building @opam/time_now@opam:v0.14.0@54e3342e
+info building @opam/time_now@opam:v0.14.0@54e3342e: done
+*** building ppx_string with ocaml@4.10.x ***
+*** sandbox.path: /tmp/e3252c71c9c99a2a
+EXEC: /Users/manas/development/esy/esy/_build/install/default/bin/esy install --skip-repository-update
+info install 0.6.10 (using package.json)
+info resolving esy packages: done
+info solving esy constraints: done
+info resolving npm packages: done
+info fetching: done
+info installing: done
+EXEC: /Users/manas/development/esy/esy/_build/install/default/bin/esy build
+info esy build 0.6.10 (using package.json)
+info building @opam/ppx_string@opam:v0.14.1@072b819c
+info building @opam/ppx_string@opam:v0.14.1@072b819c: done
+*** building parmap with ocaml@4.10.x ***
+*** sandbox.path: /tmp/d641ab01bec76208
+EXEC: /Users/manas/development/esy/esy/_build/install/default/bin/esy install --skip-repository-update
+info install 0.6.10 (using package.json)
+info resolving esy packages: done
+info solving esy constraints: done
+info resolving npm packages: done
+info fetching: done
+info installing: done
+EXEC: /Users/manas/development/esy/esy/_build/install/default/bin/esy build
+info esy build 0.6.10 (using package.json)
+info building @opam/base-bigarray@opam:base@b03491b0
+info building @opam/base-bigarray@opam:base@b03491b0: done
+info building @opam/parmap@opam:1.2.3@ae107f1f
+info building @opam/parmap@opam:1.2.3@ae107f1f: done
+*** building opam-client with ocaml@4.10.x ***
+*** sandbox.path: /tmp/5acceb897b96d168
+EXEC: /Users/manas/development/esy/esy/_build/install/default/bin/esy install --skip-repository-update
+info install 0.6.10 (using package.json)
+info resolving esy packages: done
+info solving esy constraints: done
+info resolving npm packages: done
+info fetching: done
+info installing: done
+EXEC: /Users/manas/development/esy/esy/_build/install/default/bin/esy build
+info esy build 0.6.10 (using package.json)
+info building @opam/cmdliner@opam:1.0.4@93208aac
+info building @opam/ocamlfind@opam:1.9.1@b748edf6
+info building @opam/seq@opam:base@d8d7de1d
+info building @opam/ocamlbuild@opam:0.14.0@6ac75d03
+info building @opam/cppo@opam:1.6.7@57a6d52c
+info building @opam/opam-file-format@opam:2.1.3@3718a396
+info building @opam/ocamlgraph@opam:2.0.0@929b9eba
+info building @opam/seq@opam:base@d8d7de1d: done
+info building @opam/re@opam:1.9.0@9373f267
+info building @opam/opam-file-format@opam:2.1.3@3718a396: done
+info building @opam/cppo@opam:1.6.7@57a6d52c: done
+info building @opam/re@opam:1.9.0@9373f267: done
+info building @opam/cmdliner@opam:1.0.4@93208aac: done
+info building @opam/ocamlgraph@opam:2.0.0@929b9eba: done
+info building @opam/opam-core@opam:2.1.0~beta4@17717b88
+info building @opam/ocamlfind@opam:1.9.1@b748edf6: done
+info building @opam/base-bytes@opam:base@19d0c2ff
+info building @opam/base-bytes@opam:base@19d0c2ff: done
+info building @opam/extlib@opam:1.7.7-1@b439620c
+info building @opam/ocamlbuild@opam:0.14.0@6ac75d03: done
+info building @opam/extlib@opam:1.7.7-1@b439620c: done
+info building @opam/cudf@opam:0.9-1@a63f60c9
+info building @opam/opam-core@opam:2.1.0~beta4@17717b88: done
+info building @opam/opam-format@opam:2.1.0~beta4@7c7413c4
+info building @opam/cudf@opam:0.9-1@a63f60c9: done
+info building @opam/dose3@opam:5.0.1-1@fb4cdb54
+info building @opam/mccs@opam:1.1+13@ed21e7f5
+info building @opam/opam-format@opam:2.1.0~beta4@7c7413c4: done
+info building @opam/opam-repository@opam:2.1.0~beta4@cfe49644
+info building @opam/opam-repository@opam:2.1.0~beta4@cfe49644: done
+info building @opam/opam-state@opam:2.1.0~beta4@d7643898
+info building @opam/opam-state@opam:2.1.0~beta4@d7643898: done
+info building @opam/dose3@opam:5.0.1-1@fb4cdb54: done
+error: build failed with exit code: 1
+  build log:
+    # esy-build-package: building: @opam/mccs@opam:1.1+13
+    # esy-build-package: pwd: /tmp/2cbc8be24aa30fc4/3/b/opam__s__mccs-opam__c__1.1+13-99428676
+    # esy-build-package: running: 'dune' 'build' '-p' 'mccs' '-j' '4'
+             gcc src/glpk/advbas.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/api/advbas.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/alloc.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/env/alloc.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/avl.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/misc/avl.c:24:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/bfd.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/draft/bfd.c:23:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/btfint.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/bflib/btfint.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/btf.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/bflib/btf.c:23:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/cfg.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/intopt/cfg.c:23:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/cfg2.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/intopt/cfg2.c:23:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/cfg1.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/intopt/cfg1.c:23:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/clqcut.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/intopt/clqcut.c:23:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/dlsup.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/env/dlsup.c:26:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/dmp.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/misc/dmp.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/covgen.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/intopt/covgen.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/cpxbas.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/api/cpxbas.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/env.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/env/env.c:27:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/error.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/env/error.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/fhvint.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/bflib/fhvint.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/fvs.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/misc/fvs.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/fhv.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/bflib/fhv.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/gcd.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/misc/gcd.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/fpump.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/intopt/fpump.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/glpapi10.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/draft/glpapi10.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/glpapi06.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/draft/glpapi06.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/glpapi09.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/draft/glpapi09.c:23:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/glpapi13.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/draft/glpapi13.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/glpapi12.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/draft/glpapi12.c:23:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/glpios02.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/draft/glpios02.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/glpios01.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/draft/glpios01.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    src/glpk/draft/glpios01.c:1494:1: warning: non-void function does not return a value [-Wreturn-type]
+    }
+    ^
+    3 warnings generated.
+             gcc src/glpk/glpios11.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/draft/glpios11.c:23:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/glpios09.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/draft/glpios09.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/glpios07.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/draft/glpios07.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/glpios12.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/draft/glpios12.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/glpios03.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/draft/glpios03.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/gmicut.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/intopt/gmicut.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/gmigen.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/intopt/gmigen.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/jd.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    1 warning generated.
+             gcc src/glpk/glpscl.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/draft/glpscl.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/ifu.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/bflib/ifu.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/lufint.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/bflib/lufint.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/ks.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/misc/ks.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/mc13d.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    1 warning generated.
+             gcc src/glpk/mc21a.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    1 warning generated.
+             gcc src/glpk/luf.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/bflib/luf.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/mt1.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from :16:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/npp2.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/npp/npp2.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/npp1.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/npp/npp1.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/npp3.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/npp/npp3.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/npp5.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/npp/npp5.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/mirgen.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/intopt/mirgen.c:46:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/npp4.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/npp/npp4.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/prob4.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/api/prob4.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/prob2.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/api/prob2.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/prob5.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/api/prob5.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/proxy1.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/proxy/proxy1.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/rng.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/misc/rng.c:30:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/prob1.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/api/prob1.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/rng1.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/misc/rng1.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/round2n.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/misc/round2n.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/proxy.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/proxy/proxy.c:120:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/scfint.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/bflib/scfint.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/spv.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/intopt/spv.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/scf.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/bflib/scf.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/spxchuzc.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/simplex/spxchuzc.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/spxat.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/simplex/spxat.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/spxchuzr.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/simplex/spxchuzr.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/sgf.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/bflib/sgf.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/spxnt.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/simplex/spxnt.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/spxlp.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/simplex/spxlp.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/spychuzc.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/simplex/spychuzc.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/spxprob.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/simplex/spxprob.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/spychuzr.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/simplex/spychuzr.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/stdc.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    1 warning generated.
+             gcc src/glpk/spxprim.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/simplex/spxprim.c:26:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/stdout.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/env/stdout.c:24:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/time.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/env/time.c:26:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/sva.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/bflib/sva.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/tls.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/env/tls.c:26:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/triang.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/misc/triang.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/wclique1.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/misc/wclique1.c:22:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/wclique.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/misc/wclique.c:34:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/glpk/spydual.o
+    warning: unknown warning option '-Wno-stringop-overflow'; did you mean '-Wno-shift-overflow'? [-Wunknown-warning-option]
+    In file included from src/glpk/simplex/spydual.c:26:
+    src/glpk/env/env.h:30:9: warning: 'SIZE_T_MAX' macro redefined [-Wmacro-redefined]
+    #define SIZE_T_MAX (~(size_t)0)
+            ^
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h:101:9: note: previous definition is here
+    #define SIZE_T_MAX      ULONG_MAX       /* max value for a size_t */
+            ^
+    2 warnings generated.
+             gcc src/changed_criteria.o (exit 1)
+    (cd _build/default/src && /usr/bin/gcc -O2 -fno-strict-aliasing -fwrapv -I . -x c++ -DUSEGLPK -g -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__cudf-opam__c__0.9-1-ff81cde7/lib/cudf -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__extlib-opam__c__1.7.7-1-a3999419/lib/extlib -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__ocamlfind-opam__c__1.9.1-dc8dc99c/lib/bytes -I glpk -o changed_criteria.o -c changed_criteria.cpp)
+    In file included from changed_criteria.cpp:9:
+    In file included from ./changed_criteria.h:12:
+    In file included from ./abstract_criteria.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:58:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits:105:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/type_traits:417:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cstddef:37:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from changed_criteria.cpp:9:
+    In file included from ./changed_criteria.h:12:
+    In file included from ./abstract_criteria.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:58:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits:105:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/type_traits:418:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from changed_criteria.cpp:9:
+    In file included from ./changed_criteria.h:12:
+    In file included from ./abstract_criteria.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:58:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits:121:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from changed_criteria.cpp:9:
+    In file included from ./changed_criteria.h:12:
+    In file included from ./abstract_criteria.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:60:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from changed_criteria.cpp:9:
+    In file included from ./changed_criteria.h:12:
+    In file included from ./abstract_criteria.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/algorithm:642:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/utility:205:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from changed_criteria.cpp:9:
+    In file included from ./changed_criteria.h:12:
+    In file included from ./abstract_criteria.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/algorithm:643:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/memory:668:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/typeinfo:60:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/exception:83:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from changed_criteria.cpp:9:
+    In file included from ./changed_criteria.h:12:
+    In file included from ./abstract_criteria.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/algorithm:643:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/memory:671:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/new:93:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    fatal error: too many errors emitted, stopping now [-ferror-limit=]
+    20 errors generated.
+             gcc src/constraint_generation.o (exit 1)
+    (cd _build/default/src && /usr/bin/gcc -O2 -fno-strict-aliasing -fwrapv -I . -x c++ -DUSEGLPK -g -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__cudf-opam__c__0.9-1-ff81cde7/lib/cudf -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__extlib-opam__c__1.7.7-1-a3999419/lib/extlib -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__ocamlfind-opam__c__1.9.1-dc8dc99c/lib/bytes -I glpk -o constraint_generation.o -c constraint_generation.cpp)
+    In file included from constraint_generation.cpp:10:
+    In file included from ./constraint_generation.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:58:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits:105:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/type_traits:417:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cstddef:37:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from constraint_generation.cpp:10:
+    In file included from ./constraint_generation.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:58:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits:105:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/type_traits:418:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from constraint_generation.cpp:10:
+    In file included from ./constraint_generation.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:58:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits:121:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from constraint_generation.cpp:10:
+    In file included from ./constraint_generation.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:60:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from constraint_generation.cpp:10:
+    In file included from ./constraint_generation.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/algorithm:642:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/utility:205:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from constraint_generation.cpp:10:
+    In file included from ./constraint_generation.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/algorithm:643:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/memory:668:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/typeinfo:60:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/exception:83:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from constraint_generation.cpp:10:
+    In file included from ./constraint_generation.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/algorithm:643:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/memory:671:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/new:93:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    fatal error: too many errors emitted, stopping now [-ferror-limit=]
+    20 errors generated.
+             gcc src/count_criteria.o (exit 1)
+    (cd _build/default/src && /usr/bin/gcc -O2 -fno-strict-aliasing -fwrapv -I . -x c++ -DUSEGLPK -g -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__cudf-opam__c__0.9-1-ff81cde7/lib/cudf -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__extlib-opam__c__1.7.7-1-a3999419/lib/extlib -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__ocamlfind-opam__c__1.9.1-dc8dc99c/lib/bytes -I glpk -o count_criteria.o -c count_criteria.cpp)
+    In file included from count_criteria.cpp:10:
+    In file included from ./count_criteria.h:13:
+    In file included from ./abstract_criteria.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:58:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits:105:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/type_traits:417:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cstddef:37:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from count_criteria.cpp:10:
+    In file included from ./count_criteria.h:13:
+    In file included from ./abstract_criteria.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:58:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits:105:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/type_traits:418:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from count_criteria.cpp:10:
+    In file included from ./count_criteria.h:13:
+    In file included from ./abstract_criteria.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:58:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits:121:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from count_criteria.cpp:10:
+    In file included from ./count_criteria.h:13:
+    In file included from ./abstract_criteria.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:60:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from count_criteria.cpp:10:
+    In file included from ./count_criteria.h:13:
+    In file included from ./abstract_criteria.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/algorithm:642:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/utility:205:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from count_criteria.cpp:10:
+    In file included from ./count_criteria.h:13:
+    In file included from ./abstract_criteria.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/algorithm:643:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/memory:668:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/typeinfo:60:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/exception:83:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from count_criteria.cpp:10:
+    In file included from ./count_criteria.h:13:
+    In file included from ./abstract_criteria.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/algorithm:643:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/memory:671:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/new:93:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    fatal error: too many errors emitted, stopping now [-ferror-limit=]
+    20 errors generated.
+             gcc src/cudf_reductions.o (exit 1)
+    (cd _build/default/src && /usr/bin/gcc -O2 -fno-strict-aliasing -fwrapv -I . -x c++ -DUSEGLPK -g -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__cudf-opam__c__0.9-1-ff81cde7/lib/cudf -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__extlib-opam__c__1.7.7-1-a3999419/lib/extlib -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__ocamlfind-opam__c__1.9.1-dc8dc99c/lib/bytes -I glpk -o cudf_reductions.o -c cudf_reductions.cpp)
+    In file included from cudf_reductions.cpp:9:
+    In file included from ./cudf_reductions.h:18:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:58:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits:105:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/type_traits:417:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cstddef:37:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from cudf_reductions.cpp:9:
+    In file included from ./cudf_reductions.h:18:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:58:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits:105:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/type_traits:418:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from cudf_reductions.cpp:9:
+    In file included from ./cudf_reductions.h:18:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:58:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits:121:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from cudf_reductions.cpp:9:
+    In file included from ./cudf_reductions.h:18:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:60:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from cudf_reductions.cpp:9:
+    In file included from ./cudf_reductions.h:18:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/algorithm:642:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/utility:205:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from cudf_reductions.cpp:9:
+    In file included from ./cudf_reductions.h:18:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/algorithm:643:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/memory:668:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/typeinfo:60:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/exception:83:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from cudf_reductions.cpp:9:
+    In file included from ./cudf_reductions.h:18:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/algorithm:643:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/memory:671:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/new:93:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    fatal error: too many errors emitted, stopping now [-ferror-limit=]
+    20 errors generated.
+             gcc src/cudf_tools.o (exit 1)
+    (cd _build/default/src && /usr/bin/gcc -O2 -fno-strict-aliasing -fwrapv -I . -x c++ -DUSEGLPK -g -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__cudf-opam__c__0.9-1-ff81cde7/lib/cudf -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__extlib-opam__c__1.7.7-1-a3999419/lib/extlib -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__ocamlfind-opam__c__1.9.1-dc8dc99c/lib/bytes -I glpk -o cudf_tools.o -c cudf_tools.cpp)
+    In file included from cudf_tools.cpp:9:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:58:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits:105:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/type_traits:417:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cstddef:37:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from cudf_tools.cpp:9:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:58:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits:105:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/type_traits:418:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from cudf_tools.cpp:9:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:58:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits:121:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from cudf_tools.cpp:9:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:60:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from cudf_tools.cpp:9:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/algorithm:642:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/utility:205:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from cudf_tools.cpp:9:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/algorithm:643:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/memory:668:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/typeinfo:60:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/exception:83:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from cudf_tools.cpp:9:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/algorithm:643:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/memory:671:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/new:93:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    fatal error: too many errors emitted, stopping now [-ferror-limit=]
+    20 errors generated.
+             gcc src/glpk_solver.o (exit 1)
+    (cd _build/default/src && /usr/bin/gcc -O2 -fno-strict-aliasing -fwrapv -I . -x c++ -DUSEGLPK -g -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__cudf-opam__c__0.9-1-ff81cde7/lib/cudf -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__extlib-opam__c__1.7.7-1-a3999419/lib/extlib -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__ocamlfind-opam__c__1.9.1-dc8dc99c/lib/bytes -I glpk -o glpk_solver.o -c glpk_solver.cpp)
+    In file included from glpk_solver.cpp:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/math.h:309:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/type_traits:417:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cstddef:37:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from glpk_solver.cpp:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/math.h:309:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/type_traits:417:
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cstddef:49:9: error: no member named 'ptrdiff_t' in the global namespace
+    using ::ptrdiff_t;
+          ~~^
+    In file included from glpk_solver.cpp:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/math.h:309:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/type_traits:418:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from glpk_solver.cpp:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/math.h:310:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits:121:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from glpk_solver.cpp:16:
+    In file included from ./glpk_solver.h:13:
+    In file included from ./abstract_solver.h:14:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:60:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from glpk_solver.cpp:16:
+    In file included from ./glpk_solver.h:13:
+    In file included from ./abstract_solver.h:14:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/algorithm:642:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/utility:205:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from glpk_solver.cpp:16:
+    In file included from ./glpk_solver.h:13:
+    In file included from ./abstract_solver.h:14:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/algorithm:643:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/memory:668:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/typeinfo:60:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/exception:83:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    fatal error: too many errors emitted, stopping now [-ferror-limit=]
+    20 errors generated.
+             gcc src/lexagregate_combiner.o (exit 1)
+    (cd _build/default/src && /usr/bin/gcc -O2 -fno-strict-aliasing -fwrapv -I . -x c++ -DUSEGLPK -g -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__cudf-opam__c__0.9-1-ff81cde7/lib/cudf -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__extlib-opam__c__1.7.7-1-a3999419/lib/extlib -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__ocamlfind-opam__c__1.9.1-dc8dc99c/lib/bytes -I glpk -o lexagregate_combiner.o -c lexagregate_combiner.cpp)
+    In file included from lexagregate_combiner.cpp:10:
+    In file included from ./lexagregate_combiner.h:13:
+    In file included from ./abstract_combiner.h:12:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:58:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits:105:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/type_traits:417:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cstddef:37:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from lexagregate_combiner.cpp:10:
+    In file included from ./lexagregate_combiner.h:13:
+    In file included from ./abstract_combiner.h:12:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:58:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits:105:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/type_traits:418:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from lexagregate_combiner.cpp:10:
+    In file included from ./lexagregate_combiner.h:13:
+    In file included from ./abstract_combiner.h:12:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:58:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits:121:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from lexagregate_combiner.cpp:10:
+    In file included from ./lexagregate_combiner.h:13:
+    In file included from ./abstract_combiner.h:12:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:60:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from lexagregate_combiner.cpp:10:
+    In file included from ./lexagregate_combiner.h:13:
+    In file included from ./abstract_combiner.h:12:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/algorithm:642:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/utility:205:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from lexagregate_combiner.cpp:10:
+    In file included from ./lexagregate_combiner.h:13:
+    In file included from ./abstract_combiner.h:12:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/algorithm:643:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/memory:668:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/typeinfo:60:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/exception:83:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from lexagregate_combiner.cpp:10:
+    In file included from ./lexagregate_combiner.h:13:
+    In file included from ./abstract_combiner.h:12:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/algorithm:643:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/memory:671:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/new:93:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    fatal error: too many errors emitted, stopping now [-ferror-limit=]
+    20 errors generated.
+             gcc src/lp_solver.o (exit 1)
+    (cd _build/default/src && /usr/bin/gcc -O2 -fno-strict-aliasing -fwrapv -I . -x c++ -DUSEGLPK -g -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__cudf-opam__c__0.9-1-ff81cde7/lib/cudf -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__extlib-opam__c__1.7.7-1-a3999419/lib/extlib -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__ocamlfind-opam__c__1.9.1-dc8dc99c/lib/bytes -I glpk -o lp_solver.o -c lp_solver.cpp)
+    In file included from lp_solver.cpp:8:
+    In file included from ./lp_solver.h:13:
+    In file included from ./abstract_solver.h:14:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:58:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits:105:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/type_traits:417:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cstddef:37:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from lp_solver.cpp:8:
+    In file included from ./lp_solver.h:13:
+    In file included from ./abstract_solver.h:14:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:58:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits:105:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/type_traits:418:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from lp_solver.cpp:8:
+    In file included from ./lp_solver.h:13:
+    In file included from ./abstract_solver.h:14:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:58:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits:121:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from lp_solver.cpp:8:
+    In file included from ./lp_solver.h:13:
+    In file included from ./abstract_solver.h:14:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:60:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from lp_solver.cpp:8:
+    In file included from ./lp_solver.h:13:
+    In file included from ./abstract_solver.h:14:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/algorithm:642:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/utility:205:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from lp_solver.cpp:8:
+    In file included from ./lp_solver.h:13:
+    In file included from ./abstract_solver.h:14:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/algorithm:643:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/memory:668:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/typeinfo:60:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/exception:83:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from lp_solver.cpp:8:
+    In file included from ./lp_solver.h:13:
+    In file included from ./abstract_solver.h:14:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/algorithm:643:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/memory:671:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/new:93:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    fatal error: too many errors emitted, stopping now [-ferror-limit=]
+    20 errors generated.
+             gcc src/mccs_stubs.o (exit 1)
+    (cd _build/default/src && /usr/bin/gcc -O2 -fno-strict-aliasing -fwrapv -I . -x c++ -DUSEGLPK -g -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__cudf-opam__c__0.9-1-ff81cde7/lib/cudf -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__extlib-opam__c__1.7.7-1-a3999419/lib/extlib -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__ocamlfind-opam__c__1.9.1-dc8dc99c/lib/bytes -I glpk -o mccs_stubs.o -c mccs_stubs.cpp)
+    In file included from mccs_stubs.cpp:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/map:481:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__tree:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/iterator:419:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional_base:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/type_traits:417:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cstddef:37:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from mccs_stubs.cpp:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/map:481:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__tree:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/iterator:419:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional_base:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/type_traits:418:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from mccs_stubs.cpp:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/map:481:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__tree:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/iterator:419:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional_base:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/typeinfo:60:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/exception:83:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from mccs_stubs.cpp:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/map:481:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__tree:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/iterator:419:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional_base:17:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/new:93:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from mccs_stubs.cpp:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/map:481:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__tree:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/iterator:419:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional_base:18:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/utility:205:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from mccs_stubs.cpp:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/map:481:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__tree:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/iterator:423:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from mccs_stubs.cpp:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/map:481:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__tree:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/memory:673:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits:121:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    fatal error: too many errors emitted, stopping now [-ferror-limit=]
+    20 errors generated.
+             gcc src/mccscudf.o (exit 1)
+    (cd _build/default/src && /usr/bin/gcc -O2 -fno-strict-aliasing -fwrapv -I . -x c++ -DUSEGLPK -g -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__cudf-opam__c__0.9-1-ff81cde7/lib/cudf -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__extlib-opam__c__1.7.7-1-a3999419/lib/extlib -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__ocamlfind-opam__c__1.9.1-dc8dc99c/lib/bytes -I glpk -o mccscudf.o -c mccscudf.cpp)
+    In file included from mccscudf.cpp:8:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:58:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits:105:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/type_traits:417:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cstddef:37:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from mccscudf.cpp:8:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:58:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits:105:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/type_traits:418:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from mccscudf.cpp:8:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:58:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits:121:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from mccscudf.cpp:8:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:60:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from mccscudf.cpp:8:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/algorithm:642:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/utility:205:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from mccscudf.cpp:8:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/algorithm:643:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/memory:668:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/typeinfo:60:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/exception:83:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from mccscudf.cpp:8:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/algorithm:643:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/memory:671:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/new:93:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    fatal error: too many errors emitted, stopping now [-ferror-limit=]
+    20 errors generated.
+             gcc src/new_criteria.o (exit 1)
+    (cd _build/default/src && /usr/bin/gcc -O2 -fno-strict-aliasing -fwrapv -I . -x c++ -DUSEGLPK -g -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__cudf-opam__c__0.9-1-ff81cde7/lib/cudf -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__extlib-opam__c__1.7.7-1-a3999419/lib/extlib -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__ocamlfind-opam__c__1.9.1-dc8dc99c/lib/bytes -I glpk -o new_criteria.o -c new_criteria.cpp)
+    In file included from new_criteria.cpp:9:
+    In file included from ./new_criteria.h:12:
+    In file included from ./abstract_criteria.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:58:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits:105:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/type_traits:417:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cstddef:37:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from new_criteria.cpp:9:
+    In file included from ./new_criteria.h:12:
+    In file included from ./abstract_criteria.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:58:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits:105:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/type_traits:418:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from new_criteria.cpp:9:
+    In file included from ./new_criteria.h:12:
+    In file included from ./abstract_criteria.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:58:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits:121:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from new_criteria.cpp:9:
+    In file included from ./new_criteria.h:12:
+    In file included from ./abstract_criteria.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:60:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from new_criteria.cpp:9:
+    In file included from ./new_criteria.h:12:
+    In file included from ./abstract_criteria.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/algorithm:642:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/utility:205:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from new_criteria.cpp:9:
+    In file included from ./new_criteria.h:12:
+    In file included from ./abstract_criteria.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/algorithm:643:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/memory:668:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/typeinfo:60:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/exception:83:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from new_criteria.cpp:9:
+    In file included from ./new_criteria.h:12:
+    In file included from ./abstract_criteria.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/algorithm:643:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/memory:671:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/new:93:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    fatal error: too many errors emitted, stopping now [-ferror-limit=]
+    20 errors generated.
+             gcc src/notuptodate_criteria.o (exit 1)
+    (cd _build/default/src && /usr/bin/gcc -O2 -fno-strict-aliasing -fwrapv -I . -x c++ -DUSEGLPK -g -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__cudf-opam__c__0.9-1-ff81cde7/lib/cudf -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__extlib-opam__c__1.7.7-1-a3999419/lib/extlib -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__ocamlfind-opam__c__1.9.1-dc8dc99c/lib/bytes -I glpk -o notuptodate_criteria.o -c notuptodate_criteria.cpp)
+    In file included from notuptodate_criteria.cpp:9:
+    In file included from ./notuptodate_criteria.h:12:
+    In file included from ./abstract_criteria.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:58:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits:105:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/type_traits:417:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cstddef:37:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from notuptodate_criteria.cpp:9:
+    In file included from ./notuptodate_criteria.h:12:
+    In file included from ./abstract_criteria.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:58:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits:105:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/type_traits:418:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from notuptodate_criteria.cpp:9:
+    In file included from ./notuptodate_criteria.h:12:
+    In file included from ./abstract_criteria.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:58:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits:121:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from notuptodate_criteria.cpp:9:
+    In file included from ./notuptodate_criteria.h:12:
+    In file included from ./abstract_criteria.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:60:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from notuptodate_criteria.cpp:9:
+    In file included from ./notuptodate_criteria.h:12:
+    In file included from ./abstract_criteria.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/algorithm:642:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/utility:205:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from notuptodate_criteria.cpp:9:
+    In file included from ./notuptodate_criteria.h:12:
+    In file included from ./abstract_criteria.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/algorithm:643:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/memory:668:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/typeinfo:60:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/exception:83:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from notuptodate_criteria.cpp:9:
+    In file included from ./notuptodate_criteria.h:12:
+    In file included from ./abstract_criteria.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/algorithm:643:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/memory:671:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/new:93:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    fatal error: too many errors emitted, stopping now [-ferror-limit=]
+    20 errors generated.
+             gcc src/removed_criteria.o (exit 1)
+    (cd _build/default/src && /usr/bin/gcc -O2 -fno-strict-aliasing -fwrapv -I . -x c++ -DUSEGLPK -g -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__cudf-opam__c__0.9-1-ff81cde7/lib/cudf -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__extlib-opam__c__1.7.7-1-a3999419/lib/extlib -I /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/opam__s__ocamlfind-opam__c__1.9.1-dc8dc99c/lib/bytes -I glpk -o removed_criteria.o -c removed_criteria.cpp)
+    In file included from removed_criteria.cpp:9:
+    In file included from ./removed_criteria.h:12:
+    In file included from ./abstract_criteria.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:58:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits:105:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/type_traits:417:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cstddef:37:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from removed_criteria.cpp:9:
+    In file included from ./removed_criteria.h:12:
+    In file included from ./abstract_criteria.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:58:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits:105:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/type_traits:418:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from removed_criteria.cpp:9:
+    In file included from ./removed_criteria.h:12:
+    In file included from ./abstract_criteria.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:58:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits:121:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from removed_criteria.cpp:9:
+    In file included from ./removed_criteria.h:12:
+    In file included from ./abstract_criteria.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:14:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit:60:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from removed_criteria.cpp:9:
+    In file included from ./removed_criteria.h:12:
+    In file included from ./abstract_criteria.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/algorithm:642:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/utility:205:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from removed_criteria.cpp:9:
+    In file included from ./removed_criteria.h:12:
+    In file included from ./abstract_criteria.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/algorithm:643:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/memory:668:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/typeinfo:60:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/exception:83:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:3:3: error: invalid preprocessing directive
+    # The version string is the first line of this file.
+      ^
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:4:3: error: invalid preprocessing directive
+    # It must be in the format described in stdlib/sys.mli
+      ^
+    In file included from removed_criteria.cpp:9:
+    In file included from ./removed_criteria.h:12:
+    In file included from ./abstract_criteria.h:13:
+    In file included from ./cudf.h:24:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:276:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit_reference:15:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/algorithm:643:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/memory:671:
+    In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/new:93:
+    /tmp/2cbc8be24aa30fc4/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml/version:1:1: error: expected unqualified-id
+    4.10.2
+    ^
+    fatal error: too many errors emitted, stopping now [-ferror-limit=]
+    20 errors generated.
+    error: command failed: 'dune' 'build' '-p' 'mccs' '-j' '4' (exited with 1)
+    esy-build-package: exiting with errors above...
+    
+  building @opam/mccs@opam:1.1+13
+esy: exiting due to errors above
+node:child_process:747
+    throw err;
+    ^
+
+Error: Command failed: /Users/manas/development/esy/esy/_build/install/default/bin/esy build
+    at checkExecSyncError (node:child_process:707:11)
+    at Object.execSync (node:child_process:744:15)
+    at exec (/Users/manas/development/esy/esy/test-e2e-slow/setup.js:98:18)
+    at /Users/manas/development/esy/esy/test-e2e-slow/setup.js:122:26
+    at retry (/Users/manas/development/esy/esy/test-e2e-slow/setup.js:68:16)
+    at Object.esy (/Users/manas/development/esy/esy/test-e2e-slow/setup.js:122:14)
+    at Object.<anonymous> (/Users/manas/development/esy/esy/test-e2e-slow/build-top-100-opam.test.js:280:13)
+    at Module._compile (node:internal/modules/cjs/loader:1109:14)
+    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1138:10)
+    at Module.load (node:internal/modules/cjs/loader:989:32) {
+  status: 1,
+  signal: null,
+  output: [ null, null, null ],
+  pid: 33401,
+  stdout: null,
+  stderr: null
+}

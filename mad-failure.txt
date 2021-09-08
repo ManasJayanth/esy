@@ -1,0 +1,174 @@
+Running slowtests!commit 34b8b4585e8743797a8d927ce08fae2995339482
+Author: Manas <3097018+ManasJayanth@users.noreply.github.com>
+Date:   Sat Jun 12 15:21:49 2021 +0530
+
+    @slowtest Top 100 opam packages as of Jun 12, 2021.
+
+Running test suite: e2e (slow tests)
+*** building OCaml toolchain at /tmp/33017034b50dd07f ***
+EXEC: /Users/manas/development/esy/esy/_build/install/default/bin/esy install
+info install 0.6.10 (using package.json)
+info resolving esy packages: done
+info solving esy constraints: done
+info resolving npm packages: done
+info fetching: done
+info installing: done
+EXEC: /Users/manas/development/esy/esy/_build/install/default/bin/esy build
+info esy build 0.6.10 (using package.json)
+info building ocaml@4.10.2000@d41d8cd9
+info building ocaml@4.10.2000@d41d8cd9: done
+*** building pcre with ocaml@4.10.x ***
+*** sandbox.path: /tmp/b262e29fb4a2d0b3
+EXEC: /Users/manas/development/esy/esy/_build/install/default/bin/esy install
+info install 0.6.10 (using package.json)
+info checking https://github.com/ocaml/opam-repository for updates...
+info checking https://github.com/esy-ocaml/esy-opam-override for updates...
+info resolving esy packages: done
+info solving esy constraints: done
+info resolving npm packages: done
+info fetching: done
+info installing: done
+EXEC: /Users/manas/development/esy/esy/_build/install/default/bin/esy build
+info esy build 0.6.10 (using package.json)
+info building @esy-ocaml/substs@0.0.1@d41d8cd9
+info building esy-pcre@github:esy-packages/esy-pcre#c5076c8facbebaf5f5718c0e270418fd218add7e@d41d8cd9
+info building yarn-pkg-config@github:esy-ocaml/yarn-pkg-config#db3a0b63883606dd57c54a7158d560d6cba8cd79@d41d8cd9
+info building @esy-ocaml/substs@0.0.1@d41d8cd9: done
+info building @opam/base-unix@opam:base@87d0b2eb
+info building @opam/ocamlfind@opam:1.9.1@b748edf6
+info building @opam/base-threads@opam:base@36803084
+info building @opam/base-threads@opam:base@36803084: done
+info building @opam/base-unix@opam:base@87d0b2eb: done
+info building @opam/dune@opam:2.8.5@01003f12
+info building @opam/ocamlfind@opam:1.9.1@b748edf6: done
+info building @opam/base-bytes@opam:base@19d0c2ff
+info building @opam/base-bytes@opam:base@19d0c2ff: done
+info building @opam/dune@opam:2.8.5@01003f12: done
+info building @opam/csexp@opam:1.5.1@8a8fb3a7
+info building @opam/result@opam:1.5@1c6a6533
+info building @opam/csexp@opam:1.5.1@8a8fb3a7: done
+info building @opam/result@opam:1.5@1c6a6533: done
+info building @opam/dune-configurator@opam:2.8.5@428293ca
+info building @opam/dune-configurator@opam:2.8.5@428293ca: done
+info building esy-pcre@github:esy-packages/esy-pcre#c5076c8facbebaf5f5718c0e270418fd218add7e@d41d8cd9: done
+info building yarn-pkg-config@github:esy-ocaml/yarn-pkg-config#db3a0b63883606dd57c54a7158d560d6cba8cd79@d41d8cd9: done
+info building @opam/conf-pkg-config@opam:2@de102891
+info building @opam/conf-pkg-config@opam:2@de102891: done
+info building @opam/conf-libpcre@opam:1@0d819a27
+info building @opam/conf-libpcre@opam:1@0d819a27: done
+info building @opam/pcre@opam:7.4.6@741e0426
+info building @opam/pcre@opam:7.4.6@741e0426: done
+*** building ocamlbuild with ocaml@4.10.x ***
+*** sandbox.path: /tmp/72d4cbc35b097889
+EXEC: /Users/manas/development/esy/esy/_build/install/default/bin/esy install --skip-repository-update
+info install 0.6.10 (using package.json)
+info resolving esy packages: done
+info solving esy constraints: done
+info resolving npm packages: done
+info fetching: done
+info installing: done
+EXEC: /Users/manas/development/esy/esy/_build/install/default/bin/esy build
+info esy build 0.6.10 (using package.json)
+info building @opam/ocamlbuild@opam:0.14.0@6ac75d03
+info building @opam/ocamlbuild@opam:0.14.0@6ac75d03: done
+*** building base64 with ocaml@4.10.x ***
+*** sandbox.path: /tmp/7cfff316b33ee6a8
+EXEC: /Users/manas/development/esy/esy/_build/install/default/bin/esy install --skip-repository-update
+info install 0.6.10 (using package.json)
+info resolving esy packages: done
+info solving esy constraints: done
+info resolving npm packages: done
+info fetching: done
+info installing: done
+EXEC: /Users/manas/development/esy/esy/_build/install/default/bin/esy build
+info esy build 0.6.10 (using package.json)
+info building @opam/base64@opam:3.5.0@827395e3
+info building @opam/base64@opam:3.5.0@827395e3: done
+*** building merlin with ocaml@4.10.x ***
+*** sandbox.path: /tmp/fdd87ef74302b815
+EXEC: /Users/manas/development/esy/esy/_build/install/default/bin/esy install --skip-repository-update
+info install 0.6.10 (using package.json)
+info resolving esy packages: done
+info solving esy constraints: done
+info resolving npm packages: done
+info fetching: done
+info installing: done
+EXEC: /Users/manas/development/esy/esy/_build/install/default/bin/esy build
+info esy build 0.6.10 (using package.json)
+info building @opam/cppo@opam:1.6.7@57a6d52c
+info building @opam/easy-format@opam:1.3.2@1ea9f987
+info building @opam/easy-format@opam:1.3.2@1ea9f987: done
+info building @opam/biniou@opam:1.2.1@420bda02
+info building @opam/cppo@opam:1.6.7@57a6d52c: done
+info building @opam/biniou@opam:1.2.1@420bda02: done
+info building @opam/yojson@opam:1.7.0@69d87312
+info building @opam/yojson@opam:1.7.0@69d87312: done
+info building @opam/dot-merlin-reader@opam:4.1@84436e1c
+info building @opam/dot-merlin-reader@opam:4.1@84436e1c: done
+info building @opam/merlin@opam:3.5.0@f8ae5d56
+info building @opam/merlin@opam:3.5.0@f8ae5d56: done
+*** building charInfo_width with ocaml@4.10.x ***
+*** sandbox.path: /tmp/55031a800c30207d
+EXEC: /Users/manas/development/esy/esy/_build/install/default/bin/esy install --skip-repository-update
+info install 0.6.10 (using package.json)
+info resolving esy packages: done
+info solving esy constraints: done
+info resolving npm packages: done
+info fetching: done
+info installing: done
+EXEC: /Users/manas/development/esy/esy/_build/install/default/bin/esy build
+info esy build 0.6.10 (using package.json)
+info building @opam/camomile@opam:1.0.2@4c270e23
+info building @opam/camomile@opam:1.0.2@4c270e23: done
+info building @opam/charInfo_width@opam:1.1.0@4296bdfe
+info building @opam/charInfo_width@opam:1.1.0@4296bdfe: done
+*** building mad with ocaml@4.10.x ***
+*** sandbox.path: /tmp/b8600f04c6cfe3b5
+EXEC: /Users/manas/development/esy/esy/_build/install/default/bin/esy install --skip-repository-update
+info install 0.6.10 (using package.json)
+info resolving esy packages: done
+info solving esy constraints: done
+info resolving npm packages: done
+info fetching: done
+info installing: done
+EXEC: /Users/manas/development/esy/esy/_build/install/default/bin/esy build
+info esy build 0.6.10 (using package.json)
+info building @opam/mad@opam:0.5.0@228bd0d4
+error: build failed with exit code: 1
+  build log:
+    # esy-build-package: building: @opam/mad@opam:0.5.0
+    # esy-build-package: pwd: /tmp/3194795ca7a037ce/3/b/opam__s__mad-opam__c__0.5.0-25b26a28
+    # esy-build-package: running: 'dune' 'build' '-p' 'mad' '-j' '4' '@install'
+             gcc src/mad_stubs.o (exit 1)
+    (cd _build/default/src && /usr/bin/gcc -O2 -fno-strict-aliasing -fwrapv -D_FILE_OFFSET_BITS=64 -D_REENTRANT -g -I /tmp/3194795ca7a037ce/3______________________________________________________________/i/ocaml-4.10.2000-3731c808/lib/ocaml -o mad_stubs.o -c mad_stubs.c)
+    mad_stubs.c:55:10: fatal error: 'mad.h' file not found
+    #include <mad.h>
+             ^~~~~~~
+    1 error generated.
+    error: command failed: 'dune' 'build' '-p' 'mad' '-j' '4' '@install' (exited with 1)
+    esy-build-package: exiting with errors above...
+    
+  building @opam/mad@opam:0.5.0
+esy: exiting due to errors above
+node:child_process:747
+    throw err;
+    ^
+
+Error: Command failed: /Users/manas/development/esy/esy/_build/install/default/bin/esy build
+    at checkExecSyncError (node:child_process:707:11)
+    at Object.execSync (node:child_process:744:15)
+    at exec (/Users/manas/development/esy/esy/test-e2e-slow/setup.js:98:18)
+    at /Users/manas/development/esy/esy/test-e2e-slow/setup.js:122:26
+    at retry (/Users/manas/development/esy/esy/test-e2e-slow/setup.js:68:16)
+    at Object.esy (/Users/manas/development/esy/esy/test-e2e-slow/setup.js:122:14)
+    at Object.<anonymous> (/Users/manas/development/esy/esy/test-e2e-slow/build-top-100-opam.test.js:284:13)
+    at Module._compile (node:internal/modules/cjs/loader:1109:14)
+    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1138:10)
+    at Module.load (node:internal/modules/cjs/loader:989:32) {
+  status: 1,
+  signal: null,
+  output: [ null, null, null ],
+  pid: 15336,
+  stdout: null,
+  stderr: null
+}

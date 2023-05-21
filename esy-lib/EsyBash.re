@@ -21,10 +21,16 @@ let getCygPath = () =>
 
 let getBinPath = () => Path.(getEsyBashRootPath() / ".cygwin" / "bin");
 
-let getEsyBashPath = () =>
-  Path.(
-    getEsyBashRootPath() / "re" / "_build" / "default" / "bin" / "EsyBash.exe"
-  );
+/* let getEsyBashPath = () => */
+/*   Path.( */
+/*     getEsyBashRootPath() / "re" / "_build" / "default" / "bin" / "EsyBash.exe" */
+/*   ); */
+
+let esyInstalledLocation = ref("");
+let setEsyInstalledLocation = p => esyInstalledLocation := p;
+let getEsyBashPath = () => {
+  Path.(v (esyInstalledLocation^) / "lib" / "esy" / "EsyBash.exe");
+};
 
 let getMingwRuntimePath = () => {
   let rootPath = getEsyBashRootPath();

@@ -9,6 +9,8 @@ module Solution = EsyFetch.Solution;
 module SolutionLock = EsyFetch.SolutionLock;
 module Package = EsyFetch.Package;
 
+EsyLib.EsyBash.setEsyInstalledLocation(EsyLib.Path.(exePath() |> parent |> parent |> show));
+
 let splitBy = (line, ch) =>
   switch (String.index(line, ch)) {
   | idx =>

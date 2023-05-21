@@ -20,8 +20,15 @@ let runGit = cmd => {
       )
     };
   };
-
-  try%lwt(EsyBashLwt.with_process_full(cmd, f)) {
+  let tl = Cmd.getToolAndLine(cmd);
+  print_endline(">>>>>>>>>>>>>>>>");
+  print_endline(">>>>>>>>>>>>>>>>");
+  print_endline(">>>>>>>>>>>>>>>>");
+  print_endline(">>>>>>>>>>>>>>>>");
+  print_endline(">>>>>>>>>>>>>>>>");
+  print_endline(">>>>>>>>>>>>>>>>");
+  print_endline(Cmd.show(cmd));
+  try%lwt(Lwt_process.with_process_full(tl, f)) {
   | [@implicit_arity] Unix.Unix_error(err, _, _) =>
     let msg = Unix.error_message(err);
     RunAsync.error(msg);
@@ -31,7 +38,7 @@ let runGit = cmd => {
 
 let updateSubmodules = (~repo, ~config as configKVs=?, ()) => {
   open RunAsync.Syntax;
-  let repo = EsyBash.normalizePathForCygwin(Path.show(repo));
+  let repo = EsyBash.normalizePathForWindows(repo) |> Path.show;
   let cmd = Cmd.v("git");
   let cmd =
     switch (configKVs) {
@@ -64,7 +71,7 @@ let clone = (~branch=?, ~config as configKVs=?, ~depth=?, ~dst, ~remote, ()) => 
       {
         open Cmd;
         open Result.Syntax;
-        let dest = EsyBash.normalizePathForCygwin(Path.show(dst));
+      let dest = EsyBash.normalizePathForWindows(dst) |> Path.show;
         let cmd = v("git");
         let cmd =
           switch (configKVs) {
@@ -100,7 +107,14 @@ let clone = (~branch=?, ~config as configKVs=?, ~depth=?, ~dst, ~remote, ()) => 
       },
     );
 
-  let* _ = runGit(cmd);
+  let* o = runGit(cmd);
+  print_endline(">>>>>>>>>>>>>>>>");
+  print_endline(">>>>>>>>>>>>>>>>");
+  print_endline(">>>>>>>>>>>>>>>>");
+  print_endline(">>>>>>>>>>>>>>>>");
+  print_endline(">>>>>>>>>>>>>>>>");
+  print_endline(">>>>>>>>>>>>>>>>");
+  print_endline(o);
   return();
 };
 
@@ -218,7 +232,7 @@ module ShallowClone = {
       | _ => []
       };
     let getLocalCommit = () => {
-      let remote = EsyBash.normalizePathForCygwin(Path.show(dst));
+      let remote = EsyBash.normalizePathForWindows(dst) |> Path.show;
       lsRemote(~remote, ~config=gitConfig, ());
     };
 

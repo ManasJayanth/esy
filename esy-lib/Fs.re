@@ -485,11 +485,12 @@ let withTempDir = (~tempPath=?, f) => {
   Lwt.finalize(
     () => f(path),
     () =>
-      /* never fail on removing a temp folder. */
-      switch%lwt (rmPath(path)) {
-      | Ok () => Lwt.return()
-      | Error(_) => Lwt.return()
-      },
+      /* /\* never fail on removing a temp folder. *\/ */
+      /* switch%lwt (rmPath(path)) { */
+      /* | Ok () => Lwt.return() */
+      /* | Error(_) => Lwt.return() */
+      /* }, */
+      Lwt.return()
   );
 };
 

@@ -1,0 +1,10 @@
+(executable
+  (name EsyBash)
+  (public_name EsyBash.exe)
+  (libraries esy.esy-bash.lib))
+
+
+(install
+ (section libexec)
+ (files
+  (EsyBash.exe as EsyBash.exe)))

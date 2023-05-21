@@ -20,6 +20,8 @@ type commonOpts = {
   globalPathVariable: option(string),
 };
 
+EsyLib.EsyBash.setEsyInstalledLocation(EsyLib.Path.(exePath() |> parent |> parent |> parent |> show));
+
 let setupLog = (style_renderer, level) => {
   let style_renderer = Option.orDefault(~default=`None, style_renderer);
   Fmt_tty.setup_std_outputs(~style_renderer, ());
@@ -423,3 +425,4 @@ let () = {
   let cmds = [build_cmd, shell_cmd, exec_cmd, help_cmd];
   Term.(exit @@ eval_choice(default_cmd, cmds));
 };
+

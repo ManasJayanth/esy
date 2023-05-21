@@ -4,6 +4,7 @@ node_modules
 /_export
 /_esy
 /_build
+/_build.prev
 /_release
 /_platformrelease
 /bin/fastreplacestring

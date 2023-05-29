@@ -68,12 +68,19 @@ let extractEnvironmentVariables = environmentFile => {
 };
 
 let nonce = ref(0);
+let executablePath = Sys.executable_name;
+let parent = Filename.dirname;
+
+let getEsyBashRootPath = () =>
+  switch (Sys.getenv_opt("ESY__ESY_BASH")) {
+  | Some(path) => path
+  | None =>
+    parent(parent(parent(parent(parent(parent(executablePath)))))) ++ "\\node_modules\\esy-bash";
+  };
+
 let bashExec = (~environmentFile=?, command) => {
-  let executablePath = Sys.executable_name;
-  let parent = Filename.dirname;
-  let cygwinBash =
-    parent(parent(parent(parent(parent(parent(executablePath))))))
-    ++ "\\node_modules\\esy-bash\\.cygwin\\bin\\bash.exe";
+  let cygwinBash = getEsyBashRootPath()
+    ++ "\\.cygwin\\bin\\bash.exe";
   let shellPath = Sys.unix ? "/bin/bash" : cygwinBash;
   nonce := nonce^ + 1;
   log(
@@ -127,10 +134,14 @@ let bashExec = (~environmentFile=?, command) => {
         Array.append(existingVars, varsFromFile),
       );
     | None =>
+      let vars = 
+        vars |> Array.to_list |> List.filter(l => !Str.string_match(Str.regexp("^="), l, 0)) |> Array.of_list;
+      let oc = open_out("out.txt");
+      Array.iter(v => Printf.fprintf(oc, "%s\n", v), vars); 
       Unix.create_process_env(
         shellPath,
         [|Sys.unix ? "-c" : "-lc", tempFilePath|],
-        vars,
+        vars
       )
     };
   let pid = run_shell(Unix.stdin, Unix.stdout, Unix.stderr);

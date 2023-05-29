@@ -38,15 +38,21 @@ let runCurl = cmd => {
         RunAsync.return(Success(stdout))
       | Error(err) => Lwt.return(Error(err))
       }
-    | _ =>
+    | s =>
+      let exitCode =
+      switch(s) {
+      | Unix.WEXITED(exitCode) => exitCode
+      | _ => 255
+      };
       switch (parseStdout(stdout)) {
       | [@implicit_arity] Ok(_stdout, httpcode) when httpcode == 404 =>
         RunAsync.return(NotFound)
       | [@implicit_arity] Ok(_stdout, httpcode) =>
         RunAsync.errorf(
-          "@[<v>error running curl: %a:@\ncode: %i@\nstderr:@[<v 2>@\n%a@]@]",
+          "@[<v>error running curl: %a:@\nexitCode: %i@\ncode: %i@\nstderr:@[<v 2>@\n%a@]@]",
           Cmd.pp,
           cmd,
+        exitCode,
           httpcode,
           Fmt.lines,
           stderr,

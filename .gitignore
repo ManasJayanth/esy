@@ -4,7 +4,6 @@ node_modules
 /_export
 /_esy
 /_build
-/_build.prev
 /_release
 /_platformrelease
 /bin/fastreplacestring
@@ -15,3 +14,7 @@ yarn-error.log
 .esy-bash-path
 test-e2e-re/lib/verdaccio/storage
 *~
+
+# script files to automate local testing
+dev.sh
+dev.ps1

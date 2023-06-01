@@ -3,6 +3,7 @@ module Option = EsyLib.Option;
 module File = Bos.OS.File;
 module Dir = Bos.OS.Dir;
 
+EsyLib.EsyBash.setEsyInstalledLocation(EsyLib.Path.(exePath() |> parent |> parent |> parent |> show));
 type verb =
   | Normal
   | Quiet
@@ -15,18 +16,16 @@ type commonOpts = {
   globalStorePrefix: option(Fpath.t),
   localStorePath: option(Fpath.t),
   projectPath: option(Fpath.t),
-  logLevel: option(Logs.level),
+  logLevel: option(Esy_logs.level),
   disableSandbox: bool,
   globalPathVariable: option(string),
 };
 
-EsyLib.EsyBash.setEsyInstalledLocation(EsyLib.Path.(exePath() |> parent |> parent |> parent |> show));
-
 let setupLog = (style_renderer, level) => {
   let style_renderer = Option.orDefault(~default=`None, style_renderer);
-  Fmt_tty.setup_std_outputs(~style_renderer, ());
-  Logs.set_level(level);
-  Logs.set_reporter(Logs_fmt.reporter());
+  Esy_fmt_tty.setup_std_outputs(~style_renderer, ());
+  Esy_logs.set_level(level);
+  Esy_logs.set_reporter(Esy_logs_fmt.reporter());
   level;
 };
 
@@ -86,7 +85,7 @@ let shell = (copts: commonOpts) => {
   let* plan = Plan.ofFile(planPath);
 
   let ppBanner = (build: Build.t) => {
-    open Fmt;
+    open Esy_fmt;
 
     let ppList = (ppItems, ppf, (title, items)) => {
       let pp =
@@ -100,22 +99,22 @@ let shell = (copts: commonOpts) => {
     let ppBanner = (ppf, ()) => {
       Format.open_vbox(0);
       fmt("Package: %s@%s", ppf, plan.Plan.name, plan.Plan.version);
-      Fmt.cut(ppf, ());
-      Fmt.cut(ppf, ());
-      ppList(Fmt.list(Cmd.pp), ppf, ("Build Commands:", build.build));
-      Fmt.cut(ppf, ());
-      Fmt.cut(ppf, ());
+      Esy_fmt.cut(ppf, ());
+      Esy_fmt.cut(ppf, ());
+      ppList(Esy_fmt.list(Cmd.pp), ppf, ("Build Commands:", build.build));
+      Esy_fmt.cut(ppf, ());
+      Esy_fmt.cut(ppf, ());
       ppList(
-        Fmt.option(Fmt.list(Cmd.pp)),
+        Esy_fmt.option(Esy_fmt.list(Cmd.pp)),
         ppf,
         ("Install Commands:", build.install),
       );
-      Fmt.cut(ppf, ());
+      Esy_fmt.cut(ppf, ());
       Format.close_box();
     };
 
     Format.force_newline();
-    ppBanner(Fmt.stdout, ());
+    ppBanner(Esy_fmt.stdout, ());
     Format.force_newline();
     Format.print_flush();
   };
@@ -186,7 +185,8 @@ let help = (_copts, man_format, cmds, topic) =>
   | None => `Help((`Pager, None)) /* help about the program. */
   | Some(topic) =>
     let topics = ["topics", "patterns", "environment", ...cmds];
-    let (conv, _) = Cmdliner.Arg.enum(List.rev_map(s => (s, s), topics));
+    let (conv, _) =
+      Esy_cmdliner.Arg.enum(List.rev_map(s => (s, s), topics));
     switch (conv(topic)) {
     | `Error(e) => `Error((false, e))
     | `Ok(t) when t == "topics" =>
@@ -198,12 +198,14 @@ let help = (_copts, man_format, cmds, topic) =>
         (topic, 7, "", "", ""),
         [`S(topic), `P("Say something")],
       );
-      `Ok(Cmdliner.Manpage.print(man_format, Format.std_formatter, page));
+      `Ok(
+        Esy_cmdliner.Manpage.print(man_format, Format.std_formatter, page),
+      );
     };
   };
 
 let () = {
-  open Cmdliner;
+  open Esy_cmdliner;
   /* Help sections common to all commands */
   let help_secs = [
     `S(Manpage.s_common_options),
@@ -295,8 +297,8 @@ let () = {
     let setupLogT =
       Term.(
         const(setupLog)
-        $ Fmt_cli.style_renderer()
-        $ Logs_cli.level(~env=Arg.env_var("ESY__LOG"), ())
+        $ Esy_fmt_cli.style_renderer()
+        $ Esy_logs_cli.level(~env=Arg.env_var("ESY__LOG"), ())
       );
     let parse =
         (
@@ -425,4 +427,3 @@ let () = {
   let cmds = [build_cmd, shell_cmd, exec_cmd, help_cmd];
   Term.(exit @@ eval_choice(default_cmd, cmds));
 };
-

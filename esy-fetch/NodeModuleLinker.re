@@ -23,6 +23,9 @@ let getNPMChildren = (~solution, ~fetchDepsSubset, ~node) => {
 };
 
 let installPkg = (~installation, ~nodeModulesPath, childNode) => {
+  print_endline(
+    Format.asprintf("Linking %a \n---- ", Package.pp, childNode),
+  );
   let* () =
     RunAsync.ofLwt @@
     Esy_logs_lwt.debug(m =>
@@ -53,49 +56,45 @@ let rec linkDependencies =
           ~queue,
         ) => {
   switch (queue |> Queue.take_opt) {
-  | Some((pkgID, nodeModulesPath)) =>
-    let visited =
-      visitedMap
-      |> PackageId.Map.find_opt(pkgID)
-      |> Stdlib.Option.value(~default=false);
-    let* (visitedMap, queue) =
-      switch (visited) {
-      | false =>
-        let node = Solution.getExn(solution, pkgID);
-        let children = getNPMChildren(~solution, ~fetchDepsSubset, ~node);
-        let f = (visitedMap, childNode) => {
-          let name = childNode.Package.name;
-          let nodeModulesPath = Path.(nodeModulesPath / name / "node_modules");
-          let pkgID = childNode.Package.id;
-          let visited =
-            visitedMap
-            |> PackageId.Map.find_opt(pkgID)
-            |> Stdlib.Option.value(~default=false);
-          if (!visited) {
-            Queue.add((pkgID, nodeModulesPath), queue);
-            PackageId.Map.update(pkgID, _ => Some(true), visitedMap);
-          } else {
-            visitedMap;
-          };
+  | Some((node, nodeModulesPath)) =>
+    print_endline(Format.asprintf("Dequeue %a \n---- ", Package.pp, node));
+    let* (visitedMap, queue) = {
+      let children = getNPMChildren(~solution, ~fetchDepsSubset, ~node);
+      let* () =
+        children
+        |> List.map(~f=node => {
+             let visited =
+               visitedMap
+               |> PackageId.Map.find_opt(node.Package.id)
+               |> Stdlib.Option.value(~default=false);
+             if (!visited) {
+               installPkg(~installation, ~nodeModulesPath, node);
+             } else {
+               RunAsync.return();
+             };
+           })
+        |> RunAsync.List.waitAll;
+      let f = (visitedMap, childNode) => {
+        let name = childNode.Package.name;
+        let nodeModulesPath = Path.(nodeModulesPath / name / "node_modules");
+        let pkgID = childNode.Package.id;
+        let visited =
+          visitedMap
+          |> PackageId.Map.find_opt(pkgID)
+          |> Stdlib.Option.value(~default=false);
+        if (!visited) {
+          Queue.add((childNode, nodeModulesPath), queue);
+          print_endline(
+            Format.asprintf("Enqueue %a \n---- ", Package.pp, childNode),
+          );
+          PackageId.Map.update(pkgID, _ => Some(true), visitedMap);
+        } else {
+          visitedMap;
         };
-        let visitedMap = List.fold_left(~f, ~init=visitedMap, children);
-        let* () =
-          children
-          |> List.map(~f=node => {
-               let visited =
-                 visitedMap
-                 |> PackageId.Map.find_opt(pkgID)
-                 |> Stdlib.Option.value(~default=false);
-               if (!visited) {
-                 installPkg(~installation, ~nodeModulesPath, node);
-               } else {
-                 RunAsync.return();
-               };
-             })
-          |> RunAsync.List.waitAll;
-        RunAsync.return((visitedMap, queue));
-      | true => RunAsync.return((visitedMap, queue))
       };
+      let visitedMap = List.fold_left(~f, ~init=visitedMap, children);
+      RunAsync.return((visitedMap, queue));
+    };
     linkDependencies(
       visitedMap,
       ~installation,
@@ -114,9 +113,10 @@ let rec findDuplicatedDeps =
   switch (Queue.take_opt(queue)) {
   | Some(node) =>
     print_endline(
-      Format.asprintf("findDuplicatedDeps: %a", Package.pp, node),
+      Format.asprintf("Dequeue(findDuplicatedDeps): %a", Package.pp, node),
     );
     if (PackageId.Set.mem(node.Package.id, seenIDs)) {
+      print_endline(Format.asprintf("found: %a", Package.pp, node));
       findDuplicatedDeps(
         ~fetchDepsSubset,
         ~solution,
@@ -127,7 +127,16 @@ let rec findDuplicatedDeps =
       let seenIDs = PackageId.Set.add(node.Package.id, seenIDs);
       getNPMChildren(~fetchDepsSubset, ~solution, ~node)
       |> List.filter(~f=node => !PackageId.Set.mem(node.Package.id, seenIDs))
-      |> List.iter(~f=node => Queue.add(node, queue));
+      |> List.iter(~f=node => {
+           print_endline(
+             Format.asprintf(
+               "Enqueue(findDuplicatedDeps) %a \n---- ",
+               Package.pp,
+               node,
+             ),
+           );
+           Queue.add(node, queue);
+         });
       findDuplicatedDeps(
         ~fetchDepsSubset,
         ~solution,
@@ -144,7 +153,14 @@ let link = (~installation, ~solution, ~projectPath, ~fetchDepsSubset) => {
   let rootPackageID = root.Package.id;
   let nodeModulesPath = Path.(projectPath / "node_modules");
   let duplicatesQueue = Queue.create();
-  Queue.add(Solution.root(solution), duplicatesQueue);
+  Queue.add(root, duplicatesQueue);
+  print_endline(
+    Format.asprintf(
+      "Enqueue(findDuplicatedDeps) %a \n---- ",
+      Package.pp,
+      root,
+    ),
+  );
   let (_seen, duplicateDepsSet) =
     findDuplicatedDeps(
       ~fetchDepsSubset,
@@ -153,7 +169,12 @@ let link = (~installation, ~solution, ~projectPath, ~fetchDepsSubset) => {
       duplicatesQueue,
     );
   let duplicateDeps = Package.Set.elements(duplicateDepsSet);
+  if (List.length(duplicateDeps) == 0) {
+    print_endline(">>>>>>>>>E mpty");
+  };
   let queue = Queue.create();
+  Queue.add((root, nodeModulesPath), queue);
+  print_endline(Format.asprintf("Enqueue %a \n---- ", Package.pp, root));
   let* () =
     duplicateDeps
     |> List.map(~f=pkg => {
@@ -162,11 +183,17 @@ let link = (~installation, ~solution, ~projectPath, ~fetchDepsSubset) => {
            Esy_logs_lwt.debug(m =>
              m("NodeModuleLinker: hoisting %a", Package.pp, pkg)
            );
-         Queue.add((pkg.Package.id, nodeModulesPath), queue);
+         print_endline(
+           Format.asprintf(
+             "Enqueue (and later link) %a \n---- ",
+             Package.pp,
+             pkg,
+           ),
+         );
+         Queue.add((pkg, nodeModulesPath), queue);
          installPkg(~installation, ~nodeModulesPath, pkg);
        })
     |> RunAsync.List.waitAll;
-  Queue.add((rootPackageID, nodeModulesPath), queue);
   /* let visitedMap = */
   /*   duplicateDeps */
   /*   |> List.fold_left( */

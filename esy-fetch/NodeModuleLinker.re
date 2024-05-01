@@ -1,7 +1,12 @@
 open EsyPackageConfig;
 open RunAsync.Syntax;
 
-let getChildren = (~solution, ~fetchDepsSubset, ~node) => {
+/**
+
+   Makes sure we dont link opam packages in node_modules
+
+ */
+let getNPMChildren = (~solution, ~fetchDepsSubset, ~node) => {
   let f = (pkg: Solution.pkg) => {
     switch (pkg.Package.version) {
     | Opam(_) => false
@@ -17,39 +22,14 @@ let getChildren = (~solution, ~fetchDepsSubset, ~node) => {
   |> List.filter(~f);
 };
 
-let getLocalStorePath = (projectPath, packageID) => {
-  Path.(projectPath / "node_modules" / ".esy" / PackageId.show(packageID));
-};
-
-let linkPaths = (~link=false, src, dest) => {
-  let* () = Fs.createDir(Path.parent(dest));
-  let* () =
-    if (link) {
-      let* () =
-        RunAsync.ofLwt @@
-        Esy_logs_lwt.debug(m =>
-          m("ln -s %s %s\n", Path.show(src), Path.show(dest))
-        );
-      Fs.symlink(~force=true, ~src, dest);
-    } else {
-      let* () =
-        RunAsync.ofLwt @@
-        Esy_logs_lwt.debug(m =>
-          m("cp -R %s %s\n", Path.show(src), Path.show(dest))
-        );
-      Fs.copyPath(~src, ~dst=dest);
-    };
-  RunAsync.return();
-};
-
 // hardlink the children from local store to node_modules
 let rec getPathsToLink' =
         (
           visitedMap,
+          ~installation,
           ~projectPath,
           ~solution,
           ~fetchDepsSubset,
-          ~installation,
           ~rootPackageID,
           ~queue,
         ) => {
@@ -65,7 +45,7 @@ let rec getPathsToLink' =
         let visitedMap =
           PackageId.Map.update(pkgID, _ => Some(true), visitedMap);
         let node = Solution.getExn(solution, pkgID);
-        let children = getChildren(~solution, ~fetchDepsSubset, ~node);
+        let children = getNPMChildren(~solution, ~fetchDepsSubset, ~node);
         let f = childNode => {
           let name = childNode.Package.name;
           let nodeModulesPath = Path.(nodeModulesPath / name / "node_modules");
@@ -80,10 +60,37 @@ let rec getPathsToLink' =
         };
         List.iter(~f, children);
         let f = childNode => {
+          let* () =
+            RunAsync.ofLwt @@
+            Esy_logs_lwt.debug(m =>
+              m("NodeModuleLinker: processing %a", Package.pp, childNode)
+            );
+
           let pkgID = childNode.Package.id;
-          let src = getLocalStorePath(projectPath, pkgID);
-          let dest = Path.(nodeModulesPath / childNode.Package.name);
-          linkPaths(~link=true, src, dest);
+          let src = Installation.findExn(pkgID, installation);
+          let dst = Path.(nodeModulesPath / childNode.Package.name);
+          // figure if a package is JS or esy package
+          // Packages from NPM could contain, not just JS, but any natively compiled
+          // library
+          // Exploring Solver.re to figure this out
+          // Cant seem to find an easy way to turn a path to InstallManifest.re
+          // childNode.source isn't useful as it only tells if a package is opam or not
+          // Let's do it manually
+          let* packageJson = NpmPackageJson.ofDir(src);
+          switch (packageJson |> Option.bind(~f=NpmPackageJson.esy)) {
+          | Some(_) =>
+            let* () =
+              RunAsync.ofLwt @@
+              Esy_logs_lwt.debug(m =>
+                m(
+                  "NodeModuleLinker: skipping %a because it's package.json contains 'esy' field",
+                  Path.pp,
+                  src,
+                )
+              );
+            RunAsync.return();
+          | None => Fs.hardlinkPath(~src, ~dst)
+          };
         };
         let* () = children |> List.map(~f) |> RunAsync.List.waitAll;
         RunAsync.return((visitedMap, queue));
@@ -91,10 +98,10 @@ let rec getPathsToLink' =
       };
     getPathsToLink'(
       visitedMap,
+      ~installation,
       ~projectPath,
       ~solution,
       ~fetchDepsSubset,
-      ~installation,
       ~rootPackageID,
       ~queue,
     );
@@ -110,23 +117,11 @@ let link = (~installation, ~solution, ~projectPath, ~fetchDepsSubset) => {
   let nodeModulesPath = Path.(projectPath / "node_modules");
   let queue = Queue.create();
   Queue.add((rootPackageID, nodeModulesPath), queue);
-  let f = ((packageID, globalStorePath)) => {
-    let dest = getLocalStorePath(projectPath, packageID);
-    linkPaths(globalStorePath, dest);
-  };
-  let* () =
-    installation
-    |> Installation.entries
-    |> List.filter(~f=((key, _)) =>
-         PackageId.compare(key, rootPackageID) != 0
-       )
-    |> List.map(~f)
-    |> RunAsync.List.waitAll;
   getPathsToLink(
+    ~installation,
     ~projectPath,
     ~solution,
     ~fetchDepsSubset,
-    ~installation,
     ~rootPackageID,
     ~queue,
   );

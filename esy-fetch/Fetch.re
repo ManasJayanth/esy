@@ -191,6 +191,20 @@ let fetch = (fetchDepsSubset, sandbox, solution, gitUsername, gitPassword) => {
       ~json=Installation.to_yojson(installation),
       SandboxSpec.installationPath(sandbox.spec),
     );
+  let* () =
+    if (!root.installConfig.pnp) {
+      let* () =
+        RunAsync.ofLwt @@
+        Esy_logs_lwt.debug(m => m("Linking NPM dependencies in node_modules"));
+      NodeModuleLinker.link(
+        ~installation,
+        ~solution,
+        ~projectPath=sandbox.spec.path,
+        ~fetchDepsSubset,
+      );
+    } else {
+      RunAsync.return();
+    };
 
   /* JS packages need additional installation steps */
   let* () =

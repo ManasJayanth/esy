@@ -576,14 +576,6 @@ let dumpPnp = (~solution, ~sandbox, ~installation, ~fetchDepsSubset) => {
 
     return();
   } else {
-    let* () =
-      RunAsync.ofLwt @@
-      Esy_logs_lwt.debug(m => m("Linking NPM dependencies in node_modules"));
-    NodeModuleLinker.link(
-      ~installation,
-      ~solution,
-      ~projectPath=sandbox.spec.path,
-      ~fetchDepsSubset,
-    );
+    RunAsync.return();
   };
 };

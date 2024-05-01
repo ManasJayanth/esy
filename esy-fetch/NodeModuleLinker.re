@@ -22,8 +22,27 @@ let getNPMChildren = (~solution, ~fetchDepsSubset, ~node) => {
   |> List.filter(~f);
 };
 
-// hardlink the children from local store to node_modules
-let rec getPathsToLink' =
+let installPkg = (~installation, ~nodeModulesPath, childNode) => {
+  let* () =
+    RunAsync.ofLwt @@
+    Esy_logs_lwt.debug(m =>
+      m("NodeModuleLinker: installing %a", Package.pp, childNode)
+    );
+  let pkgID = childNode.Package.id;
+  let src = Installation.findExn(pkgID, installation);
+  let dst = Path.(nodeModulesPath / childNode.Package.name);
+  Fs.hardlinkPath(~src, ~dst);
+};
+
+/**
+
+   Install the children from esy store to node_modules
+
+   Notes:
+   Doesn't install the current node itself. Just the children.
+
+ */
+let rec linkDependencies =
         (
           visitedMap,
           ~installation,
@@ -42,11 +61,9 @@ let rec getPathsToLink' =
     let* (visitedMap, queue) =
       switch (visited) {
       | false =>
-        let visitedMap =
-          PackageId.Map.update(pkgID, _ => Some(true), visitedMap);
         let node = Solution.getExn(solution, pkgID);
         let children = getNPMChildren(~solution, ~fetchDepsSubset, ~node);
-        let f = childNode => {
+        let f = (visitedMap, childNode) => {
           let name = childNode.Package.name;
           let nodeModulesPath = Path.(nodeModulesPath / name / "node_modules");
           let pkgID = childNode.Package.id;
@@ -56,47 +73,30 @@ let rec getPathsToLink' =
             |> Stdlib.Option.value(~default=false);
           if (!visited) {
             Queue.add((pkgID, nodeModulesPath), queue);
+            PackageId.Map.update(pkgID, _ => Some(true), visitedMap);
+          } else {
+            visitedMap;
           };
         };
-        List.iter(~f, children);
-        let f = childNode => {
-          let* () =
-            RunAsync.ofLwt @@
-            Esy_logs_lwt.debug(m =>
-              m("NodeModuleLinker: processing %a", Package.pp, childNode)
-            );
-
-          let pkgID = childNode.Package.id;
-          let src = Installation.findExn(pkgID, installation);
-          let dst = Path.(nodeModulesPath / childNode.Package.name);
-          // figure if a package is JS or esy package
-          // Packages from NPM could contain, not just JS, but any natively compiled
-          // library
-          // Exploring Solver.re to figure this out
-          // Cant seem to find an easy way to turn a path to InstallManifest.re
-          // childNode.source isn't useful as it only tells if a package is opam or not
-          // Let's do it manually
-          let* packageJson = NpmPackageJson.ofDir(src);
-          switch (packageJson |> Option.bind(~f=NpmPackageJson.esy)) {
-          | Some(_) =>
-            let* () =
-              RunAsync.ofLwt @@
-              Esy_logs_lwt.debug(m =>
-                m(
-                  "NodeModuleLinker: skipping %a because it's package.json contains 'esy' field",
-                  Path.pp,
-                  src,
-                )
-              );
-            RunAsync.return();
-          | None => Fs.hardlinkPath(~src, ~dst)
-          };
-        };
-        let* () = children |> List.map(~f) |> RunAsync.List.waitAll;
+        let visitedMap = List.fold_left(~f, ~init=visitedMap, children);
+        let* () =
+          children
+          |> List.map(~f=node => {
+               let visited =
+                 visitedMap
+                 |> PackageId.Map.find_opt(pkgID)
+                 |> Stdlib.Option.value(~default=false);
+               if (!visited) {
+                 installPkg(~installation, ~nodeModulesPath, node);
+               } else {
+                 RunAsync.return();
+               };
+             })
+          |> RunAsync.List.waitAll;
         RunAsync.return((visitedMap, queue));
       | true => RunAsync.return((visitedMap, queue))
       };
-    getPathsToLink'(
+    linkDependencies(
       visitedMap,
       ~installation,
       ~projectPath,
@@ -109,15 +109,72 @@ let rec getPathsToLink' =
   };
 };
 
-let getPathsToLink = getPathsToLink'(PackageId.Map.empty);
+let rec findDuplicatedDeps =
+        (~fetchDepsSubset, ~solution, (seenIDs, duplicates), queue) => {
+  switch (Queue.take_opt(queue)) {
+  | Some(node) =>
+    print_endline(
+      Format.asprintf("findDuplicatedDeps: %a", Package.pp, node),
+    );
+    if (PackageId.Set.mem(node.Package.id, seenIDs)) {
+      findDuplicatedDeps(
+        ~fetchDepsSubset,
+        ~solution,
+        (seenIDs, Package.Set.add(node, duplicates)),
+        queue,
+      );
+    } else {
+      let seenIDs = PackageId.Set.add(node.Package.id, seenIDs);
+      getNPMChildren(~fetchDepsSubset, ~solution, ~node)
+      |> List.filter(~f=node => !PackageId.Set.mem(node.Package.id, seenIDs))
+      |> List.iter(~f=node => Queue.add(node, queue));
+      findDuplicatedDeps(
+        ~fetchDepsSubset,
+        ~solution,
+        (seenIDs, duplicates),
+        queue,
+      );
+    };
+  | None => (seenIDs, duplicates)
+  };
+};
 
 let link = (~installation, ~solution, ~projectPath, ~fetchDepsSubset) => {
   let root = Solution.root(solution);
   let rootPackageID = root.Package.id;
   let nodeModulesPath = Path.(projectPath / "node_modules");
+  let duplicatesQueue = Queue.create();
+  Queue.add(Solution.root(solution), duplicatesQueue);
+  let (_seen, duplicateDepsSet) =
+    findDuplicatedDeps(
+      ~fetchDepsSubset,
+      ~solution,
+      (PackageId.Set.empty /* seen */, Package.Set.empty /* duplicated */),
+      duplicatesQueue,
+    );
+  let duplicateDeps = Package.Set.elements(duplicateDepsSet);
   let queue = Queue.create();
+  let* () =
+    duplicateDeps
+    |> List.map(~f=pkg => {
+         let* () =
+           RunAsync.ofLwt @@
+           Esy_logs_lwt.debug(m =>
+             m("NodeModuleLinker: hoisting %a", Package.pp, pkg)
+           );
+         Queue.add((pkg.Package.id, nodeModulesPath), queue);
+         installPkg(~installation, ~nodeModulesPath, pkg);
+       })
+    |> RunAsync.List.waitAll;
   Queue.add((rootPackageID, nodeModulesPath), queue);
-  getPathsToLink(
+  /* let visitedMap = */
+  /*   duplicateDeps */
+  /*   |> List.fold_left( */
+  /*        ~init=PackageId.Map.empty, ~f=(visitedMap, duplicatedPkg) => */
+  /*        PackageId.Map.add(duplicatedPkg.Package.id, true, visitedMap) */
+  /*      ); */
+  linkDependencies(
+    PackageId.Map.empty,
     ~installation,
     ~projectPath,
     ~solution,

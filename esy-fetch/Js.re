@@ -547,35 +547,30 @@ let installBinaries =
   return();
 };
 
-let dumpPnp = (~solution, ~sandbox, ~installation, ~fetchDepsSubset) => {
-  let root = Solution.root(solution);
-  if (root.installConfig.pnp) {
-    /* Produce _esy/<sandbox>/pnp.js */
-    let* () = {
-      let path = SandboxSpec.pnpJsPath(sandbox.Sandbox.spec);
-      let data =
-        PnpJs.render(
-          ~basePath=Path.parent(SandboxSpec.pnpJsPath(sandbox.spec)),
-          ~rootPath=sandbox.spec.path,
-          ~rootId=Solution.root(solution).Package.id,
-          ~solution,
-          ~installation,
-          (),
-        );
-
-      Fs.writeFile(~data, path);
-    };
-
-    /* place <binPath>/node executable with pnp enabled */
-    let* () =
-      installNodeWrapper(
-        ~binPath=SandboxSpec.binPath(sandbox.Sandbox.spec),
-        ~pnpJsPath=SandboxSpec.pnpJsPath(sandbox.spec),
+let dumpPnp = (~solution, ~sandbox, ~installation) => {
+  /* Produce _esy/<sandbox>/pnp.js */
+  let* () = {
+    let path = SandboxSpec.pnpJsPath(sandbox.Sandbox.spec);
+    let data =
+      PnpJs.render(
+        ~basePath=Path.parent(SandboxSpec.pnpJsPath(sandbox.spec)),
+        ~rootPath=sandbox.spec.path,
+        ~rootId=Solution.root(solution).Package.id,
+        ~solution,
+        ~installation,
         (),
       );
 
-    return();
-  } else {
-    RunAsync.return();
+    Fs.writeFile(~data, path);
   };
+
+  /* place <binPath>/node executable with pnp enabled */
+  let* () =
+    installNodeWrapper(
+      ~binPath=SandboxSpec.binPath(sandbox.Sandbox.spec),
+      ~pnpJsPath=SandboxSpec.pnpJsPath(sandbox.spec),
+      (),
+    );
+
+  return();
 };

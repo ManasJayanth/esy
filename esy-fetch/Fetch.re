@@ -216,7 +216,12 @@ let fetch = (fetchDepsSubset, sandbox, solution, gitUsername, gitPassword) => {
       ~fetchedKindMap,
     );
 
-  let* () = Js.dumpPnp(~solution, ~fetchDepsSubset, ~sandbox, ~installation);
+  let* () =
+    if (root.installConfig.pnp) {
+      Js.dumpPnp(~solution, ~sandbox, ~installation);
+    } else {
+      RunAsync.return();
+    };
 
   let* () = Fs.rmPath(SandboxSpec.distPath(sandbox.Sandbox.spec));
 

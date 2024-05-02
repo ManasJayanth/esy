@@ -13,7 +13,7 @@
    the manifest, [package.json], and figure if it's JS package or OCaml/Reason.
 
    */
-open EsyPrimitives;
+/* open EsyPrimitives; */
 
 /**
 
@@ -22,11 +22,13 @@ open EsyPrimitives;
    {{: https://docs.npmjs.com/cli/v10/commands/npm-install#install-strategy} hoisted installation strategy}
 
 */
-let link:
-  (
-    ~installation: Installation.t,
-    ~solution: Solution.t,
-    ~projectPath: Path.t,
-    ~fetchDepsSubset: FetchDepsSubset.t
-  ) =>
-  RunAsync.t(unit);
+/* let link: */
+/*   ( */
+/*     ~installation: Installation.t, */
+/*     ~solution: Solution.t, */
+/*     ~projectPath: Path.t, */
+/*     ~fetchDepsSubset: FetchDepsSubset.t */
+/*   ) => */
+/*   RunAsync.t(unit); */
+
+let link: unit => RunAsync.t(unit);

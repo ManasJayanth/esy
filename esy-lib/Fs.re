@@ -351,11 +351,7 @@ let rec copyPathLwt = (~hardlinks, ~src, ~dst) => {
   switch (stat.st_kind) {
   | S_REG =>
     if (hardlinks) {
-      try%lwt(
-        {
-        Lwt_unix.link(origPathS, destPathS);
-        }
-      ) {
+      try%lwt(Lwt_unix.link(origPathS, destPathS)) {
       | Unix.Unix_error(Unix.EEXIST, _fn, _param) => Lwt.return()
       | e => Lwt.fail(e)
       };

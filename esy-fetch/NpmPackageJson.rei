@@ -22,4 +22,4 @@ let bin: t => list((string, string));
 let lifecycle: t => option(lifecycle);
 
 /** returns if a packageJson contains the esy field or not */
-let esy: t => option(Json.t)
+let esy: t => option(Json.t);

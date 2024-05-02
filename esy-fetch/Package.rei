@@ -9,7 +9,7 @@ type t = {
   dependencies: PackageId.Set.t,
   devDependencies: PackageId.Set.t,
   installConfig: InstallConfig.t, /* currently only tells if pnp is enabled or not */
-  extraSources: list(ExtraSource.t), /* See opam manual */
+  extraSources: list(ExtraSource.t) /* See opam manual */
 };
 
 let id: t => PackageId.t;

@@ -95,4 +95,4 @@ let lifecycle = pkgJson =>
   | lifecycle => lifecycle
   };
 
-let esy = ({ esy, _ }) => esy
+let esy = ({esy, _}) => esy;

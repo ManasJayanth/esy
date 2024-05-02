@@ -196,12 +196,9 @@ let fetch = (fetchDepsSubset, sandbox, solution, gitUsername, gitPassword) => {
       let* () =
         RunAsync.ofLwt @@
         Esy_logs_lwt.debug(m => m("Linking NPM dependencies in node_modules"));
-      NodeModuleLinker.link(
-        ~installation,
-        ~solution,
-        ~projectPath=sandbox.spec.path,
-        ~fetchDepsSubset,
-      );
+      NodeModuleLinker.link(); /* ~solution, */ /* ~installation, */
+      /* ~projectPath=sandbox.spec.path, */
+      /* ~fetchDepsSubset, */
     } else {
       RunAsync.return();
     };

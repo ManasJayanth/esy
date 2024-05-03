@@ -31,16 +31,21 @@ module SolutionGraph = {
   and childPp = Package.pp
   and childrenPp = (fmt, children) => {
     let sep = fmt => Fmt.any(" -- ", fmt);
-    children
-    |> Package.Map.bindings
-    |> List.map(~f=((child, _true)) => child)
-    |> Fmt.list(~sep, childPp, fmt);
+    let childrenAsList =
+      children
+      |> Package.Map.bindings
+      |> List.map(~f=((child, _true)) => child);
+    if (List.length(childrenAsList) == 0) {
+      Fmt.any("<no-children>", fmt, ());
+    } else {
+      childrenAsList |> Fmt.list(~sep, childPp, fmt);
+    };
   }
   and nodePp = (fmt, node) => {
     let {parents, data, children} = node;
     Fmt.pf(
       fmt,
-      "data: %a\n%a\n%a",
+      "\ndata: %a\nParents: %a\nChildren: %a\n",
       Package.pp,
       data,
       parentsPp,

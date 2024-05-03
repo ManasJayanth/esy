@@ -36,19 +36,28 @@ let getNPMChildren = (~solution, ~fetchDepsSubset, node) => {
 /* }; */
 
 let isHoistableTo = _ => true;
-let hoist = (~node, ~shortenedLineage) => {
-  NodeModule.(
+let hoist = (~node, ~shortenedLineage) =>
+  if (List.length(shortenedLineage) > 0) {
+    NodeModule.(
+      print_endline(
+        Format.asprintf(
+          "Node %a will be hoisted to %a",
+          Package.pp,
+          node.SolutionGraph.data,
+          SolutionGraph.parentsPp,
+          shortenedLineage,
+        ),
+      )
+    );
+  } else {
     print_endline(
       Format.asprintf(
-        "Node %a will be hoisted to %a",
-        SolutionGraph.nodePp,
-        node,
-        SolutionGraph.parentsPp,
-        shortenedLineage,
+        "Node %a will be hoisted to <root>",
+        Package.pp,
+        node.NodeModule.SolutionGraph.data,
       ),
-    )
-  );
-};
+    );
+  };
 let link = (~fetchDepsSubset, ~solution) => {
   open NodeModule;
   let traverse = getNPMChildren(~fetchDepsSubset, ~solution);

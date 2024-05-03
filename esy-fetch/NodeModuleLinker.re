@@ -36,8 +36,9 @@ let getNPMChildren = (~solution, ~fetchDepsSubset, node) => {
 /* }; */
 
 let isHoistableTo = _ => true;
+
 let hoist = (~node, ~shortenedLineage) =>
-  if (List.length(shortenedLineage) > 0) {
+  if (Queue.length(shortenedLineage) > 0) {
     NodeModule.(
       print_endline(
         Format.asprintf(
@@ -45,7 +46,7 @@ let hoist = (~node, ~shortenedLineage) =>
           Package.pp,
           node.SolutionGraph.data,
           SolutionGraph.parentsPp,
-          shortenedLineage,
+          shortenedLineage |> Queue.to_seq |> List.of_seq,
         ),
       )
     );
@@ -59,12 +60,18 @@ let hoist = (~node, ~shortenedLineage) =>
     );
   };
 
+/**
+   Notes:
+   [parentsSoFar] is a queue because we need fast appends as well has forward traversal
+ */
 let rec iterateParents = (parentsSoFar, lineage) =>
   if (isHoistableTo(parentsSoFar)) {
     parentsSoFar;
   } else {
     switch (lineage) {
-    | [head, ...rest] => iterateParents(parentsSoFar @ [head], rest)
+    | [head, ...rest] =>
+      Queue.push(head, parentsSoFar);
+      iterateParents(parentsSoFar, rest);
     | [] => failwith("Cannot hoist")
     };
   };
@@ -74,7 +81,7 @@ let rec iterateSolution = (~traverse, iterableSolution) => {
     switch (SolutionGraph.take(~traverse, iterableSolution)) {
     | Some((node, nextIterable)) =>
       let SolutionGraph.{parents, _} = node;
-      let shortenedLineage = iterateParents([], parents);
+      let shortenedLineage = iterateParents(Queue.create(), parents);
       hoist(~node, ~shortenedLineage);
       iterateSolution(~traverse, nextIterable);
     | None => RunAsync.return()

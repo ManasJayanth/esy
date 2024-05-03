@@ -35,7 +35,9 @@ let getNPMChildren = (~solution, ~fetchDepsSubset, node) => {
 /*   Fs.hardlinkPath(~src, ~dst); */
 /* }; */
 
-let isHoistableTo = _ => true;
+let isHoistableTo = (~hypotheticalLineage as _, _node) => {
+  true; // Should assert that hypotheticalLineage is not empty
+};
 
 let hoist = (~node, ~shortenedLineage) =>
   if (Queue.length(shortenedLineage) > 0) {
@@ -63,26 +65,36 @@ let hoist = (~node, ~shortenedLineage) =>
 /**
    Notes:
    [parentsSoFar] is a queue because we need fast appends as well has forward traversal
+   [hypotheticalLineage] can initially be empty, but should never return empty
  */
-let rec findHoistableParentInLineage = (parentsSoFar, lineage) =>
-  if (isHoistableTo(parentsSoFar)) {
-    parentsSoFar;
-  } else {
-    switch (lineage) {
-    | [head, ...rest] =>
-      Queue.push(head, parentsSoFar);
-      findHoistableParentInLineage(parentsSoFar, rest);
-    | [] => failwith("Cannot hoist")
+let rec findHoistableParentInLineage = (~hypotheticalLineage, ~lineage, ~node) => {
+  switch (lineage) {
+  | [head, ...rest] =>
+    Queue.push(head, hypotheticalLineage);
+    if (isHoistableTo(~hypotheticalLineage, node)) {
+      hypotheticalLineage |> Queue.to_seq |> List.of_seq;
+    } else {
+      findHoistableParentInLineage(
+        ~hypotheticalLineage,
+        ~lineage=rest,
+        ~node,
+      );
     };
+  | [] => failwith("Cannot hoist")
   };
-
+};
 let rec iterateSolution = (~traverse, iterableSolution) => {
   NodeModule.(
     switch (SolutionGraph.take(~traverse, iterableSolution)) {
     | Some((node, nextIterable)) =>
       let SolutionGraph.{parents, _} = node;
+      // TODO rename [parents] to [parentsInReverse]
       let shortenedLineage =
-        findHoistableParentInLineage(Queue.create(), parents);
+        findHoistableParentInLineage(
+          ~hypotheticalLineage=Queue.create(),
+          ~lineage=List.rev(parents),
+          ~node,
+        );
       hoist(~node, ~shortenedLineage);
       iterateSolution(~traverse, nextIterable);
     | None => RunAsync.return()

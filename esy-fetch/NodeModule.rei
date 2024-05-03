@@ -37,4 +37,6 @@ module SolutionGraph: {
 
   /** Pop from the current item being traversed */
   let take: (~traverse: traversalFn, state) => option((node, state));
+
+  let debug: (~traverse: traversalFn, Solution.t) => unit;
 };

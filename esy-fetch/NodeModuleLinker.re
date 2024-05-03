@@ -69,7 +69,7 @@ let link = (~fetchDepsSubset, ~solution) => {
         if (isHoistableTo(parentsSoFar)) {
           parentsSoFar;
         } else {
-          switch (parents) {
+          switch (lineage) {
           | [head, ...rest] => iterateParents(parentsSoFar @ [head], rest)
           | [] => failwith("Cannot hoist")
           };

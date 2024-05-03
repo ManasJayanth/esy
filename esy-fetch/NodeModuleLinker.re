@@ -58,27 +58,32 @@ let hoist = (~node, ~shortenedLineage) =>
       ),
     );
   };
-let link = (~fetchDepsSubset, ~solution) => {
-  open NodeModule;
-  let traverse = getNPMChildren(~fetchDepsSubset, ~solution);
-  let rec iterateSolution = iterableSolution => {
+
+let rec iterateParents = (parentsSoFar, lineage) =>
+  if (isHoistableTo(parentsSoFar)) {
+    parentsSoFar;
+  } else {
+    switch (lineage) {
+    | [head, ...rest] => iterateParents(parentsSoFar @ [head], rest)
+    | [] => failwith("Cannot hoist")
+    };
+  };
+
+let rec iterateSolution = (~traverse, iterableSolution) => {
+  NodeModule.(
     switch (SolutionGraph.take(~traverse, iterableSolution)) {
     | Some((node, nextIterable)) =>
       let SolutionGraph.{parents, _} = node;
-      let rec iterateParents = (parentsSoFar, lineage) =>
-        if (isHoistableTo(parentsSoFar)) {
-          parentsSoFar;
-        } else {
-          switch (lineage) {
-          | [head, ...rest] => iterateParents(parentsSoFar @ [head], rest)
-          | [] => failwith("Cannot hoist")
-          };
-        };
       let shortenedLineage = iterateParents([], parents);
       hoist(~node, ~shortenedLineage);
-      iterateSolution(nextIterable);
+      iterateSolution(~traverse, nextIterable);
     | None => RunAsync.return()
-    };
-  };
-  solution |> SolutionGraph.iterator(~traverse) |> iterateSolution;
+    }
+  );
+};
+let link = (~fetchDepsSubset, ~solution) => {
+  let traverse = getNPMChildren(~fetchDepsSubset, ~solution);
+  solution
+  |> NodeModule.SolutionGraph.iterator(~traverse)
+  |> iterateSolution(~traverse);
 };

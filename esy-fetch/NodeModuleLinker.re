@@ -64,14 +64,14 @@ let hoist = (~node, ~shortenedLineage) =>
    Notes:
    [parentsSoFar] is a queue because we need fast appends as well has forward traversal
  */
-let rec iterateParents = (parentsSoFar, lineage) =>
+let rec findHoistableParentInLineage = (parentsSoFar, lineage) =>
   if (isHoistableTo(parentsSoFar)) {
     parentsSoFar;
   } else {
     switch (lineage) {
     | [head, ...rest] =>
       Queue.push(head, parentsSoFar);
-      iterateParents(parentsSoFar, rest);
+      findHoistableParentInLineage(parentsSoFar, rest);
     | [] => failwith("Cannot hoist")
     };
   };
@@ -81,7 +81,8 @@ let rec iterateSolution = (~traverse, iterableSolution) => {
     switch (SolutionGraph.take(~traverse, iterableSolution)) {
     | Some((node, nextIterable)) =>
       let SolutionGraph.{parents, _} = node;
-      let shortenedLineage = iterateParents(Queue.create(), parents);
+      let shortenedLineage =
+        findHoistableParentInLineage(Queue.create(), parents);
       hoist(~node, ~shortenedLineage);
       iterateSolution(~traverse, nextIterable);
     | None => RunAsync.return()

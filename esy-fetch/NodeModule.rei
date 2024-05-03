@@ -7,27 +7,6 @@
 
    Usage:
 
-   let linkSolution: (Solution.t, results) => RunAsync.t(unit)
-   let linkSolution = (solution, acc) => {
-   let iterableSolution = NodeModule.SolutionGraph.iterator(solution);
-   loop(iterableSolution, [])
-
-
-
-   let rec loop = (iterableSolution, results) => {
-   switch (SolutionGraph.take(iterableSolution) {
-   | Some((node, nextIterSolution)) => {
-   let { parents, children, data } = node;
-   List.fold_left(~f=(parentsSeenSoFar, parent) => {
-   if (isHoistableTo(parentsSeenSoFar)) {
-    parentsSeenSoFar
-   } else {
-   parentSeenSoFar @ [parent]
-   }
-   }, [])
-   | None => results
-   }
-
 
    let isHoistableTo : (parentsLineage) => bool
    */
@@ -36,15 +15,20 @@ let compare: (t, t) => int;
 module Map: Map.S with type key := t;
 module Set: Set.S with type elt := t;
 
+/* TODO [iterator] doesn't need Solution.t. It just needs a root (which is Package.t). Everything else is lazy (on-demand) */
 module SolutionGraph: {
   /** Abstract value to help provide a iterator API into solution graph */
   type state;
 
-  type node = {
-    parents: list(Solution.pkg),
+  type parents = list(node)
+  and node = {
+    parents,
     data: Solution.pkg,
-    children: Map.t(bool),
+    children: Package.Map.t(bool),
   };
+
+  let nodePp: Fmt.t(node);
+  let parentsPp: Fmt.t(parents);
 
   type traversalFn = Solution.pkg => list(Solution.pkg);
 
@@ -52,5 +36,5 @@ module SolutionGraph: {
   let iterator: (~traverse: traversalFn, Solution.t) => state;
 
   /** Pop from the current item being traversed */
-  let take: (~traverse: traversalFn, state) => option(node);
+  let take: (~traverse: traversalFn, state) => option((node, state));
 };

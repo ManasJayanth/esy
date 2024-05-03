@@ -1,24 +1,24 @@
 /* open EsyPackageConfig; */
 /* open RunAsync.Syntax; */
 
-/* /\** */
-/*    Makes sure we dont link opam packages in node_modules */
-/*  *\/ */
-/* let getNPMChildren = (~solution, ~fetchDepsSubset, ~node) => { */
-/*   let f = (pkg: Solution.pkg) => { */
-/*     switch (pkg.Package.version) { */
-/*     | Opam(_) => false */
-/*     | Npm(_) */
-/*     | Source(_) => true */
-/*     /\* */
-/*         Allowing sources here would let us resolve to github urls for */
-/*         npm dependencies. Atleast in theory. TODO: test this */
-/*      *\/ */
-/*     }; */
-/*   }; */
-/*   Solution.dependenciesBySpec(solution, fetchDepsSubset, node) */
-/*   |> List.filter(~f); */
-/* }; */
+/**
+   Makes sure we dont link opam packages in node_modules
+ */
+let getNPMChildren = (~solution, ~fetchDepsSubset, node) => {
+  let f = (pkg: Solution.pkg) => {
+    switch (pkg.Package.version) {
+    | Opam(_) => false
+    | Npm(_)
+    | Source(_) => true
+    /*
+        Allowing sources here would let us resolve to github urls for
+        npm dependencies. Atleast in theory. TODO: test this
+     */
+    };
+  };
+  Solution.dependenciesBySpec(solution, fetchDepsSubset, node)
+  |> List.filter(~f);
+};
 
 /* let installPkg = (~installation, ~nodeModulesPath, childNode) => { */
 /*   print_endline( */
@@ -34,48 +34,42 @@
 /*   let dst = Path.(nodeModulesPath / childNode.Package.name); */
 /*   Fs.hardlinkPath(~src, ~dst); */
 /* }; */
-/* module NodeModule = { */
-/*   /\** */
-/*      These modules represent an entry (a package) in node_modules folder. */
-/*      packages in the node_modules folder have be unique by name. JS */
-/*      packages in the graph could have more one versions present - we */
-/*      have to carefully avoid conflicts and save disk space. */
-/*    *\/ */
-/*   type t = Package.t; */
-/*   let compare = (a, b) => { */
-/*     Package.(String.compare(a.name, b.name)); */
-/*   }; */
-/*   module Set = */
-/*     Set.Make({ */
-/*       type nonrec t = t; */
-/*       let compare = compare; */
-/*     }); */
-/*   module Graph = { */
-/*     type node = { */
-/*       data: t, */
-/*       children: list(node), */
-/*     }; */
-/*   }; */
-/* }; */
-/* let rec loop = (~solution, ~fetchDepsSubset, ~pkgQueue, ~hoistedGraphRoots) => { */
-/*   switch (Queue.take_opt(pkgQueue)) { */
-/*   | Some(pkg) => hoistedGraphRoots */
-/*   | None => hoistedGraphRoots */
-/*   }; */
-/* }; */
-/* let link = (~installation, ~solution, ~projectPath, ~fetchDepsSubset) => { */
-/*   let root = Solution.root(solution); */
-/*   let pkgQueue = Queue.create(); */
-/*   Queue.add(root, pkgQueue); */
-/*   let hoistedGraphRoots = */
-/*     loop( */
-/*       ~solution, */
-/*       ~fetchDepsSubset, */
-/*       ~pkgQueue, */
-/*       ~hoistedGraphRoots=Package.Set.empty, */
-/*     ); */
-/*   ignore(hoistedGraphRoots); */
-/*   RunAsync.return(); */
-/* }; */
 
-let link = () => RunAsync.return();
+let isHoistableTo = _ => true;
+let hoist = (~node, ~shortenedLineage) => {
+  NodeModule.(
+    print_endline(
+      Format.asprintf(
+        "Node %a will be hoisted to %a",
+        SolutionGraph.nodePp,
+        node,
+        SolutionGraph.parentsPp,
+        shortenedLineage,
+      ),
+    )
+  );
+};
+let link = (~fetchDepsSubset, ~solution) => {
+  open NodeModule;
+  let traverse = getNPMChildren(~fetchDepsSubset, ~solution);
+  let rec iterateSolution = iterableSolution => {
+    switch (SolutionGraph.take(~traverse, iterableSolution)) {
+    | Some((node, nextIterable)) =>
+      let SolutionGraph.{parents, _} = node;
+      let rec iterateParents = (parentsSoFar, lineage) =>
+        if (isHoistableTo(parentsSoFar)) {
+          parentsSoFar;
+        } else {
+          switch (parents) {
+          | [head, ...rest] => iterateParents(parentsSoFar @ [head], rest)
+          | [] => failwith("Cannot hoist")
+          };
+        };
+      let shortenedLineage = iterateParents([], parents);
+      hoist(~node, ~shortenedLineage);
+      iterateSolution(nextIterable);
+    | None => RunAsync.return()
+    };
+  };
+  solution |> SolutionGraph.iterator(~traverse) |> iterateSolution;
+};

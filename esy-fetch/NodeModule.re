@@ -7,23 +7,53 @@ module Id = {
 };
 module Map = Map.Make(Id);
 module Set = Set.Make(Id);
+
+let createChildrenMap = (~traverse, node) => {
+  open Package;
+  let f = (acc, child) => {
+    Map.add(child, true, acc);
+  };
+  node |> traverse |> List.fold_left(~f, ~init=Map.empty);
+};
+
 module SolutionGraph = {
-  type node = {
-    parents: list(Solution.pkg),
+  type parents = list(node)
+  and node = {
+    parents,
     data: Solution.pkg,
-    children: Map.t(bool),
+    children: Package.Map.t(bool),
+  };
+  let rec parentPp = (fmt, parentNode) => Package.pp(fmt, parentNode.data)
+  and parentsPp = fmt => {
+    let sep = fmt => Fmt.any(" -> ", fmt);
+    Fmt.list(~sep, parentPp, fmt);
+  }
+  and childPp = Package.pp
+  and childrenPp = (fmt, children) => {
+    let sep = fmt => Fmt.any(" -- ", fmt);
+    children
+    |> Package.Map.bindings
+    |> List.map(~f=((child, _true)) => child)
+    |> Fmt.list(~sep, childPp, fmt);
+  }
+  and nodePp = (fmt, node) => {
+    let {parents, data, children} = node;
+    Fmt.pf(
+      fmt,
+      "data: %a\n%a\n%a",
+      Package.pp,
+      data,
+      parentsPp,
+      parents,
+      childrenPp,
+      children,
+    );
   };
   type state = {
     queue: Queue.t(node),
     visited: PackageId.Map.t(bool),
   };
   type traversalFn = Solution.pkg => list(Solution.pkg);
-  let createChildrenMap = (~traverse, node) => {
-    let f = (acc, child) => {
-      Map.add(child, true, acc);
-    };
-    node |> traverse |> List.fold_left(~f, ~init=Map.empty);
-  };
   let isVisited = (visitedMap, node) => {
     visitedMap
     |> PackageId.Map.find_opt(node.Package.id)
@@ -34,32 +64,41 @@ module SolutionGraph = {
     let root = Solution.root(solution);
     let children = createChildrenMap(~traverse, root);
     Queue.push({data: root, parents: [], children}, queue);
-    let visited =
-      PackageId.Map.empty |> PackageId.Map.add(root.Package.id, true);
+    let visited = PackageId.Map.empty;
     {queue, visited};
   };
   let take = (~traverse, iterable) => {
     let {queue, visited} = iterable;
-    let f = node => {
+    let dequeue = node => {
       let {parents, data: pkg, children} = node;
-      let f = ((childNode, _true)) => {
-        Queue.push(
-          {
-            parents: parents @ [pkg],
-            data: childNode,
-            children: createChildrenMap(~traverse, childNode),
-          },
-          queue,
-        );
-      };
-      List.iter(~f, Map.bindings(children));
-      node;
+      let f = ((childNode, _true)) =>
+        if (!isVisited(visited, childNode)) {
+          Queue.push(
+            {
+              parents: parents @ [node],
+              data: childNode,
+              children: createChildrenMap(~traverse, childNode),
+            },
+            queue,
+          );
+        };
+      List.iter(~f, Package.Map.bindings(children));
+      let visited =
+        PackageId.Map.update(pkg.Package.id, _ => Some(true), visited);
+      (node, {queue, visited});
     };
-    let noneIfVisited = (visited, node) =>
-      isVisited(visited, node.data) ? None : Some(node);
-    queue
-    |> Queue.take_opt
-    |> Option.bind(~f=noneIfVisited(visited))
-    |> Option.map(~f);
+    queue |> Queue.take_opt |> Option.map(~f=dequeue);
+  };
+  let debug = (~traverse, solution) => {
+    let rec loop = iterableSolution => {
+      switch (take(~traverse, iterableSolution)) {
+      | Some((node, nextIterSolution)) =>
+        print_endline(Format.asprintf("%a", nodePp, node));
+        loop(nextIterSolution);
+      | None => ()
+      };
+    };
+
+    solution |> iterator(~traverse) |> loop;
   };
 };

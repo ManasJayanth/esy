@@ -13,7 +13,7 @@
    the manifest, [package.json], and figure if it's JS package or OCaml/Reason.
 
    */
-/* open EsyPrimitives; */
+open EsyPrimitives;
 
 /**
 
@@ -31,4 +31,6 @@
 /*   ) => */
 /*   RunAsync.t(unit); */
 
-let link: unit => RunAsync.t(unit);
+let link:
+  (~fetchDepsSubset: FetchDepsSubset.t, ~solution: Solution.t) =>
+  RunAsync.t(unit);

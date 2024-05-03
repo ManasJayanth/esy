@@ -24,7 +24,6 @@ module SolutionGraph: {
   and node = {
     parents,
     data: Solution.pkg,
-    children: Package.Map.t(bool),
   };
 
   let nodePp: Fmt.t(node);
@@ -33,7 +32,7 @@ module SolutionGraph: {
   type traversalFn = Solution.pkg => list(Solution.pkg);
 
   /** Setup a stateful interator */
-  let iterator: (~traverse: traversalFn, Solution.t) => state;
+  let iterator: Solution.t => state;
 
   /** Pop from the current item being traversed */
   let take: (~traverse: traversalFn, state) => option((node, state));

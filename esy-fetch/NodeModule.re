@@ -8,50 +8,47 @@ module Id = {
 module Map = Map.Make(Id);
 module Set = Set.Make(Id);
 
-let createChildrenMap = (~traverse, node) => {
-  open Package;
-  let f = (acc, child) => {
-    Map.add(child, true, acc);
-  };
-  node |> traverse |> List.fold_left(~f, ~init=Map.empty);
-};
+/* let createChildrenMap = (~traverse, node) => { */
+/*   open Package; */
+/*   let f = (acc, child) => { */
+/*     Map.add(child, true, acc); */
+/*   }; */
+/*   node |> traverse |> List.fold_left(~f, ~init=Map.empty); */
+/* }; */
 
 module SolutionGraph = {
   type parents = list(node)
   and node = {
     parents,
     data: Solution.pkg,
-    children: Package.Map.t(bool),
   };
   let rec parentPp = (fmt, parentNode) => Package.pp(fmt, parentNode.data)
   and parentsPp = fmt => {
     let sep = fmt => Fmt.any(" -> ", fmt);
     Fmt.list(~sep, parentPp, fmt);
   }
-  and childPp = Package.pp
-  and childrenPp = (fmt, children) => {
-    let sep = fmt => Fmt.any(" -- ", fmt);
-    let childrenAsList =
-      children
-      |> Package.Map.bindings
-      |> List.map(~f=((child, _true)) => child);
-    if (List.length(childrenAsList) == 0) {
-      Fmt.any("<no-children>", fmt, ());
-    } else {
-      childrenAsList |> Fmt.list(~sep, childPp, fmt);
-    };
-  }
+  /* and childPp = Package.pp */
+  /* and childrenPp = (fmt, children) => { */
+  /*   let sep = fmt => Fmt.any(" -- ", fmt); */
+  /*   let childrenAsList = */
+  /*     children */
+  /*     |> Package.Map.bindings */
+  /*     |> List.map(~f=((child, _true)) => child); */
+  /*   if (List.length(childrenAsList) == 0) { */
+  /*     Fmt.any("<no-children>", fmt, ()); */
+  /*   } else { */
+  /*     childrenAsList |> Fmt.list(~sep, childPp, fmt); */
+  /*   }; */
+  /* } */
   and nodePp = (fmt, node) => {
-    let {parents, data, children} = node;
+    let {parents, data} = node;
     Fmt.pf(
       fmt,
-      "\ndata: %a\nParents: %a\nChildren: %a\n",
+      "\ndata: %a\nParents: %a\n",
       Package.pp,
       data,
       parentsPp,
       parents,
-      childrenPp,
-      children,
     );
   };
   type state = {
@@ -64,30 +61,22 @@ module SolutionGraph = {
     |> PackageId.Map.find_opt(node.Package.id)
     |> Stdlib.Option.value(~default=false);
   };
-  let iterator = (~traverse, solution) => {
+  let iterator = solution => {
     let queue = Queue.create();
     let root = Solution.root(solution);
-    let children = createChildrenMap(~traverse, root);
-    Queue.push({data: root, parents: [], children}, queue);
+    Queue.push({data: root, parents: []}, queue);
     let visited = PackageId.Map.empty;
     {queue, visited};
   };
   let take = (~traverse, iterable) => {
     let {queue, visited} = iterable;
     let dequeue = node => {
-      let {parents, data: pkg, children} = node;
-      let f = ((childNode, _true)) =>
+      let {parents, data: pkg} = node;
+      let f = childNode =>
         if (!isVisited(visited, childNode)) {
-          Queue.push(
-            {
-              parents: parents @ [node],
-              data: childNode,
-              children: createChildrenMap(~traverse, childNode),
-            },
-            queue,
-          );
+          Queue.push({parents: parents @ [node], data: childNode}, queue);
         };
-      List.iter(~f, Package.Map.bindings(children));
+      pkg |> traverse |> List.iter(~f);
       let visited =
         PackageId.Map.update(pkg.Package.id, _ => Some(true), visited);
       (node, {queue, visited});
@@ -104,6 +93,6 @@ module SolutionGraph = {
       };
     };
 
-    solution |> iterator(~traverse) |> loop;
+    solution |> iterator |> loop;
   };
 };

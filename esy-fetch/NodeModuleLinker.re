@@ -83,7 +83,5 @@ let rec iterateSolution = (~traverse, iterableSolution) => {
 };
 let link = (~fetchDepsSubset, ~solution) => {
   let traverse = getNPMChildren(~fetchDepsSubset, ~solution);
-  solution
-  |> NodeModule.SolutionGraph.iterator(~traverse)
-  |> iterateSolution(~traverse);
+  solution |> NodeModule.SolutionGraph.iterator |> iterateSolution(~traverse);
 };

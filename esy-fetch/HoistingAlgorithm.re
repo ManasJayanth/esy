@@ -27,6 +27,8 @@ module HoistedGraph = {
       children: Map.t(node),
     };
     let roots: t => Map.t(node);
+    let ofRoots: Map.t(node) => t;
+    let nodeUpdateChildren: (data, node, node) => node;
     let nodeData: node => data;
     let children: node => Map.t(node);
   };
@@ -40,13 +42,13 @@ module type S = {
   type hoistedGraphNode;
 
   /** Takes a named list [hypotheticalLineage] of 'a, a [hoistedGraph('a)] named [hoistedGraph], and a node which has a type which can be [hoistedGraph]'s node (but not necessarily so), and returns if it can become a node indeed */
-  let isHoistableTo:
+  let hoist:
     (
       ~hypotheticalLineage: list(data),
       ~hoistedGraph: hoistedGraph,
       hoistedGraphNode
     ) =>
-    bool;
+    result(hoistedGraph, string);
 };
 
 module Make =
@@ -61,37 +63,40 @@ module Make =
   type data = K.t;
   type hoistedGraph = HoistedGraph.t;
   type hoistedGraphNode = HoistedGraph.node;
-  let isHoistableTo = (~hypotheticalLineage, ~hoistedGraph, node) => {
-    let rec proceedMatching = (root, rest) => {
-      let children = HoistedGraph.children(root);
-      switch (rest) {
-      | [] =>
-        switch (
-          HoistedGraph.Map.find_opt(HoistedGraph.nodeData(node), children)
-        ) {
-        | Some(_) => false
-        | None => true
-        }
-      | [h] =>
-        switch (HoistedGraph.Map.find_opt(h, children)) {
-        | Some(_child) => true
-        | None => false
-        }
-      | [h, ...r] =>
-        switch (HoistedGraph.Map.find_opt(h, children)) {
-        | Some(child) => proceedMatching(child, r)
-        | None => false
-        }
+
+  let rec proceedMatching = (root, restOfLineage, node) => {
+    let children = HoistedGraph.children(root);
+    switch (restOfLineage) {
+    | [] =>
+      let dataField = HoistedGraph.nodeData(root);
+      switch (HoistedGraph.Map.find_opt(dataField, children)) {
+      | Some(_) => Error("Cant hoist")
+      | None => Ok(HoistedGraph.nodeUpdateChildren(dataField, node, root))
       };
+    | [h, ...r] =>
+      switch (HoistedGraph.Map.find_opt(h, children)) {
+      | Some(child) => proceedMatching(child, r, node)
+      | None => Error("Cant hoist")
+      }
     };
+  };
+
+  let hoist = (~hypotheticalLineage, ~hoistedGraph, node) => {
     let roots = HoistedGraph.roots(hoistedGraph);
     switch (hypotheticalLineage) {
     | [h, ...rest] =>
       switch (HoistedGraph.Map.find_opt(h, roots)) {
-      | Some(hoistedGraphRoot) => proceedMatching(hoistedGraphRoot, rest)
-      | None => false
+      | Some(hoistedGraphRoot) =>
+        switch (proceedMatching(hoistedGraphRoot, rest, node)) {
+        | Ok(newRoot) =>
+          HoistedGraph.Map.update(h, _ => Some(newRoot), roots)
+          |> HoistedGraph.ofRoots
+          |> Result.return
+        | Error(e) => Error(e)
+        }
+      | None => Error("Cant hois")
       }
-    | [] => failwith("hypotheticalLineage should not be empty")
+    | [] => Error("hypotheticalLineage should not be empty")
     };
   };
 };

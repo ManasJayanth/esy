@@ -31,18 +31,6 @@ let installPkg = (~installation, ~nodeModulesPath, pkg) => {
   Fs.hardlinkPath(~src, ~dst);
 };
 
-let rec makeHoistedGraph = (~data, ~revLineage) => {
-  let parent =
-    switch (revLineage) {
-    | [] => None
-    | [single] =>
-      Some(lazy(HoistedGraph.makeNode(~data=single, ~parent=None)))
-    | [h, ...rest] =>
-      Some(lazy(makeHoistedGraph(~data=h, ~revLineage=rest)))
-    };
-  HoistedGraph.makeNode(~data, ~parent);
-};
-
 module HoistingAlgorithm = HoistingAlgorithm.Make(Package, HoistedGraph);
 
 let _debug = (~node) => HoistedGraph.nodePp(node);
@@ -68,23 +56,15 @@ let _debugHoist = (~node, ~lineage) =>
     );
   };
 
-let hoistedGraphNodeOfSolutionNode = solutionGraphNode => {
-  let SolutionGraph.{parents, data} = solutionGraphNode;
-  // TODO rename [parents] to [parentsInReverse]
-  // even better: make lineage computation lazy here too
-  let revLineageData =
-    List.map(parents, ~f=(solutionGraphNode: SolutionGraph.node) =>
-      solutionGraphNode.data
-    );
-  makeHoistedGraph(~data, ~revLineage=revLineageData);
-};
-
 let rec iterateSolution = (~traverse, ~hoistedGraph, iterableSolution) => {
   switch (SolutionGraph.take(~traverse, iterableSolution)) {
   | Some((node, nextIterable)) =>
-    let nodeModuleEntry = hoistedGraphNodeOfSolutionNode(node);
+    let SolutionGraph.{data, parents /* actually parents in reverse */} = node;
+    let nodeModuleEntry = HoistedGraph.makeNode(~data, ~parent=None);
     let lineage =
-      node.parents |> List.map(~f=hoistedGraphNodeOfSolutionNode) |> List.rev;
+      parents
+      |> List.map(~f=solutionNode => solutionNode.SolutionGraph.data)
+      |> List.rev;
     let hoistedGraph =
       HoistingAlgorithm.hoistLineage(
         ~lineage,

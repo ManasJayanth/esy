@@ -2,6 +2,8 @@
 type state;
 
 type parents = list(node)
+// TODO rename [parents] to [parentsInReverse]
+// even better: make lineage computation lazy here too
 and node = {
   parents,
   data: Solution.pkg,

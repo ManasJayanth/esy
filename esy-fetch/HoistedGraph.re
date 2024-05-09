@@ -159,3 +159,15 @@ let init = (~traverse: 'a => list('a)) => {
   traversalFn := traverse;
   empty;
 };
+
+/* let rec makeHoistedGraph = (~data, ~revLineage) => { */
+/*   let parent = */
+/*     switch (revLineage) { */
+/*     | [] => None */
+/*     | [single] => */
+/*       Some(lazy(HoistedGraph.makeNode(~data=single, ~parent=None))) */
+/*     | [h, ...rest] => */
+/*       Some(lazy(makeHoistedGraph(~data=h, ~revLineage=rest))) */
+/*     }; */
+/*   HoistedGraph.makeNode(~data, ~parent); */
+/* }; */

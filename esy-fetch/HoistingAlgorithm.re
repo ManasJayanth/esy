@@ -15,11 +15,7 @@ module type S = {
     result(hoistedGraph, string);
 
   let hoistLineage:
-    (
-      ~lineage: list(hoistedGraphNode),
-      ~hoistedGraph: hoistedGraph,
-      hoistedGraphNode
-    ) =>
+    (~lineage: list(data), ~hoistedGraph: hoistedGraph, hoistedGraphNode) =>
     hoistedGraph;
 };
 
@@ -112,10 +108,7 @@ module Make =
       // TODO: get rid of queue. We end up traversing right after
       // creating it.
       let hypotheticalLineageList =
-        hypotheticalLineage
-        |> Queue.to_seq
-        |> List.of_seq
-        |> List.map(~f=node => HoistedGraph.nodeData(node));
+        hypotheticalLineage |> Queue.to_seq |> List.of_seq;
       switch (
         hoist(
           ~hypotheticalLineage=hypotheticalLineageList,

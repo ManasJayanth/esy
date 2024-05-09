@@ -101,7 +101,8 @@ module Make =
 
      This is unfortunate. And needs a hack to work around. Lazy lineage computation would solve this.
  */
-  let rec hoistLineage' = (~hypotheticalLineage, ~lineage, ~hoistedGraph, pkg) => {
+  let rec hoistLineage' =
+          (~hypotheticalLineage, ~lineage, ~hoistedGraph, node) => {
     switch (lineage) {
     | [head, ...rest] =>
       Queue.push(head, hypotheticalLineage);
@@ -113,7 +114,7 @@ module Make =
         hoist(
           ~hypotheticalLineage=hypotheticalLineageList,
           ~hoistedGraph,
-          pkg,
+          node,
         )
       ) {
       | Ok(hoistedGraph) => hoistedGraph
@@ -122,7 +123,7 @@ module Make =
           Format.asprintf(
             "Couldn't hoist %a: because: %s",
             HoistedGraph.nodePp,
-            pkg,
+            node,
             msg,
           ),
         );
@@ -133,7 +134,7 @@ module Make =
             ~hypotheticalLineage,
             ~hoistedGraph,
             ~lineage=rest,
-            pkg,
+            node,
           );
         } else {
           hoistedGraph;
@@ -144,7 +145,7 @@ module Make =
       // This should only be done when a node has empty lineage.
       // not because we kept recursing and ran out of lineage.
       // See notes in the docstring
-      HoistedGraph.addRoot(~node=pkg, hoistedGraph)
+      HoistedGraph.addRoot(~node, hoistedGraph)
     };
   };
   let hoistLineage = hoistLineage'(~hypotheticalLineage=Queue.create());

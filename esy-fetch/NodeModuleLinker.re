@@ -18,6 +18,7 @@ let getNPMChildren = (~solution, ~fetchDepsSubset, node) => {
   Solution.dependenciesBySpec(solution, fetchDepsSubset, node)
   |> List.filter(~f);
 };
+
 let installPkg = (~installation, ~nodeModulesPath, pkg) => {
   let* () =
     RunAsync.ofLwt @@
@@ -39,6 +40,43 @@ module HoistedGraph = {
     data: Package.t,
     children: Lazy.t(Map.t(node)),
   };
+
+  let rec parentPp = (fmt, parentNode) => {
+    switch (parentNode) {
+    | Some(parentNode) =>
+      let parentNode = Lazy.force(parentNode);
+      Package.pp(fmt, parentNode.data);
+    | None => Fmt.any("<no-parent>", fmt, ())
+    };
+  }
+  and childPp = Package.pp
+  and childrenPp = (fmt, children) => {
+    let sep = fmt => Fmt.any(" -- ", fmt);
+    let childrenAsList =
+      children
+      |> Lazy.force
+      |> Map.bindings
+      |> List.map(~f=((child, _true)) => child);
+    if (List.length(childrenAsList) == 0) {
+      Fmt.any("<no-children>", fmt, ());
+    } else {
+      childrenAsList |> Fmt.list(~sep, childPp, fmt);
+    };
+  }
+  and nodePp = (fmt, node) => {
+    let {parent, data, children} = node;
+    Fmt.pf(
+      fmt,
+      "\ndata: %a\nParents: %a\nChildren: %a",
+      Package.pp,
+      data,
+      parentPp,
+      parent,
+      childrenPp,
+      children,
+    );
+  };
+
   let roots = roots => roots;
   let empty = Map.empty;
   let ofRoots = roots => roots;
@@ -137,6 +175,8 @@ let rec makeHoistedGraph = (~traverse, ~data, ~revLineage) => {
 };
 
 module HoistingAlgorithm = HoistingAlgorithm.Make(Package, HoistedGraph);
+
+let _debug = (~node) => HoistedGraph.nodePp(node);
 
 let _debugHoist = (~node, ~lineage) => {
   NodeModule.(

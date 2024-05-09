@@ -8,14 +8,6 @@ module Id = {
 module Map = Map.Make(Id);
 module Set = Set.Make(Id);
 
-/* let createChildrenMap = (~traverse, node) => { */
-/*   open Package; */
-/*   let f = (acc, child) => { */
-/*     Map.add(child, true, acc); */
-/*   }; */
-/*   node |> traverse |> List.fold_left(~f, ~init=Map.empty); */
-/* }; */
-
 module SolutionGraph = {
   type parents = list(node)
   and node = {
@@ -27,19 +19,6 @@ module SolutionGraph = {
     let sep = fmt => Fmt.any(" -> ", fmt);
     Fmt.list(~sep, parentPp, fmt);
   }
-  /* and childPp = Package.pp */
-  /* and childrenPp = (fmt, children) => { */
-  /*   let sep = fmt => Fmt.any(" -- ", fmt); */
-  /*   let childrenAsList = */
-  /*     children */
-  /*     |> Package.Map.bindings */
-  /*     |> List.map(~f=((child, _true)) => child); */
-  /*   if (List.length(childrenAsList) == 0) { */
-  /*     Fmt.any("<no-children>", fmt, ()); */
-  /*   } else { */
-  /*     childrenAsList |> Fmt.list(~sep, childPp, fmt); */
-  /*   }; */
-  /* } */
   and nodePp = (fmt, node) => {
     let {parents, data} = node;
     Fmt.pf(

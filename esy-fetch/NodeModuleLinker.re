@@ -31,18 +31,16 @@ let installPkg = (~installation, ~nodeModulesPath, pkg) => {
   Fs.hardlinkPath(~src, ~dst);
 };
 
-let rec makeHoistedGraph = (~traverse, ~data, ~revLineage) => {
+let rec makeHoistedGraph = (~data, ~revLineage) => {
   let parent =
     switch (revLineage) {
     | [] => None
     | [single] =>
-      Some(
-        lazy(HoistedGraph.makeNode(~traverse, ~data=single, ~parent=None)),
-      )
+      Some(lazy(HoistedGraph.makeNode(~data=single, ~parent=None)))
     | [h, ...rest] =>
-      Some(lazy(makeHoistedGraph(~traverse, ~data=h, ~revLineage=rest)))
+      Some(lazy(makeHoistedGraph(~data=h, ~revLineage=rest)))
     };
-  HoistedGraph.makeNode(~traverse, ~data, ~parent);
+  HoistedGraph.makeNode(~data, ~parent);
 };
 
 module HoistingAlgorithm = HoistingAlgorithm.Make(Package, HoistedGraph);
@@ -104,24 +102,22 @@ let hoistLineage = (~lineage, ~hoistedGraph, pkg) => {
   aux(~hypotheticalLineage=Queue.create(), ~lineage, ~hoistedGraph, pkg);
 };
 
-let hoistedGraphNodeOfSolutionNode = (~traverse, solutionGraphNode) => {
+let hoistedGraphNodeOfSolutionNode = solutionGraphNode => {
   let SolutionGraph.{parents, data} = solutionGraphNode;
   // TODO rename [parents] to [parentsInReverse]
   let revLineageData =
     List.map(parents, ~f=(solutionGraphNode: SolutionGraph.node) =>
       solutionGraphNode.data
     );
-  makeHoistedGraph(~traverse, ~data, ~revLineage=revLineageData);
+  makeHoistedGraph(~data, ~revLineage=revLineageData);
 };
 
 let rec iterateSolution = (~traverse, ~hoistedGraph, iterableSolution) => {
   switch (SolutionGraph.take(~traverse, iterableSolution)) {
   | Some((node, nextIterable)) =>
-    let nodeModuleEntry = hoistedGraphNodeOfSolutionNode(~traverse, node);
+    let nodeModuleEntry = hoistedGraphNodeOfSolutionNode(node);
     let lineage =
-      node.parents
-      |> List.map(~f=hoistedGraphNodeOfSolutionNode(~traverse))
-      |> List.rev;
+      node.parents |> List.map(~f=hoistedGraphNodeOfSolutionNode) |> List.rev;
     let hoistedGraph = hoistLineage(~lineage, ~hoistedGraph, nodeModuleEntry);
     iterateSolution(~traverse, ~hoistedGraph, nextIterable);
   | None => hoistedGraph
@@ -164,6 +160,6 @@ let link = (~installation, ~projectPath, ~fetchDepsSubset, ~solution) => {
   };
   solution
   |> SolutionGraph.iterator
-  |> iterateSolution(~traverse, ~hoistedGraph=HoistedGraph.empty)
+  |> iterateSolution(~traverse, ~hoistedGraph=HoistedGraph.init(~traverse))
   |> HoistedGraph.walk(~f);
 };

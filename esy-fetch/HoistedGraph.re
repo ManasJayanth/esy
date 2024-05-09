@@ -1,6 +1,7 @@
 open RunAsync.Syntax;
 
 type data = NodeModule.t;
+let traversalFn = ref(_ => []);
 module Map = Map.Make(NodeModule);
 type t = Map.t(node)
 and node = {
@@ -57,32 +58,26 @@ let nodeUpdateChildren = (dataField, newNode, parent) => {
 let nodeData = node => node.data;
 
 let makeCache: Hashtbl.t(data, node) = Hashtbl.create(100);
-let rec makeNode' = (~traverse, ~parent, ~data) => {
+let rec makeNode' = (~parent, ~data) => {
   let init = Map.empty;
   let f = (acc, child) => {
     Map.add(
       child,
-      makeNode(
-        ~traverse,
-        ~parent=Some(lazy(makeNode(~traverse, ~parent, ~data))),
-        ~data=child,
-      ),
+      makeNode(~parent=Some(lazy(makeNode(~parent, ~data))), ~data=child),
       acc,
     );
   };
-  {parent, data, children: lazy(List.fold_left(~f, ~init, traverse(data)))};
+  {
+    parent,
+    data,
+    children: lazy(List.fold_left(~f, ~init, traversalFn^(data))),
+  };
 }
-and makeNode:
-  (
-    ~traverse: NodeModule.t => list(NodeModule.t),
-    ~parent: option(Lazy.t(node)),
-    ~data: data
-  ) =>
-  node =
-  (~traverse, ~parent, ~data) => {
+and makeNode: (~parent: option(Lazy.t(node)), ~data: data) => node =
+  (~parent, ~data) => {
     switch (Hashtbl.find_opt(makeCache, data)) {
     | Some(node) => node
-    | None => makeNode'(~traverse, ~parent, ~data)
+    | None => makeNode'(~parent, ~data)
     };
   };
 let addRoot = (~node, graph) => {
@@ -120,4 +115,9 @@ let rec nodeModulesPathFromParent = (~baseNodeModulesPath, parent) => {
     List.fold_left(lineage, ~f, ~init);
   | None => /* most likely case. ie all pkgs are directly under root  */ baseNodeModulesPath
   };
+};
+
+let init = (~traverse: 'a => list('a)) => {
+  traversalFn := traverse;
+  empty;
 };

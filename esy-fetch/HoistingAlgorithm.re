@@ -30,13 +30,7 @@ module HoistedGraph = {
     let ofRoots: Map.t(node) => t;
     let nodeUpdateChildren: (data, node, node) => node;
     let nodeData: node => data;
-    let makeNode:
-      (
-        ~traverse: data => list(data),
-        ~parent: option(Lazy.t(node)),
-        ~data: data
-      ) =>
-      node;
+    let makeNode: (~parent: option(Lazy.t(node)), ~data: data) => node;
   };
 };
 

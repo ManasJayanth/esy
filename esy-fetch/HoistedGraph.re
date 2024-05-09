@@ -1,4 +1,39 @@
 open RunAsync.Syntax;
+/**
+   Checks if [nodeModuleEntry] can be hoisted under the last element
+   in [hypotheticalLineage].
+
+   Notes: Why an entire queue of nodes and not just [head] (from the
+   caller function, [hoistLineage]) which gets pushed as last element
+   in [hypotheticalLineage]. We have to append to [head] after all,
+   isn't it?
+
+   Because, otherwise who will we efficiently find [head] in
+   [hoistedGraph]. Having a complete lineage enables us to iterate
+   over it and index [head] quickly.
+
+*/
+// Note about why K.t is map isn't parameterised on both k and v
+// https://stackoverflow.com/questions/14629642/ocaml-polymorphic-function-on-maps-with-generic-keys
+module type S = {
+  // [data] represents variable, one of which is Package.t
+  // parameterising over Package.t with [data] is how we keep it out of our abstractions
+  type data;
+  module Map: Map.S with type key = data; // These maps btw contain keys that represent node module entries. Packages with same name are equal (even if different versions)
+  type t = Map.t(node) // likely a map of root nodes
+  and node = {
+    parent: option(Lazy.t(node)),
+    data,
+    children: Lazy.t(Map.t(node)),
+  };
+  let roots: t => Map.t(node);
+  let ofRoots: Map.t(node) => t;
+  let nodeUpdateChildren: (data, node, node) => node;
+  let nodeData: node => data;
+  let makeNode: (~parent: option(Lazy.t(node)), ~data: data) => node;
+  let nodePp: Fmt.t(node);
+  let addRoot: (~node: node, t) => t;
+};
 
 type data = NodeModule.t;
 let traversalFn = ref(_ => []);
@@ -80,9 +115,11 @@ and makeNode: (~parent: option(Lazy.t(node)), ~data: data) => node =
     | None => makeNode'(~parent, ~data)
     };
   };
+
 let addRoot = (~node, graph) => {
   Map.add(node.data, node, graph);
 };
+
 let walk = (~f: node => RunAsync.t(unit), graph: t): RunAsync.t(unit) => {
   let roots = roots(graph);
   Map.fold(
@@ -101,6 +138,7 @@ let constructLineage' = (acc, parent) => {
   | None => acc
   };
 };
+
 let constructLineage = constructLineage'([]);
 
 let rec nodeModulesPathFromParent = (~baseNodeModulesPath, parent) => {

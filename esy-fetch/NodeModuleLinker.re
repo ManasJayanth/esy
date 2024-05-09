@@ -68,43 +68,10 @@ let _debugHoist = (~node, ~lineage) =>
     );
   };
 
-/**
-       Notes:
-       [parentsSoFar] is a queue because we need fast appends as well has forward traversal
-       [hypotheticalLineage] can initially be empty, but should never return empty
- */
-let hoistLineage = (~lineage, ~hoistedGraph, pkg) => {
-  let rec aux = (~hypotheticalLineage, ~hoistedGraph, ~lineage, pkg) => {
-    switch (lineage) {
-    | [head, ...rest] =>
-      Queue.push(head, hypotheticalLineage);
-      // TODO: get rid of queue. We end up traversing right after
-      // creating it.
-      let hypotheticalLineageList =
-        hypotheticalLineage
-        |> Queue.to_seq
-        |> List.of_seq
-        |> List.map(~f=node => HoistedGraph.nodeData(node));
-      switch (
-        HoistingAlgorithm.hoist(
-          ~hypotheticalLineage=hypotheticalLineageList,
-          ~hoistedGraph,
-          pkg,
-        )
-      ) {
-      | Ok(hoistedGraph) => hoistedGraph
-      | Error(_) =>
-        aux(~hypotheticalLineage, ~hoistedGraph, ~lineage=rest, pkg)
-      };
-    | [] => HoistedGraph.addRoot(~node=pkg, hoistedGraph)
-    };
-  };
-  aux(~hypotheticalLineage=Queue.create(), ~lineage, ~hoistedGraph, pkg);
-};
-
 let hoistedGraphNodeOfSolutionNode = solutionGraphNode => {
   let SolutionGraph.{parents, data} = solutionGraphNode;
   // TODO rename [parents] to [parentsInReverse]
+  // even better: make lineage computation lazy here too
   let revLineageData =
     List.map(parents, ~f=(solutionGraphNode: SolutionGraph.node) =>
       solutionGraphNode.data
@@ -118,7 +85,12 @@ let rec iterateSolution = (~traverse, ~hoistedGraph, iterableSolution) => {
     let nodeModuleEntry = hoistedGraphNodeOfSolutionNode(node);
     let lineage =
       node.parents |> List.map(~f=hoistedGraphNodeOfSolutionNode) |> List.rev;
-    let hoistedGraph = hoistLineage(~lineage, ~hoistedGraph, nodeModuleEntry);
+    let hoistedGraph =
+      HoistingAlgorithm.hoistLineage(
+        ~lineage,
+        ~hoistedGraph,
+        nodeModuleEntry,
+      );
     iterateSolution(~traverse, ~hoistedGraph, nextIterable);
   | None => hoistedGraph
   };
@@ -130,22 +102,21 @@ let link = (~installation, ~projectPath, ~fetchDepsSubset, ~solution) => {
     HoistedGraph.(
       switch (hoistedGraphNode.parent) {
       | Some(_parentHoistedGraphNode) =>
+        let nodeModulesPath =
+          nodeModulesPathFromParent(
+            ~baseNodeModulesPath=Path.(projectPath / "node_modules"),
+            hoistedGraphNode,
+          );
         print_endline(
           Format.asprintf(
-            "Node %a will be hoisted",
+            "Node %a will be installed at %a",
             Package.pp,
             hoistedGraphNode.data,
+            Path.pp,
+            nodeModulesPath,
           ),
         );
-        installPkg(
-          ~installation,
-          ~nodeModulesPath=
-            nodeModulesPathFromParent(
-              ~baseNodeModulesPath=Path.(projectPath / "node_modules"),
-              hoistedGraphNode,
-            ),
-          hoistedGraphNode.data,
-        );
+        installPkg(~installation, ~nodeModulesPath, hoistedGraphNode.data);
       | None =>
         print_endline(
           Format.asprintf(

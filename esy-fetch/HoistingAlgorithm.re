@@ -1,39 +1,3 @@
-/**
-   Checks if [nodeModuleEntry] can be hoisted under the last element
-   in [hypotheticalLineage].
-
-   Notes: Why an entire queue of nodes and not just [head] (from the
-   caller function, [hoistLineage]) which gets pushed as last element
-   in [hypotheticalLineage]. We have to append to [head] after all,
-   isn't it?
-
-   Because, otherwise who will we efficiently find [head] in
-   [hoistedGraph]. Having a complete lineage enables us to iterate
-   over it and index [head] quickly.
-
-*/
-module HoistedGraph = {
-  // Note about why K.t is map isn't parameterised on both k and v
-  // https://stackoverflow.com/questions/14629642/ocaml-polymorphic-function-on-maps-with-generic-keys
-  module type S = {
-    // [data] represents variable, one of which is Package.t
-    // parameterising over Package.t with [data] is how we keep it out of our abstractions
-    type data;
-    module Map: Map.S with type key = data; // These maps btw contain keys that represent node module entries. Packages with same name are equal (even if different versions)
-    type t = Map.t(node) // likely a map of root nodes
-    and node = {
-      parent: option(Lazy.t(node)),
-      data,
-      children: Lazy.t(Map.t(node)),
-    };
-    let roots: t => Map.t(node);
-    let ofRoots: Map.t(node) => t;
-    let nodeUpdateChildren: (data, node, node) => node;
-    let nodeData: node => data;
-    let makeNode: (~parent: option(Lazy.t(node)), ~data: data) => node;
-  };
-};
-
 module type S = {
   type data;
   /** Represents the hoisted node_module graph. Each node's id is the package name (not version) */
@@ -49,6 +13,14 @@ module type S = {
       hoistedGraphNode
     ) =>
     result(hoistedGraph, string);
+
+  let hoistLineage:
+    (
+      ~lineage: list(hoistedGraphNode),
+      ~hoistedGraph: hoistedGraph,
+      hoistedGraphNode
+    ) =>
+    hoistedGraph;
 };
 
 module Make =
@@ -64,19 +36,34 @@ module Make =
   type hoistedGraph = HoistedGraph.t;
   type hoistedGraphNode = HoistedGraph.node;
 
-  let rec proceedMatching = (root: hoistedGraphNode, restOfLineage, node) => {
+  let rec proceedMatching = (~root: hoistedGraphNode, ~lineage, ~targetNode) => {
     let children = Lazy.force(root.children);
-    switch (restOfLineage) {
+    switch (lineage) {
     | [] =>
-      let dataField = HoistedGraph.nodeData(node);
+      let dataField = HoistedGraph.nodeData(targetNode);
       switch (HoistedGraph.Map.find_opt(dataField, children)) {
-      | Some(_) => Error("Cant hoist: child not empty")
-      | None => Ok(HoistedGraph.nodeUpdateChildren(dataField, node, root))
+      | Some(_) =>
+        // TODO review
+        Error("Cant hoist: package with same name exists")
+      | None =>
+        Ok(HoistedGraph.nodeUpdateChildren(dataField, targetNode, root))
       };
     | [h, ...r] =>
       switch (HoistedGraph.Map.find_opt(h, children)) {
-      | Some(child) => proceedMatching(child, r, node)
-      | None => Error("Cant hoist: in-between")
+      | Some(child) =>
+        switch (proceedMatching(~root=child, ~lineage=r, ~targetNode)) {
+        | Ok(newChild) =>
+          Ok(HoistedGraph.nodeUpdateChildren(h, newChild, root))
+        | Error(e) => Error(e)
+        }
+      | None =>
+        let child = HoistedGraph.makeNode(~parent=Some(lazy(root)), ~data=h);
+        let updatedRoot = HoistedGraph.nodeUpdateChildren(h, child, root);
+        proceedMatching(
+          ~root=updatedRoot /* hack: we're calling this fn again */,
+          ~lineage=[h, ...r],
+          ~targetNode,
+        );
       }
     };
   };
@@ -87,7 +74,13 @@ module Make =
     | [h, ...rest] =>
       switch (HoistedGraph.Map.find_opt(h, roots)) {
       | Some(hoistedGraphRoot) =>
-        switch (proceedMatching(hoistedGraphRoot, rest, node)) {
+        switch (
+          proceedMatching(
+            ~root=hoistedGraphRoot,
+            ~lineage=rest,
+            ~targetNode=node,
+          )
+        ) {
         | Ok(newRoot) =>
           HoistedGraph.Map.update(h, _ => Some(newRoot), roots)
           |> HoistedGraph.ofRoots
@@ -98,5 +91,47 @@ module Make =
       }
     | [] => Error("hypotheticalLineage should not be empty")
     };
+  };
+
+  /**
+       Notes:
+       [parentsSoFar] is a queue because we need fast appends as well has forward traversal
+       [hypotheticalLineage] can initially be empty, but should never return empty
+ */
+  let hoistLineage = (~lineage, ~hoistedGraph, pkg) => {
+    let rec aux = (~hypotheticalLineage, ~hoistedGraph, ~lineage, pkg) => {
+      switch (lineage) {
+      | [head, ...rest] =>
+        Queue.push(head, hypotheticalLineage);
+        // TODO: get rid of queue. We end up traversing right after
+        // creating it.
+        let hypotheticalLineageList =
+          hypotheticalLineage
+          |> Queue.to_seq
+          |> List.of_seq
+          |> List.map(~f=node => HoistedGraph.nodeData(node));
+        switch (
+          hoist(
+            ~hypotheticalLineage=hypotheticalLineageList,
+            ~hoistedGraph,
+            pkg,
+          )
+        ) {
+        | Ok(hoistedGraph) => hoistedGraph
+        | Error(msg) =>
+          print_endline(
+            Format.asprintf(
+              "Couldn't hoist %a: because: %s",
+              HoistedGraph.nodePp,
+              pkg,
+              msg,
+            ),
+          );
+          aux(~hypotheticalLineage, ~hoistedGraph, ~lineage=rest, pkg);
+        };
+      | [] => HoistedGraph.addRoot(~node=pkg, hoistedGraph)
+      };
+    };
+    aux(~hypotheticalLineage=Queue.create(), ~lineage, ~hoistedGraph, pkg);
   };
 };

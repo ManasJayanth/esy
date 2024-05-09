@@ -22,15 +22,21 @@ module HoistedGraph = {
     module Map: Map.S with type key = data; // These maps btw contain keys that represent node module entries. Packages with same name are equal (even if different versions)
     type t = Map.t(node) // likely a map of root nodes
     and node = {
-      parent: node,
+      parent: option(Lazy.t(node)),
       data,
-      children: Map.t(node),
+      children: Lazy.t(Map.t(node)),
     };
     let roots: t => Map.t(node);
     let ofRoots: Map.t(node) => t;
     let nodeUpdateChildren: (data, node, node) => node;
     let nodeData: node => data;
-    let children: node => Map.t(node);
+    let makeNode:
+      (
+        ~traverse: data => list(data),
+        ~parent: option(Lazy.t(node)),
+        ~data: data
+      ) =>
+      node;
   };
 };
 
@@ -64,8 +70,8 @@ module Make =
   type hoistedGraph = HoistedGraph.t;
   type hoistedGraphNode = HoistedGraph.node;
 
-  let rec proceedMatching = (root, restOfLineage, node) => {
-    let children = HoistedGraph.children(root);
+  let rec proceedMatching = (root: hoistedGraphNode, restOfLineage, node) => {
+    let children = Lazy.force(root.children);
     switch (restOfLineage) {
     | [] =>
       let dataField = HoistedGraph.nodeData(root);

@@ -74,15 +74,15 @@ module Make =
     let children = Lazy.force(root.children);
     switch (restOfLineage) {
     | [] =>
-      let dataField = HoistedGraph.nodeData(root);
+      let dataField = HoistedGraph.nodeData(node);
       switch (HoistedGraph.Map.find_opt(dataField, children)) {
-      | Some(_) => Error("Cant hoist")
+      | Some(_) => Error("Cant hoist: child not empty")
       | None => Ok(HoistedGraph.nodeUpdateChildren(dataField, node, root))
       };
     | [h, ...r] =>
       switch (HoistedGraph.Map.find_opt(h, children)) {
       | Some(child) => proceedMatching(child, r, node)
-      | None => Error("Cant hoist")
+      | None => Error("Cant hoist: in-between")
       }
     };
   };
@@ -100,7 +100,7 @@ module Make =
           |> Result.return
         | Error(e) => Error(e)
         }
-      | None => Error("Cant hois")
+      | None => Error("Lineage doesn't start with known roots")
       }
     | [] => Error("hypotheticalLineage should not be empty")
     };

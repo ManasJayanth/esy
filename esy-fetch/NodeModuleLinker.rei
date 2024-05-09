@@ -32,5 +32,10 @@ open EsyPrimitives;
 /*   RunAsync.t(unit); */
 
 let link:
-  (~fetchDepsSubset: FetchDepsSubset.t, ~solution: Solution.t) =>
+  (
+    ~installation: Installation.t,
+    ~projectPath: Path.t,
+    ~fetchDepsSubset: FetchDepsSubset.t,
+    ~solution: Solution.t
+  ) =>
   RunAsync.t(unit);

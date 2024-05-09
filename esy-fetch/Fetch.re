@@ -198,8 +198,8 @@ let fetch = (fetchDepsSubset, sandbox, solution, gitUsername, gitPassword) => {
         Esy_logs_lwt.debug(m => m("Linking NPM dependencies in node_modules"));
       NodeModuleLinker.link(
         ~solution,
-        /* ~installation, */
-        /* ~projectPath=sandbox.spec.path, */
+        ~installation,
+        ~projectPath=sandbox.spec.path,
         ~fetchDepsSubset,
       );
     } else {

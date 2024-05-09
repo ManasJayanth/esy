@@ -1,3 +1,5 @@
+open RunAsync.Syntax;
+
 /**
    Makes sure we dont link opam packages in node_modules
  */
@@ -16,20 +18,18 @@ let getNPMChildren = (~solution, ~fetchDepsSubset, node) => {
   Solution.dependenciesBySpec(solution, fetchDepsSubset, node)
   |> List.filter(~f);
 };
-/* let installPkg = (~installation, ~nodeModulesPath, childNode) => { */
-/*   print_endline( */
-/*     Format.asprintf("Linking %a \n---- ", Package.pp, childNode), */
-/*   ); */
-/*   let* () = */
-/*     RunAsync.ofLwt @@ */
-/*     Esy_logs_lwt.debug(m => */
-/*       m("NodeModuleLinker: installing %a", Package.pp, childNode) */
-/*     ); */
-/*   let pkgID = childNode.Package.id; */
-/*   let src = Installation.findExn(pkgID, installation); */
-/*   let dst = Path.(nodeModulesPath / childNode.Package.name); */
-/*   Fs.hardlinkPath(~src, ~dst); */
-/* }; */
+let installPkg = (~installation, ~nodeModulesPath, pkg) => {
+  let* () =
+    RunAsync.ofLwt @@
+    Esy_logs_lwt.debug(m =>
+      m("NodeModuleLinker: installing %a", Package.pp, pkg)
+    );
+  let pkgID = pkg.Package.id;
+  let src = Installation.findExn(pkgID, installation);
+  let dst = Path.(nodeModulesPath / pkg.Package.name);
+  Fs.hardlinkPath(~src, ~dst);
+};
+
 module HoistedGraph = {
   type data = Package.t;
   module Map = Map.Make(Package);
@@ -84,6 +84,42 @@ module HoistedGraph = {
       | None => makeNode'(~traverse, ~parent, ~data)
       };
     };
+  let addRoot = (~node, graph) => {
+    Map.add(node.data, node, graph);
+  };
+  let walk = (~f: node => RunAsync.t(unit), graph: t): RunAsync.t(unit) => {
+    let roots = roots(graph);
+    Map.fold(
+      (_k, v, acc) => {
+        let* () = acc;
+        f(v);
+      },
+      roots,
+      RunAsync.return(),
+    );
+  };
+
+  let constructLineage' = (acc, parent) => {
+    switch (parent.parent) {
+    | Some(grandparent) => [Lazy.force(grandparent), ...acc]
+    | None => acc
+    };
+  };
+  let constructLineage = constructLineage'([]);
+
+  let rec nodeModulesPathFromParent = (~baseNodeModulesPath, parent) => {
+    switch (parent.parent) {
+    | Some(_grandparent) =>
+      let lineage = constructLineage(parent); // This lineage is a list starting from oldest ancestor
+      let lineage = List.tl(lineage); // skip root which is just parent id
+      let init = baseNodeModulesPath;
+      let f = (acc, node) => {
+        Path.(acc / node.data.name / "node_modules");
+      };
+      List.fold_left(lineage, ~f, ~init);
+    | None => /* most likely case. ie all pkgs are directly under root  */ baseNodeModulesPath
+    };
+  };
 };
 
 let rec makeHoistedGraph = (~traverse, ~data, ~revLineage) => {
@@ -154,7 +190,7 @@ let hoistLineage = (~lineage, ~hoistedGraph, pkg) => {
       | Error(_) =>
         aux(~hypotheticalLineage, ~hoistedGraph, ~lineage=rest, pkg)
       };
-    | [] => failwith("Cannot hoist")
+    | [] => HoistedGraph.addRoot(~node=pkg, hoistedGraph)
     };
   };
   aux(~hypotheticalLineage=Queue.create(), ~lineage, ~hoistedGraph, pkg);
@@ -182,18 +218,49 @@ let rec iterateSolution = (~traverse, ~hoistedGraph, iterableSolution) => {
         |> List.rev;
       let hoistedGraph =
         hoistLineage(~lineage, ~hoistedGraph, nodeModuleEntry);
-      /* debugHoist(~node=nodeModuleEntry, ~lineage=hoistedLineage); */
       iterateSolution(~traverse, ~hoistedGraph, nextIterable);
-    | None => RunAsync.return() /* TODO should return hoistedGraph */
+    | None => hoistedGraph
     }
   );
 };
 
-let link = (~fetchDepsSubset, ~solution) => {
+let link = (~installation, ~projectPath, ~fetchDepsSubset, ~solution) => {
   open NodeModule;
   let traverse = getNPMChildren(~fetchDepsSubset, ~solution);
-  let hoistedGraph = HoistedGraph.empty;
+  let f = hoistedGraphNode => {
+    HoistedGraph.(
+      switch (hoistedGraphNode.parent) {
+      | Some(_parentHoistedGraphNode) =>
+        print_endline(
+          Format.asprintf(
+            "Node %a will be hoisted",
+            Package.pp,
+            hoistedGraphNode.data,
+          ),
+        );
+        installPkg(
+          ~installation,
+          ~nodeModulesPath=
+            nodeModulesPathFromParent(
+              ~baseNodeModulesPath=Path.(projectPath / "node_modules"),
+              hoistedGraphNode,
+            ),
+          hoistedGraphNode.data,
+        );
+      | None =>
+        print_endline(
+          Format.asprintf(
+            "Node %a will be skipped as it is a parent node",
+            Package.pp,
+            hoistedGraphNode.data,
+          ),
+        );
+        RunAsync.return();
+      }
+    );
+  };
   solution
   |> SolutionGraph.iterator
-  |> iterateSolution(~traverse, ~hoistedGraph);
+  |> iterateSolution(~traverse, ~hoistedGraph=HoistedGraph.empty)
+  |> HoistedGraph.walk(~f);
 };

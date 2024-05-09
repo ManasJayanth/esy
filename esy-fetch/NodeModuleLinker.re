@@ -4,8 +4,8 @@ open RunAsync.Syntax;
    Makes sure we dont link opam packages in node_modules
  */
 let getNPMChildren = (~solution, ~fetchDepsSubset, node) => {
-  let f = (pkg: Solution.pkg) => {
-    switch (pkg.Package.version) {
+  let f = (pkg: NodeModule.t) => {
+    switch (NodeModule.version(pkg)) {
     | Opam(_) => false
     | Npm(_)
     | Source(_) => true
@@ -31,135 +31,6 @@ let installPkg = (~installation, ~nodeModulesPath, pkg) => {
   Fs.hardlinkPath(~src, ~dst);
 };
 
-module HoistedGraph = {
-  type data = Package.t;
-  module Map = Map.Make(Package);
-  type t = Map.t(node)
-  and node = {
-    parent: option(Lazy.t(node)),
-    data: Package.t,
-    children: Lazy.t(Map.t(node)),
-  };
-
-  let rec parentPp = (fmt, parentNode) => {
-    switch (parentNode) {
-    | Some(parentNode) =>
-      let parentNode = Lazy.force(parentNode);
-      Package.pp(fmt, parentNode.data);
-    | None => Fmt.any("<no-parent>", fmt, ())
-    };
-  }
-  and childPp = Package.pp
-  and childrenPp = (fmt, children) => {
-    let sep = fmt => Fmt.any(" -- ", fmt);
-    let childrenAsList =
-      children
-      |> Lazy.force
-      |> Map.bindings
-      |> List.map(~f=((child, _true)) => child);
-    if (List.length(childrenAsList) == 0) {
-      Fmt.any("<no-children>", fmt, ());
-    } else {
-      childrenAsList |> Fmt.list(~sep, childPp, fmt);
-    };
-  }
-  and nodePp = (fmt, node) => {
-    let {parent, data, children} = node;
-    Fmt.pf(
-      fmt,
-      "\ndata: %a\nParents: %a\nChildren: %a",
-      Package.pp,
-      data,
-      parentPp,
-      parent,
-      childrenPp,
-      children,
-    );
-  };
-
-  let roots = roots => roots;
-  let empty = Map.empty;
-  let ofRoots = roots => roots;
-  let nodeUpdateChildren = (dataField, newNode, parent) => {
-    {
-      ...parent,
-      children:
-        lazy(Map.add(dataField, newNode, Lazy.force(parent.children))),
-    };
-  };
-  let nodeData = node => node.data;
-
-  let makeCache: Hashtbl.t(data, node) = Hashtbl.create(100);
-  let rec makeNode' = (~traverse, ~parent, ~data) => {
-    let init = Map.empty;
-    let f = (acc, child) => {
-      Map.add(
-        child,
-        makeNode(
-          ~traverse,
-          ~parent=Some(lazy(makeNode(~traverse, ~parent, ~data))),
-          ~data=child,
-        ),
-        acc,
-      );
-    };
-    {
-      parent,
-      data,
-      children: lazy(List.fold_left(~f, ~init, traverse(data))),
-    };
-  }
-  and makeNode:
-    (
-      ~traverse: Solution.pkg => list(Solution.pkg),
-      ~parent: option(Lazy.t(node)),
-      ~data: data
-    ) =>
-    node =
-    (~traverse, ~parent, ~data) => {
-      switch (Hashtbl.find_opt(makeCache, data)) {
-      | Some(node) => node
-      | None => makeNode'(~traverse, ~parent, ~data)
-      };
-    };
-  let addRoot = (~node, graph) => {
-    Map.add(node.data, node, graph);
-  };
-  let walk = (~f: node => RunAsync.t(unit), graph: t): RunAsync.t(unit) => {
-    let roots = roots(graph);
-    Map.fold(
-      (_k, v, acc) => {
-        let* () = acc;
-        f(v);
-      },
-      roots,
-      RunAsync.return(),
-    );
-  };
-
-  let constructLineage' = (acc, parent) => {
-    switch (parent.parent) {
-    | Some(grandparent) => [Lazy.force(grandparent), ...acc]
-    | None => acc
-    };
-  };
-  let constructLineage = constructLineage'([]);
-
-  let rec nodeModulesPathFromParent = (~baseNodeModulesPath, parent) => {
-    switch (parent.parent) {
-    | Some(_grandparent) =>
-      let lineage = constructLineage(parent); // This lineage is a list starting from oldest ancestor
-      let lineage = List.tl(lineage); // skip root which is just parent id
-      let init = baseNodeModulesPath;
-      let f = (acc, node) => {
-        Path.(acc / node.data.name / "node_modules");
-      };
-      List.fold_left(lineage, ~f, ~init);
-    | None => /* most likely case. ie all pkgs are directly under root  */ baseNodeModulesPath
-    };
-  };
-};
-
 let rec makeHoistedGraph = (~traverse, ~data, ~revLineage) => {
   let parent =
     switch (revLineage) {
@@ -178,29 +49,26 @@ module HoistingAlgorithm = HoistingAlgorithm.Make(Package, HoistedGraph);
 
 let _debug = (~node) => HoistedGraph.nodePp(node);
 
-let _debugHoist = (~node, ~lineage) => {
-  NodeModule.(
-    if (List.length(lineage) > 0) {
-      print_endline(
-        Format.asprintf(
-          "Node %a will be hoisted to %a",
-          Package.pp,
-          node.SolutionGraph.data,
-          SolutionGraph.parentsPp,
-          lineage,
-        ),
-      );
-    } else {
-      print_endline(
-        Format.asprintf(
-          "Node %a will be hoisted to <root>",
-          Package.pp,
-          node.NodeModule.SolutionGraph.data,
-        ),
-      );
-    }
-  );
-};
+let _debugHoist = (~node, ~lineage) =>
+  if (List.length(lineage) > 0) {
+    print_endline(
+      Format.asprintf(
+        "Node %a will be hoisted to %a",
+        Package.pp,
+        node.SolutionGraph.data,
+        SolutionGraph.parentsPp,
+        lineage,
+      ),
+    );
+  } else {
+    print_endline(
+      Format.asprintf(
+        "Node %a will be hoisted to <root>",
+        Package.pp,
+        node.SolutionGraph.data,
+      ),
+    );
+  };
 
 /**
        Notes:
@@ -237,7 +105,6 @@ let hoistLineage = (~lineage, ~hoistedGraph, pkg) => {
 };
 
 let hoistedGraphNodeOfSolutionNode = (~traverse, solutionGraphNode) => {
-  open NodeModule;
   let SolutionGraph.{parents, data} = solutionGraphNode;
   // TODO rename [parents] to [parentsInReverse]
   let revLineageData =
@@ -248,24 +115,20 @@ let hoistedGraphNodeOfSolutionNode = (~traverse, solutionGraphNode) => {
 };
 
 let rec iterateSolution = (~traverse, ~hoistedGraph, iterableSolution) => {
-  NodeModule.(
-    switch (SolutionGraph.take(~traverse, iterableSolution)) {
-    | Some((node, nextIterable)) =>
-      let nodeModuleEntry = hoistedGraphNodeOfSolutionNode(~traverse, node);
-      let lineage =
-        node.parents
-        |> List.map(~f=hoistedGraphNodeOfSolutionNode(~traverse))
-        |> List.rev;
-      let hoistedGraph =
-        hoistLineage(~lineage, ~hoistedGraph, nodeModuleEntry);
-      iterateSolution(~traverse, ~hoistedGraph, nextIterable);
-    | None => hoistedGraph
-    }
-  );
+  switch (SolutionGraph.take(~traverse, iterableSolution)) {
+  | Some((node, nextIterable)) =>
+    let nodeModuleEntry = hoistedGraphNodeOfSolutionNode(~traverse, node);
+    let lineage =
+      node.parents
+      |> List.map(~f=hoistedGraphNodeOfSolutionNode(~traverse))
+      |> List.rev;
+    let hoistedGraph = hoistLineage(~lineage, ~hoistedGraph, nodeModuleEntry);
+    iterateSolution(~traverse, ~hoistedGraph, nextIterable);
+  | None => hoistedGraph
+  };
 };
 
 let link = (~installation, ~projectPath, ~fetchDepsSubset, ~solution) => {
-  open NodeModule;
   let traverse = getNPMChildren(~fetchDepsSubset, ~solution);
   let f = hoistedGraphNode => {
     HoistedGraph.(

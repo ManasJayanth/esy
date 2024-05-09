@@ -101,7 +101,7 @@ module Make =
 
      This is unfortunate. And needs a hack to work around. Lazy lineage computation would solve this.
  */
-  let rec hoistLineage' = (~hypotheticalLineage, ~hoistedGraph, ~lineage, pkg) => {
+  let rec hoistLineage' = (~hypotheticalLineage, ~lineage, ~hoistedGraph, pkg) => {
     switch (lineage) {
     | [head, ...rest] =>
       Queue.push(head, hypotheticalLineage);
@@ -147,12 +147,5 @@ module Make =
       HoistedGraph.addRoot(~node=pkg, hoistedGraph)
     };
   };
-  let hoistLineage = (~lineage, ~hoistedGraph, pkg) => {
-    hoistLineage'(
-      ~hypotheticalLineage=Queue.create(),
-      ~lineage,
-      ~hoistedGraph,
-      pkg,
-    );
-  };
+  let hoistLineage = hoistLineage'(~hypotheticalLineage=Queue.create());
 };

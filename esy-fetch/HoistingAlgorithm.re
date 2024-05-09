@@ -97,41 +97,69 @@ module Make =
        Notes:
        [parentsSoFar] is a queue because we need fast appends as well has forward traversal
        [hypotheticalLineage] can initially be empty, but should never return empty
+
+
+     TODO: lineage == [] could mean,
+     1. we finished processing lineage
+     2. node has no parents
+
+     This is unfortunate. And needs a hack to work around. Lazy lineage computation would solve this.
  */
-  let hoistLineage = (~lineage, ~hoistedGraph, pkg) => {
-    let rec aux = (~hypotheticalLineage, ~hoistedGraph, ~lineage, pkg) => {
-      switch (lineage) {
-      | [head, ...rest] =>
-        Queue.push(head, hypotheticalLineage);
-        // TODO: get rid of queue. We end up traversing right after
-        // creating it.
-        let hypotheticalLineageList =
-          hypotheticalLineage
-          |> Queue.to_seq
-          |> List.of_seq
-          |> List.map(~f=node => HoistedGraph.nodeData(node));
-        switch (
-          hoist(
-            ~hypotheticalLineage=hypotheticalLineageList,
-            ~hoistedGraph,
+  let rec hoistLineage' = (~hypotheticalLineage, ~hoistedGraph, ~lineage, pkg) => {
+    switch (lineage) {
+    | [head, ...rest] =>
+      Queue.push(head, hypotheticalLineage);
+      // TODO: get rid of queue. We end up traversing right after
+      // creating it.
+      let hypotheticalLineageList =
+        hypotheticalLineage
+        |> Queue.to_seq
+        |> List.of_seq
+        |> List.map(~f=node => HoistedGraph.nodeData(node));
+      switch (
+        hoist(
+          ~hypotheticalLineage=hypotheticalLineageList,
+          ~hoistedGraph,
+          pkg,
+        )
+      ) {
+      | Ok(hoistedGraph) => hoistedGraph
+      | Error(msg) =>
+        print_endline(
+          Format.asprintf(
+            "Couldn't hoist %a: because: %s",
+            HoistedGraph.nodePp,
             pkg,
-          )
-        ) {
-        | Ok(hoistedGraph) => hoistedGraph
-        | Error(msg) =>
-          print_endline(
-            Format.asprintf(
-              "Couldn't hoist %a: because: %s",
-              HoistedGraph.nodePp,
-              pkg,
-              msg,
-            ),
+            msg,
+          ),
+        );
+        // Workaround to make sure we dont recurse as we have finished through
+        // the lineage. See notes in docstring
+        if (List.length(rest) > 0) {
+          hoistLineage'(
+            ~hypotheticalLineage,
+            ~hoistedGraph,
+            ~lineage=rest,
+            pkg,
           );
-          aux(~hypotheticalLineage, ~hoistedGraph, ~lineage=rest, pkg);
+        } else {
+          hoistedGraph;
         };
-      | [] => HoistedGraph.addRoot(~node=pkg, hoistedGraph)
       };
+    | [] =>
+      // HACK! TODO remove this
+      // This should only be done when a node has empty lineage.
+      // not because we kept recursing and ran out of lineage.
+      // See notes in the docstring
+      HoistedGraph.addRoot(~node=pkg, hoistedGraph)
     };
-    aux(~hypotheticalLineage=Queue.create(), ~lineage, ~hoistedGraph, pkg);
+  };
+  let hoistLineage = (~lineage, ~hoistedGraph, pkg) => {
+    hoistLineage'(
+      ~hypotheticalLineage=Queue.create(),
+      ~lineage,
+      ~hoistedGraph,
+      pkg,
+    );
   };
 };

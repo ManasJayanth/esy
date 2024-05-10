@@ -20,7 +20,7 @@ and nodePp = (fmt, node) => {
   let {parent, data} = node;
   Fmt.pf(
     fmt,
-    "\ndata: %a\nParents: %a\n",
+    "-- SolutionNode: --\ndata: %a\nParents: %a\n",
     Package.pp,
     data,
     parentPp,

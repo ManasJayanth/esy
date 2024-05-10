@@ -87,7 +87,7 @@ and nodePp = (fmt, node) => {
   let {parent, data, children} = node;
   Fmt.pf(
     fmt,
-    "\ndata: %a\nParent: %a\nChildren: %a",
+    "-- HoistedNodeModulesGraph: --\ndata: %a\nParent: %a\nChildren: %a",
     NodeModule.pp,
     data,
     parentPp,

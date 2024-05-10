@@ -31,7 +31,8 @@ let installPkg = (~installation, ~nodeModulesPath, pkg) => {
   Fs.hardlinkPath(~src, ~dst);
 };
 
-module HoistingAlgorithm = HoistingAlgorithm.Make(Package, HoistedNodeModulesGraph);
+module HoistingAlgorithm =
+  HoistingAlgorithm.Make(Package, HoistedNodeModulesGraph);
 
 let _debug = (~node) => HoistedNodeModulesGraph.nodePp(node);
 
@@ -56,15 +57,24 @@ let _debugHoist = (~node, ~lineage) =>
     );
   };
 
+module SolutionGraphLineage = Lineage.Make(SolutionGraph);
 let rec iterateSolution = (~traverse, ~hoistedGraph, iterableSolution) => {
   switch (SolutionGraph.take(~traverse, iterableSolution)) {
   | Some((node, nextIterable)) =>
-    let SolutionGraph.{data, parents /* actually parents in reverse */} = node;
-    let nodeModuleEntry = HoistedNodeModulesGraph.makeNode(~data, ~parent=None);
+    let SolutionGraph.{data, parent} = node;
+    let nodeModuleEntry =
+      HoistedNodeModulesGraph.makeNode(~data, ~parent=None);
     let lineage =
-      parents
-      |> List.map(~f=solutionNode => solutionNode.SolutionGraph.data)
-      |> List.rev;
+      switch (parent) {
+      | Some(parent) =>
+        parent
+        |> Lazy.force
+        |> SolutionGraphLineage.constructLineage
+        |> List.map(~f=solutionGraphNode =>
+             solutionGraphNode.SolutionGraph.data
+           )
+      | None => []
+      };
     let hoistedGraph =
       HoistingAlgorithm.hoistLineage(
         ~lineage,
@@ -73,6 +83,25 @@ let rec iterateSolution = (~traverse, ~hoistedGraph, iterableSolution) => {
       );
     iterateSolution(~traverse, ~hoistedGraph, nextIterable);
   | None => hoistedGraph
+  };
+};
+
+module NodeModuleLineage = Lineage.Make(HoistedNodeModulesGraph);
+let rec nodeModulesPathFromParent = (~baseNodeModulesPath, parent) => {
+  switch (HoistedNodeModulesGraph.parent(parent)) {
+  | Some(_grandparent) =>
+    let lineage = NodeModuleLineage.constructLineage(parent); // This lineage is a list starting from oldest ancestor
+    let lineage = List.tl(lineage); // skip root which is just parent id
+    let init = baseNodeModulesPath;
+    let f = (acc, node) => {
+      Path.(
+        acc
+        / NodeModule.name(node.HoistedNodeModulesGraph.data)
+        / "node_modules"
+      );
+    };
+    List.fold_left(lineage, ~f, ~init);
+  | None => /* most likely case. ie all pkgs are directly under root  */ baseNodeModulesPath
   };
 };
 
@@ -111,6 +140,9 @@ let link = (~installation, ~projectPath, ~fetchDepsSubset, ~solution) => {
   };
   solution
   |> SolutionGraph.iterator
-  |> iterateSolution(~traverse, ~hoistedGraph=HoistedNodeModulesGraph.init(~traverse))
+  |> iterateSolution(
+       ~traverse,
+       ~hoistedGraph=HoistedNodeModulesGraph.init(~traverse),
+     )
   |> HoistedNodeModulesGraph.walk(~f);
 };

@@ -1,16 +1,16 @@
 /** Abstract value to help provide a iterator API into solution graph */
 type state;
 
-type parents = list(node)
-// TODO rename [parents] to [parentsInReverse]
-// even better: make lineage computation lazy here too
+type parent = option(Lazy.t(node))
 and node = {
-  parents,
+  parent,
   data: Solution.pkg,
 };
 
+let parent: node => parent;
 let nodePp: Fmt.t(node);
-let parentsPp: Fmt.t(parents);
+let parentPp: Fmt.t(parent);
+let parentsPp: Fmt.t(list(parent));
 
 type traversalFn = Solution.pkg => list(Solution.pkg);
 

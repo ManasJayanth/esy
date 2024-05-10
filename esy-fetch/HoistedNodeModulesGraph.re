@@ -26,6 +26,7 @@ module type S = {
     data,
     children: Lazy.t(Map.t(node)),
   };
+  let parent: node => option(Lazy.t(node));
   let roots: t => Map.t(node);
   let ofRoots: Map.t(node) => t;
   let nodeUpdateChildren: (data, node, node) => node;
@@ -45,6 +46,7 @@ and node = {
   children: Lazy.t(Map.t(node)),
 };
 
+let parent = ({parent, _}) => parent;
 let rec parentPp = (fmt, parentNode) => {
   switch (parentNode) {
   | Some(parentNode) =>
@@ -130,29 +132,6 @@ let walk = (~f: node => RunAsync.t(unit), graph: t): RunAsync.t(unit) => {
     roots,
     RunAsync.return(),
   );
-};
-
-let constructLineage' = (acc, parent) => {
-  switch (parent.parent) {
-  | Some(grandparent) => [Lazy.force(grandparent), ...acc]
-  | None => acc
-  };
-};
-
-let constructLineage = constructLineage'([]);
-
-let rec nodeModulesPathFromParent = (~baseNodeModulesPath, parent) => {
-  switch (parent.parent) {
-  | Some(_grandparent) =>
-    let lineage = constructLineage(parent); // This lineage is a list starting from oldest ancestor
-    let lineage = List.tl(lineage); // skip root which is just parent id
-    let init = baseNodeModulesPath;
-    let f = (acc, node) => {
-      Path.(acc / NodeModule.name(node.data) / "node_modules");
-    };
-    List.fold_left(lineage, ~f, ~init);
-  | None => /* most likely case. ie all pkgs are directly under root  */ baseNodeModulesPath
-  };
 };
 
 let init = (~traverse: 'a => list('a)) => {

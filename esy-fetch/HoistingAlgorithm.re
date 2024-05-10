@@ -44,7 +44,7 @@ module Make =
       switch (HoistedNodeModulesGraph.Map.find_opt(dataField, children)) {
       | Some(_) =>
         // TODO review
-        Error("Cant hoist: package with same name exists")
+        Error("Package with same name exists")
       | None =>
         Ok(
           HoistedNodeModulesGraph.nodeUpdateChildren(
@@ -127,10 +127,12 @@ module Make =
       | Error(msg) =>
         print_endline(
           Format.asprintf(
-            "Couldn't hoist %a: because: %s",
+            "Couldn't hoist %a \nBecause: %s\nLineage: %a",
             HoistedNodeModulesGraph.nodePp,
             node,
             msg,
+            HoistedNodeModulesGraph.dataListPp,
+            hypotheticalLineage,
           ),
         );
         // Workaround to make sure we dont recurse as we have finished through

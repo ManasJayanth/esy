@@ -33,6 +33,7 @@ module type S = {
   let nodeData: node => data;
   let makeNode: (~parent: option(Lazy.t(node)), ~data: data) => node;
   let nodePp: Fmt.t(node);
+  let dataListPp: Fmt.t(list(data));
   let addRoot: (~node: node, t) => t;
 };
 
@@ -46,6 +47,15 @@ and node = {
   children: Lazy.t(Map.t(node)),
 };
 
+let dataListPp = (fmt, data) => {
+  let sep = fmt => Fmt.any(" -- ", fmt);
+  if (List.length(data) == 0) {
+    Fmt.any("<empty>", fmt, ());
+  } else {
+    data |> Fmt.list(~sep, Package.pp, fmt);
+  };
+};
+
 let parent = ({parent, _}) => parent;
 let rec parentPp = (fmt, parentNode) => {
   switch (parentNode) {
@@ -54,6 +64,10 @@ let rec parentPp = (fmt, parentNode) => {
     NodeModule.pp(fmt, parentNode.data);
   | None => Fmt.any("<no-parent>", fmt, ())
   };
+}
+and parentsPp = fmt => {
+  let sep = fmt => Fmt.any(" -> ", fmt);
+  Fmt.list(~sep, parentPp, fmt);
 }
 and childPp = NodeModule.pp
 and childrenPp = (fmt, children) => {
@@ -73,7 +87,7 @@ and nodePp = (fmt, node) => {
   let {parent, data, children} = node;
   Fmt.pf(
     fmt,
-    "\ndata: %a\nParents: %a\nChildren: %a",
+    "\ndata: %a\nParent: %a\nChildren: %a",
     NodeModule.pp,
     data,
     parentPp,
@@ -87,6 +101,7 @@ let roots = roots => roots;
 let empty = Map.empty;
 let ofRoots = roots => roots;
 let nodeUpdateChildren = (dataField, newNode, parent) => {
+  let newNode = {...newNode, parent: Some(lazy(parent))};
   {
     ...parent,
     children: lazy(Map.add(dataField, newNode, Lazy.force(parent.children))),

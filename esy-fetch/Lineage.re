@@ -14,7 +14,7 @@ module Make = (M: M) : (S with type t := M.node) => {
     | Some(parent) =>
       let parent = Lazy.force(parent);
       constructLineage'([parent, ...acc], parent);
-    | None => List.rev(acc)
+    | None => acc
     };
   };
 

@@ -20,7 +20,11 @@ module type S = {
 };
 
 module Make =
-       (K: Map.OrderedType, HoistedNodeModulesGraph: HoistedNodeModulesGraph.S with type data = K.t)
+       (
+         K: Map.OrderedType,
+         HoistedNodeModulesGraph:
+           HoistedNodeModulesGraph.S with type data = K.t,
+       )
 
          : (
            S with
@@ -42,7 +46,13 @@ module Make =
         // TODO review
         Error("Cant hoist: package with same name exists")
       | None =>
-        Ok(HoistedNodeModulesGraph.nodeUpdateChildren(dataField, targetNode, root))
+        Ok(
+          HoistedNodeModulesGraph.nodeUpdateChildren(
+            dataField,
+            targetNode,
+            root,
+          ),
+        )
       };
     | [h, ...r] =>
       switch (HoistedNodeModulesGraph.Map.find_opt(h, children)) {
@@ -53,8 +63,13 @@ module Make =
         | Error(e) => Error(e)
         }
       | None =>
-        let child = HoistedNodeModulesGraph.makeNode(~parent=Some(lazy(root)), ~data=h);
-        let updatedRoot = HoistedNodeModulesGraph.nodeUpdateChildren(h, child, root);
+        let child =
+          HoistedNodeModulesGraph.makeNode(
+            ~parent=Some(lazy(root)),
+            ~data=h,
+          );
+        let updatedRoot =
+          HoistedNodeModulesGraph.nodeUpdateChildren(h, child, root);
         proceedMatching(
           ~root=updatedRoot /* hack: we're calling this fn again */,
           ~lineage=[h, ...r],
@@ -91,7 +106,8 @@ module Make =
 
   /**
        Notes:
-       [parentsSoFar] is a queue because we need fast appends as well has forward traversal
+     We got rid of Queue.t since we endup traversing it immmediately. It was stateful and
+     tricky to reason about.
        [hypotheticalLineage] can initially be empty, but should never return empty
 
 
@@ -105,18 +121,8 @@ module Make =
           (~hypotheticalLineage, ~lineage, ~hoistedGraph, node) => {
     switch (lineage) {
     | [head, ...rest] =>
-      Queue.push(head, hypotheticalLineage);
-      // TODO: get rid of queue. We end up traversing right after
-      // creating it.
-      let hypotheticalLineageList =
-        hypotheticalLineage |> Queue.to_seq |> List.of_seq;
-      switch (
-        hoist(
-          ~hypotheticalLineage=hypotheticalLineageList,
-          ~hoistedGraph,
-          node,
-        )
-      ) {
+      let hypotheticalLineage = hypotheticalLineage @ [head];
+      switch (hoist(~hypotheticalLineage, ~hoistedGraph, node)) {
       | Ok(hoistedGraph) => hoistedGraph
       | Error(msg) =>
         print_endline(
@@ -148,5 +154,5 @@ module Make =
       HoistedNodeModulesGraph.addRoot(~node, hoistedGraph)
     };
   };
-  let hoistLineage = hoistLineage'(~hypotheticalLineage=Queue.create());
+  let hoistLineage = hoistLineage'(~hypotheticalLineage=[]);
 };

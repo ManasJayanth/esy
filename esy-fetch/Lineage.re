@@ -12,9 +12,10 @@ module Make = (M: M) : (S with type t := M.node) => {
   let constructLineage' = (acc, parent) => {
     switch (M.parent(parent)) {
     | Some(grandparent) => [Lazy.force(grandparent), ...acc]
-    | None => acc
+    | None => List.rev(acc)
     };
   };
 
+  /** Returns a list of paents (lineage) starting from oldest ancestor first */
   let constructLineage = constructLineage'([]);
 };

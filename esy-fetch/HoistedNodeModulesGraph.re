@@ -1,4 +1,3 @@
-open RunAsync.Syntax;
 /**
    Checks if [nodeModuleEntry] can be hoisted under the last element
    in [hypotheticalLineage].
@@ -137,17 +136,40 @@ let addRoot = (~node, graph) => {
   Map.add(node.data, node, graph);
 };
 
-let walk = (~f: node => RunAsync.t(unit), graph: t): RunAsync.t(unit) => {
-  // TODO needs an iterator
+type state = {
+  queue: Queue.t(node),
+  visited: Map.t(bool),
+};
+let isVisited = (visitedMap, node) => {
+  visitedMap |> Map.find_opt(node) |> Stdlib.Option.value(~default=false);
+};
+let iterator = graph => {
+  let queue = Queue.create();
   let roots = roots(graph);
-  Map.fold(
-    (_k, v, acc) => {
-      let* () = acc;
-      f(v);
-    },
-    roots,
-    RunAsync.return(),
-  );
+  roots
+  |> Map.bindings
+  |> List.iter(~f=((_data, root)) => {Queue.push(root, queue)});
+  let visited = Map.empty;
+  {queue, visited};
+};
+
+let take = iterable => {
+  let {queue, visited} = iterable;
+  let dequeue = node => {
+    let {data: pkg, _} = node;
+    let f = node =>
+      if (!isVisited(visited, node.data)) {
+        Queue.push(node, queue);
+      };
+    node.children
+    |> Lazy.force
+    |> Map.bindings
+    |> List.map(~f=((_k, v)) => v)
+    |> List.iter(~f);
+    let visited = Map.update(pkg, _ => Some(true), visited);
+    (node, {queue, visited});
+  };
+  queue |> Queue.take_opt |> Option.map(~f=dequeue);
 };
 
 let init = (~traverse: 'a => list('a)) => {

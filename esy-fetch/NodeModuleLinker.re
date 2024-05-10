@@ -126,6 +126,15 @@ let rec nodeModulesPathFromParent = (~baseNodeModulesPath, parent) => {
   };
 };
 
+let rec iterateHoistedNodeModulesGraph = (~f, iterableGraph) => {
+  switch (HoistedNodeModulesGraph.take(iterableGraph)) {
+  | Some((node, nextIterable)) =>
+    let* () = f(node);
+    iterateHoistedNodeModulesGraph(~f, nextIterable);
+  | None => RunAsync.return()
+  };
+};
+
 let link = (~installation, ~projectPath, ~fetchDepsSubset, ~solution) => {
   let traverse = getNPMChildren(~fetchDepsSubset, ~solution);
   let f = hoistedGraphNode => {
@@ -165,5 +174,6 @@ let link = (~installation, ~projectPath, ~fetchDepsSubset, ~solution) => {
        ~traverse,
        ~hoistedGraph=HoistedNodeModulesGraph.init(~traverse),
      )
-  |> HoistedNodeModulesGraph.walk(~f);
+  |> HoistedNodeModulesGraph.iterator
+  |> iterateHoistedNodeModulesGraph(~f);
 };

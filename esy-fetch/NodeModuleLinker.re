@@ -62,25 +62,40 @@ let rec iterateSolution = (~traverse, ~hoistedGraph, iterableSolution) => {
   switch (SolutionGraph.take(~traverse, iterableSolution)) {
   | Some((node, nextIterable)) =>
     let SolutionGraph.{data, parent} = node;
+    print_endline(
+      Format.asprintf(
+        "Solution Node %a being processed",
+        SolutionGraph.nodePp,
+        node,
+      ),
+    );
     let nodeModuleEntry =
       HoistedNodeModulesGraph.makeNode(~data, ~parent=None);
-    let lineage =
-      switch (parent) {
-      | Some(parent) =>
-        parent
-        |> Lazy.force
-        |> SolutionGraphLineage.constructLineage
-        |> List.map(~f=solutionGraphNode =>
-             solutionGraphNode.SolutionGraph.data
-           )
-      | None => []
-      };
     let hoistedGraph =
-      HoistingAlgorithm.hoistLineage(
-        ~lineage,
-        ~hoistedGraph,
-        nodeModuleEntry,
-      );
+      switch (parent) {
+      | Some(_parent) =>
+        let lineage =
+          node
+          |> SolutionGraphLineage.constructLineage
+          |> List.map(~f=solutionGraphNode =>
+               solutionGraphNode.SolutionGraph.data
+             );
+        print_endline(
+          Format.asprintf(
+            "Here with node %a with lineage length %d",
+            SolutionGraph.nodePp,
+            node,
+            List.length(lineage),
+          ),
+        );
+        HoistingAlgorithm.hoistLineage(
+          ~lineage,
+          ~hoistedGraph,
+          nodeModuleEntry,
+        );
+      | None =>
+        HoistedNodeModulesGraph.addRoot(~node=nodeModuleEntry, hoistedGraph)
+      };
     iterateSolution(~traverse, ~hoistedGraph, nextIterable);
   | None => hoistedGraph
   };

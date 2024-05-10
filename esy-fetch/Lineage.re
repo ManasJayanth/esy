@@ -9,9 +9,11 @@ module type S = {
 };
 
 module Make = (M: M) : (S with type t := M.node) => {
-  let constructLineage' = (acc, parent) => {
-    switch (M.parent(parent)) {
-    | Some(grandparent) => [Lazy.force(grandparent), ...acc]
+  let rec constructLineage' = (acc, node) => {
+    switch (M.parent(node)) {
+    | Some(parent) =>
+      let parent = Lazy.force(parent);
+      constructLineage'([parent, ...acc], parent);
     | None => List.rev(acc)
     };
   };

@@ -138,6 +138,7 @@ let addRoot = (~node, graph) => {
 };
 
 let walk = (~f: node => RunAsync.t(unit), graph: t): RunAsync.t(unit) => {
+  // TODO needs an iterator
   let roots = roots(graph);
   Map.fold(
     (_k, v, acc) => {

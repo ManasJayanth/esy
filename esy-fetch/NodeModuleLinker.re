@@ -31,8 +31,14 @@ let installPkg = (~installation, ~nodeModulesPath, pkg) => {
   Fs.hardlinkPath(~src, ~dst);
 };
 
+module Data = {
+  include Package;
+  let sameVersion = (a, b) =>
+    EsyPackageConfig.Version.compare(a.version, b.version);
+};
+
 module HoistingAlgorithm =
-  HoistingAlgorithm.Make(Package, HoistedNodeModulesGraph);
+  HoistingAlgorithm.Make(Data, HoistedNodeModulesGraph);
 
 let _debug = (~node) => HoistedNodeModulesGraph.nodePp(node);
 

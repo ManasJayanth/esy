@@ -19,9 +19,14 @@ module type S = {
     hoistedGraph;
 };
 
+module type Data = {
+  include Map.OrderedType;
+  let sameVersion: (t, t) => int;
+};
+
 module Make =
        (
-         K: Map.OrderedType,
+         K: Data,
          HoistedNodeModulesGraph:
            HoistedNodeModulesGraph.S with type data = K.t,
        )
@@ -42,9 +47,13 @@ module Make =
     | [] =>
       let dataField = HoistedNodeModulesGraph.nodeData(targetNode);
       switch (HoistedNodeModulesGraph.Map.find_opt(dataField, children)) {
-      | Some(_) =>
+      | Some(existingChild) =>
         // TODO review
-        Error("Package with same name exists")
+        if (K.sameVersion(dataField, existingChild.data) == 0) {
+          Ok(root);
+        } else {
+          Error("Package with same name exists");
+        }
       | None =>
         Ok(
           HoistedNodeModulesGraph.nodeUpdateChildren(

@@ -20,41 +20,41 @@ module type S = {
 };
 
 module Make =
-       (K: Map.OrderedType, HoistedGraph: HoistedGraph.S with type data = K.t)
+       (K: Map.OrderedType, HoistedNodeModulesGraph: HoistedNodeModulesGraph.S with type data = K.t)
 
          : (
            S with
-             type hoistedGraph = HoistedGraph.t and
-             type hoistedGraphNode = HoistedGraph.node and
+             type hoistedGraph = HoistedNodeModulesGraph.t and
+             type hoistedGraphNode = HoistedNodeModulesGraph.node and
              type data = K.t
        ) => {
   type data = K.t;
-  type hoistedGraph = HoistedGraph.t;
-  type hoistedGraphNode = HoistedGraph.node;
+  type hoistedGraph = HoistedNodeModulesGraph.t;
+  type hoistedGraphNode = HoistedNodeModulesGraph.node;
 
   let rec proceedMatching = (~root: hoistedGraphNode, ~lineage, ~targetNode) => {
     let children = Lazy.force(root.children);
     switch (lineage) {
     | [] =>
-      let dataField = HoistedGraph.nodeData(targetNode);
-      switch (HoistedGraph.Map.find_opt(dataField, children)) {
+      let dataField = HoistedNodeModulesGraph.nodeData(targetNode);
+      switch (HoistedNodeModulesGraph.Map.find_opt(dataField, children)) {
       | Some(_) =>
         // TODO review
         Error("Cant hoist: package with same name exists")
       | None =>
-        Ok(HoistedGraph.nodeUpdateChildren(dataField, targetNode, root))
+        Ok(HoistedNodeModulesGraph.nodeUpdateChildren(dataField, targetNode, root))
       };
     | [h, ...r] =>
-      switch (HoistedGraph.Map.find_opt(h, children)) {
+      switch (HoistedNodeModulesGraph.Map.find_opt(h, children)) {
       | Some(child) =>
         switch (proceedMatching(~root=child, ~lineage=r, ~targetNode)) {
         | Ok(newChild) =>
-          Ok(HoistedGraph.nodeUpdateChildren(h, newChild, root))
+          Ok(HoistedNodeModulesGraph.nodeUpdateChildren(h, newChild, root))
         | Error(e) => Error(e)
         }
       | None =>
-        let child = HoistedGraph.makeNode(~parent=Some(lazy(root)), ~data=h);
-        let updatedRoot = HoistedGraph.nodeUpdateChildren(h, child, root);
+        let child = HoistedNodeModulesGraph.makeNode(~parent=Some(lazy(root)), ~data=h);
+        let updatedRoot = HoistedNodeModulesGraph.nodeUpdateChildren(h, child, root);
         proceedMatching(
           ~root=updatedRoot /* hack: we're calling this fn again */,
           ~lineage=[h, ...r],
@@ -65,10 +65,10 @@ module Make =
   };
 
   let hoist = (~hypotheticalLineage, ~hoistedGraph, node) => {
-    let roots = HoistedGraph.roots(hoistedGraph);
+    let roots = HoistedNodeModulesGraph.roots(hoistedGraph);
     switch (hypotheticalLineage) {
     | [h, ...rest] =>
-      switch (HoistedGraph.Map.find_opt(h, roots)) {
+      switch (HoistedNodeModulesGraph.Map.find_opt(h, roots)) {
       | Some(hoistedGraphRoot) =>
         switch (
           proceedMatching(
@@ -78,8 +78,8 @@ module Make =
           )
         ) {
         | Ok(newRoot) =>
-          HoistedGraph.Map.update(h, _ => Some(newRoot), roots)
-          |> HoistedGraph.ofRoots
+          HoistedNodeModulesGraph.Map.update(h, _ => Some(newRoot), roots)
+          |> HoistedNodeModulesGraph.ofRoots
           |> Result.return
         | Error(e) => Error(e)
         }
@@ -122,7 +122,7 @@ module Make =
         print_endline(
           Format.asprintf(
             "Couldn't hoist %a: because: %s",
-            HoistedGraph.nodePp,
+            HoistedNodeModulesGraph.nodePp,
             node,
             msg,
           ),
@@ -145,7 +145,7 @@ module Make =
       // This should only be done when a node has empty lineage.
       // not because we kept recursing and ran out of lineage.
       // See notes in the docstring
-      HoistedGraph.addRoot(~node, hoistedGraph)
+      HoistedNodeModulesGraph.addRoot(~node, hoistedGraph)
     };
   };
   let hoistLineage = hoistLineage'(~hypotheticalLineage=Queue.create());

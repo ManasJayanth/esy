@@ -31,9 +31,9 @@ let installPkg = (~installation, ~nodeModulesPath, pkg) => {
   Fs.hardlinkPath(~src, ~dst);
 };
 
-module HoistingAlgorithm = HoistingAlgorithm.Make(Package, HoistedGraph);
+module HoistingAlgorithm = HoistingAlgorithm.Make(Package, HoistedNodeModulesGraph);
 
-let _debug = (~node) => HoistedGraph.nodePp(node);
+let _debug = (~node) => HoistedNodeModulesGraph.nodePp(node);
 
 let _debugHoist = (~node, ~lineage) =>
   if (List.length(lineage) > 0) {
@@ -60,7 +60,7 @@ let rec iterateSolution = (~traverse, ~hoistedGraph, iterableSolution) => {
   switch (SolutionGraph.take(~traverse, iterableSolution)) {
   | Some((node, nextIterable)) =>
     let SolutionGraph.{data, parents /* actually parents in reverse */} = node;
-    let nodeModuleEntry = HoistedGraph.makeNode(~data, ~parent=None);
+    let nodeModuleEntry = HoistedNodeModulesGraph.makeNode(~data, ~parent=None);
     let lineage =
       parents
       |> List.map(~f=solutionNode => solutionNode.SolutionGraph.data)
@@ -79,9 +79,9 @@ let rec iterateSolution = (~traverse, ~hoistedGraph, iterableSolution) => {
 let link = (~installation, ~projectPath, ~fetchDepsSubset, ~solution) => {
   let traverse = getNPMChildren(~fetchDepsSubset, ~solution);
   let f = hoistedGraphNode => {
-    HoistedGraph.(
+    HoistedNodeModulesGraph.(
       switch (hoistedGraphNode.parent) {
-      | Some(_parentHoistedGraphNode) =>
+      | Some(_parentHoistedNodeModulesGraphNode) =>
         let nodeModulesPath =
           nodeModulesPathFromParent(
             ~baseNodeModulesPath=Path.(projectPath / "node_modules"),
@@ -111,6 +111,6 @@ let link = (~installation, ~projectPath, ~fetchDepsSubset, ~solution) => {
   };
   solution
   |> SolutionGraph.iterator
-  |> iterateSolution(~traverse, ~hoistedGraph=HoistedGraph.init(~traverse))
-  |> HoistedGraph.walk(~f);
+  |> iterateSolution(~traverse, ~hoistedGraph=HoistedNodeModulesGraph.init(~traverse))
+  |> HoistedNodeModulesGraph.walk(~f);
 };

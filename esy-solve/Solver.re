@@ -171,7 +171,7 @@ module Explanation = {
   };
 
   let collectReasons =
-      (~gitUsername, ~gitPassword, cudfMapping, solver, reasons) => {
+      (~gitUsername, ~gitPassword, ~os, ~arch, cudfMapping, solver, reasons) => {
     open RunAsync.Syntax;
 
     /* Find a pair of requestor, path for the current package.
@@ -288,6 +288,8 @@ module Explanation = {
                     ~gitUsername,
                     ~gitPassword,
                     ~name,
+                    ~os,
+                    ~arch,
                     solver.sandbox.resolver,
                   )
                 ) {
@@ -318,7 +320,8 @@ module Explanation = {
     return(Reason.Set.elements(reasons));
   };
 
-  let explain = (~gitUsername, ~gitPassword, cudfMapping, solver, cudf) =>
+  let explain =
+      (~gitUsername, ~gitPassword, ~os, ~arch, cudfMapping, solver, cudf) =>
     RunAsync.Syntax.(
       switch (Dose_algo.Depsolver.check_request(~explain=true, cudf)) {
       | Dose_algo.Depsolver.Sat(_)
@@ -335,6 +338,8 @@ module Explanation = {
           collectReasons(
             ~gitUsername,
             ~gitPassword,
+            ~os,
+            ~arch,
             cudfMapping,
             solver,
             reasons,
@@ -483,7 +488,15 @@ let make = (solvespec, sandbox: Sandbox.t) => {
   return({solvespec, universe: universe^, sandbox});
 };
 
-let add = (~gitUsername, ~gitPassword, ~dependencies: Dependencies.t, solver) => {
+let add =
+    (
+      ~gitUsername,
+      ~gitPassword,
+      ~os,
+      ~arch,
+      ~dependencies: Dependencies.t,
+      solver,
+    ) => {
   open RunAsync.Syntax;
 
   let universe = ref(solver.universe);
@@ -533,6 +546,8 @@ let add = (~gitUsername, ~gitPassword, ~dependencies: Dependencies.t, solver) =>
           ~fullMetadata=true,
           ~name=req.name,
           ~spec=req.spec,
+          ~os,
+          ~arch,
           solver.sandbox.resolver,
         ),
         "resolving %a",
@@ -548,6 +563,8 @@ let add = (~gitUsername, ~gitPassword, ~dependencies: Dependencies.t, solver) =>
               ~gitUsername,
               ~gitPassword,
               ~resolution,
+              ~os,
+              ~arch,
               solver.sandbox.resolver,
             ),
             "resolving metadata %a",
@@ -613,6 +630,8 @@ let solveDependencies =
       ~strategy,
       ~dumpCudfInput,
       ~dumpCudfOutput,
+      ~os,
+      ~arch,
       dependencies,
       solver,
     ) => {
@@ -755,6 +774,8 @@ let solveDependencies =
       Explanation.explain(
         ~gitUsername,
         ~gitPassword,
+        ~os,
+        ~arch,
         cudfMapping,
         solver,
         cudf,
@@ -772,6 +793,8 @@ let solveDependenciesNaively =
       ~gitPassword,
       ~installed: InstallManifest.Set.t,
       ~root: InstallManifest.t,
+      ~os,
+      ~arch,
       dependencies: Dependencies.t,
       solver: t,
     ) => {
@@ -819,6 +842,8 @@ let solveDependenciesNaively =
         ~gitPassword,
         ~name=req.name,
         ~spec=req.spec,
+        ~os,
+        ~arch,
         solver.sandbox.resolver,
       );
     switch (
@@ -830,6 +855,8 @@ let solveDependenciesNaively =
           ~gitUsername,
           ~gitPassword,
           ~resolution,
+          ~os,
+          ~arch,
           solver.sandbox.resolver,
         )
       ) {
@@ -960,14 +987,22 @@ let solveDependenciesNaively =
   return(sealDependencies());
 };
 
-let solveOCamlReq = (~gitUsername, ~gitPassword, req: Req.t, resolver) => {
+let solveOCamlReq =
+    (~gitUsername, ~gitPassword, ~os, ~arch, req: Req.t, resolver) => {
   open RunAsync.Syntax;
 
   let make = resolution => {
     let%lwt () =
       Esy_logs_lwt.info(m => m("using %a", Resolution.pp, resolution));
     let* pkg =
-      Resolver.package(~gitUsername, ~gitPassword, ~resolution, resolver);
+      Resolver.package(
+        ~gitUsername,
+        ~gitPassword,
+        ~resolution,
+        ~os,
+        ~arch,
+        resolver,
+      );
     let* pkg = RunAsync.ofStringError(pkg);
     return((pkg.InstallManifest.originalVersion, Some(pkg.version)));
   };
@@ -981,6 +1016,8 @@ let solveOCamlReq = (~gitUsername, ~gitPassword, req: Req.t, resolver) => {
         ~gitPassword,
         ~name=req.name,
         ~spec=req.spec,
+        ~os,
+        ~arch,
         resolver,
       );
     switch (findResolutionForRequest(resolver, req, resolutions)) {
@@ -999,6 +1036,8 @@ let solveOCamlReq = (~gitUsername, ~gitPassword, req: Req.t, resolver) => {
         ~gitPassword,
         ~name=req.name,
         ~spec=req.spec,
+        ~os,
+        ~arch,
         resolver,
       )
     ) {
@@ -1014,6 +1053,8 @@ let solve =
       ~gitPassword,
       ~dumpCudfInput=None,
       ~dumpCudfOutput=None,
+      ~os,
+      ~arch,
       solvespec,
       sandbox: Sandbox.t,
     ) => {
@@ -1045,6 +1086,8 @@ let solve =
           solveOCamlReq(
             ~gitUsername,
             ~gitPassword,
+            ~os,
+            ~arch,
             ocamlReq,
             sandbox.resolver,
           ),
@@ -1096,7 +1139,7 @@ let solve =
 
   let* (solver, dependencies) = {
     let* (solver, dependencies) =
-      add(~gitUsername, ~gitPassword, ~dependencies, solver);
+      add(~gitUsername, ~gitPassword, ~dependencies, ~os, ~arch, solver);
     return((solver, dependencies));
   };
 
@@ -1111,6 +1154,8 @@ let solve =
         ~strategy=Strategy.trendy,
         ~dumpCudfInput,
         ~dumpCudfOutput,
+        ~os,
+        ~arch,
         dependencies,
         solver,
       );
@@ -1125,6 +1170,8 @@ let solve =
       ~gitPassword,
       ~installed,
       ~root=sandbox.root,
+      ~os,
+      ~arch,
       dependencies,
       solver,
     );

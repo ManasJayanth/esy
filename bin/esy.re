@@ -928,7 +928,14 @@ let lsModules = (only, mode, pkgarg, proj: Project.t) => {
 };
 
 let getSandboxSolution =
-    (~dumpCudfInput=None, ~dumpCudfOutput=None, solvespec, proj: Project.t) => {
+    (
+      ~os,
+      ~arch,
+      ~dumpCudfInput=None,
+      ~dumpCudfOutput=None,
+      solvespec,
+      proj: Project.t,
+    ) => {
   open EsySolve;
   open RunAsync.Syntax;
   let* solution =
@@ -937,12 +944,14 @@ let getSandboxSolution =
       ~gitPassword=proj.projcfg.gitPassword,
       ~dumpCudfInput,
       ~dumpCudfOutput,
+      ~os,
+      ~arch,
       solvespec,
       proj.solveSandbox,
     );
   let lockPath = SandboxSpec.solutionLockPath(proj.solveSandbox.Sandbox.spec);
   let* () = {
-    let* digest = Sandbox.digest(solvespec, proj.solveSandbox);
+    let* digest = Sandbox.digest(~os, ~arch, solvespec, proj.solveSandbox);
 
     EsyFetch.SolutionLock.toPath(
       ~digest,
@@ -975,11 +984,15 @@ let getSandboxSolution =
 
 let solve = (force, dumpCudfInput, dumpCudfOutput, proj: Project.t) => {
   open RunAsync.Syntax;
+  let os = System.Platform.host;
+  let arch = System.Arch.host;
   let run = () => {
     let* _: Solution.t =
       getSandboxSolution(
         ~dumpCudfInput,
         ~dumpCudfOutput,
+        ~os,
+        ~arch,
         proj.workflow.solvespec,
         proj,
       );
@@ -990,7 +1003,12 @@ let solve = (force, dumpCudfInput, dumpCudfOutput, proj: Project.t) => {
     run();
   } else {
     let* digest =
-      EsySolve.Sandbox.digest(proj.workflow.solvespec, proj.solveSandbox);
+      EsySolve.Sandbox.digest(
+        ~os,
+        ~arch,
+        proj.workflow.solvespec,
+        proj.solveSandbox,
+      );
     let path = SandboxSpec.solutionLockPath(proj.solveSandbox.spec);
     switch%bind (
       EsyFetch.SolutionLock.ofPath(~digest, proj.installSandbox, path)
@@ -1030,8 +1048,15 @@ let addProjectToGCRoot = (proj: Project.t) => {
 let solveAndFetch = (proj: Project.t) => {
   open RunAsync.Syntax;
   let lockPath = SandboxSpec.solutionLockPath(proj.projcfg.spec);
+  let os = System.Platform.host;
+  let arch = System.Arch.host;
   let* digest =
-    EsySolve.Sandbox.digest(proj.workflow.solvespec, proj.solveSandbox);
+    EsySolve.Sandbox.digest(
+      ~os,
+      ~arch,
+      proj.workflow.solvespec,
+      proj.solveSandbox,
+    );
   let%bind () =
     switch%bind (SolutionLock.ofPath(~digest, proj.installSandbox, lockPath)) {
     | Some(solution) =>
@@ -1056,6 +1081,9 @@ let solveAndFetch = (proj: Project.t) => {
 let add = (reqs: list(string), devDependency: bool, proj: Project.t) => {
   open EsySolve;
   open RunAsync.Syntax;
+  let os = System.Platform.host;
+  let arch = System.Arch.host;
+
   let opamError = "add dependencies manually when working with opam sandboxes";
 
   let* reqs = RunAsync.ofStringError(Result.List.map(~f=Req.parse, reqs));
@@ -1086,7 +1114,8 @@ let add = (reqs: list(string), devDependency: bool, proj: Project.t) => {
 
   let proj = {...proj, solveSandbox};
 
-  let* solution = getSandboxSolution(proj.workflow.solvespec, proj);
+  let* solution =
+    getSandboxSolution(~os, ~arch, proj.workflow.solvespec, proj);
   let* () = fetch(proj);
 
   let* (addedDependencies, configPath) = {
@@ -1182,12 +1211,19 @@ let add = (reqs: list(string), devDependency: bool, proj: Project.t) => {
         ~gitUsername=proj.projcfg.gitUsername,
         ~gitPassword=proj.projcfg.gitPassword,
         ~cfg=solveSandbox.cfg,
+        ~os,
+        ~arch,
         solveSandbox.spec,
       );
 
     let proj = {...proj, solveSandbox};
     let* digest =
-      EsySolve.Sandbox.digest(proj.workflow.solvespec, proj.solveSandbox);
+      EsySolve.Sandbox.digest(
+        ~os,
+        ~arch,
+        proj.workflow.solvespec,
+        proj.solveSandbox,
+      );
 
     /* we can only do this because we keep invariant that the constraint we
      * save in manifest covers the installed version */
@@ -1340,7 +1376,7 @@ let importDependencies =
   );
 };
 
-let show = (_asJson, req, proj: Project.t) => {
+let show = (_asJson, os, arch, req, proj: Project.t) => {
   open EsySolve;
   open RunAsync.Syntax;
   let* req = RunAsync.ofStringError(Req.parse(req));
@@ -1353,6 +1389,8 @@ let show = (_asJson, req, proj: Project.t) => {
         ~gitPassword=proj.projcfg.gitPassword,
         ~name=req.name,
         ~spec=req.spec,
+        ~os,
+        ~arch,
         resolver,
       ),
       "resolving %a",
@@ -1387,13 +1425,23 @@ let show = (_asJson, req, proj: Project.t) => {
             ~gitUsername=proj.projcfg.gitUsername,
             ~gitPassword=proj.projcfg.gitPassword,
             ~resolution,
+            ~os,
+            ~arch,
             resolver,
           ),
           "resolving metadata %a",
           Resolution.pp,
           resolution,
         );
-
+      print_endline(
+        Format.asprintf(
+          "Showing available version for os %a and arch %a\n",
+          System.Platform.pp,
+          os,
+          System.Arch.pp,
+          arch,
+        ),
+      );
       let* pkg = RunAsync.ofStringError(pkg);
       InstallManifest.to_yojson(pkg)
       |> Yojson.Safe.pretty_to_string
@@ -1743,6 +1791,26 @@ let commandsConfig = {
           const(show)
           $ Arg.(
               value & flag & info(["json"], ~doc="Format output as JSON")
+            )
+          $ Arg.(
+              value
+              & opt(System.Platform.conv, System.Platform.host)
+              & info(
+                  ["h", "os"],
+                  ~docv="OS",
+                  ~doc=
+                    "OS filter where the package is available. Possible values darwin | linux | cygwin | unix | windows",
+                )
+            )
+          $ Arg.(
+              value
+              & opt(System.Arch.conv, System.Arch.host)
+              & info(
+                  ["m", "arch"],
+                  ~docv="ARCH",
+                  ~doc=
+                    "Architecture filter where the package is available. Possible values x86 | x86_64 | amd64 | ppc32 | ppc64 | arm32 | arm64",
+                )
             )
           $ Arg.(
               required

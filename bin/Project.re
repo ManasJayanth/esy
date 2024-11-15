@@ -186,11 +186,15 @@ let makeProject = (makeSolved, projcfg: ProjectConfig.t) => {
     );
 
   let installCfg = solveCfg.EsySolve.Config.installCfg;
+  let os = System.Platform.host;
+  let arch = System.Arch.host;
   let* solveSandbox =
     EsySolve.Sandbox.make(
       ~gitUsername=projcfg.gitUsername,
       ~gitPassword=projcfg.gitPassword,
       ~cfg=solveCfg,
+      ~os,
+      ~arch,
       projcfg.spec,
     );
   let installSandbox = EsyFetch.Sandbox.make(installCfg, projcfg.spec);
@@ -243,6 +247,8 @@ let makeProject = (makeSolved, projcfg: ProjectConfig.t) => {
       solveSandbox,
       installSandbox,
       files,
+      os,
+      arch,
       esy,
     );
   return((
@@ -276,13 +282,16 @@ let makeSolved =
       solver,
       installer,
       files,
+      os,
+      arch,
       esy,
     ) => {
   open RunAsync.Syntax;
   let path = SandboxSpec.solutionLockPath(projcfg.spec);
   let* info = FileInfo.ofPath(Path.(path / "index.json"));
   files := [info, ...files^];
-  let* digest = EsySolve.Sandbox.digest(Workflow.default.solvespec, solver);
+  let* digest =
+    EsySolve.Sandbox.digest(~os, ~arch, Workflow.default.solvespec, solver);
 
   switch%bind (SolutionLock.ofPath(~digest, installer, path)) {
   | Some(solution) =>
@@ -420,8 +429,9 @@ let plan = (mode, proj) =>
     }
   );
 
-let make = projcfg =>
+let make = projcfg => {
   makeProject(makeSolved(makeFetched(makeConfigured)), projcfg);
+};
 
 let writeAuxCache = proj => {
   open RunAsync.Syntax;

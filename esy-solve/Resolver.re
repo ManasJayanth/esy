@@ -482,7 +482,14 @@ let applyOverride = (pkg, override: Override.install) => {
 };
 
 let package =
-    (~gitUsername, ~gitPassword, ~resolution: Resolution.t, resolver) => {
+    (
+      ~gitUsername,
+      ~gitPassword,
+      ~resolution: Resolution.t,
+      ~os,
+      ~arch,
+      resolver,
+    ) => {
   open RunAsync.Syntax;
   let key = (resolution.name, resolution.resolution);
 
@@ -515,7 +522,13 @@ let package =
             | [] => RunAsync.return(None)
             | [opamRegistry, ...opamRegistries] =>
               let%lwt version =
-                OpamRegistry.version(~name, ~version, opamRegistry);
+                OpamRegistry.version(
+                  ~name,
+                  ~version,
+                  ~os,
+                  ~arch,
+                  opamRegistry,
+                );
               switch (version) {
               | Error(e) =>
                 opamRegistries == []
@@ -688,7 +701,16 @@ let resolveSource =
 };
 
 let resolve' =
-    (~gitUsername, ~gitPassword, ~fullMetadata, ~name, ~spec, resolver) =>
+    (
+      ~gitUsername,
+      ~gitPassword,
+      ~fullMetadata,
+      ~name,
+      ~spec,
+      ~os,
+      ~arch,
+      resolver,
+    ) =>
   RunAsync.Syntax.(
     switch (spec) {
     | VersionSpec.Npm(_)
@@ -754,6 +776,8 @@ let resolve' =
                   OpamRegistry.versions(
                     ~ocamlVersion=?toOpamOcamlVersion(resolver.ocamlVersion),
                     ~name,
+                    ~os,
+                    ~arch,
                   ),
                 );
               List.fold_left(
@@ -820,11 +844,13 @@ let resolve' =
 
 let resolve =
     (
+      ~fullMetadata=false,
+      ~spec: option(VersionSpec.t)=?,
       ~gitUsername,
       ~gitPassword,
-      ~fullMetadata=false,
       ~name: string,
-      ~spec: option(VersionSpec.t)=?,
+      ~os,
+      ~arch,
       resolver: t,
     ) =>
   RunAsync.Syntax.(
@@ -851,6 +877,8 @@ let resolve =
         ~fullMetadata,
         ~name,
         ~spec,
+        ~os,
+        ~arch,
         resolver,
       );
     }

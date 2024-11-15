@@ -22,6 +22,8 @@ module Platform: {
 
   let isWindows: bool;
 
+  let conv: Esy_cmdliner.Arg.conv(t);
+
   include S.JSONABLE with type t := t;
   include S.PRINTABLE with type t := t;
   include S.COMPARABLE with type t := t;
@@ -40,6 +42,8 @@ module Arch: {
   /** Arch we are currently running on */
 
   let host: t;
+
+  let conv: Esy_cmdliner.Arg.conv(t);
 
   include S.JSONABLE with type t := t;
   include S.PRINTABLE with type t := t;

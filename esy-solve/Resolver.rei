@@ -19,11 +19,13 @@ let getUnusedResolutions: t => list(string);
 
 let resolve:
   (
+    ~fullMetadata: bool=?,
+    ~spec: VersionSpec.t=?,
     ~gitUsername: option(string),
     ~gitPassword: option(string),
-    ~fullMetadata: bool=?,
     ~name: string,
-    ~spec: VersionSpec.t=?,
+    ~os: System.Platform.t,
+    ~arch: System.Arch.t,
     t
   ) =>
   RunAsync.t(list(Resolution.t));
@@ -40,6 +42,8 @@ let package:
     ~gitUsername: option(string),
     ~gitPassword: option(string),
     ~resolution: Resolution.t,
+    ~os: System.Platform.t,
+    ~arch: System.Arch.t,
     t
   ) =>
   RunAsync.t(result(InstallManifest.t, string));

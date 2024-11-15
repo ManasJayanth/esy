@@ -16,6 +16,8 @@ let versions:
   (
     ~ocamlVersion: OpamPackageVersion.Version.t=?,
     ~name: OpamPackage.Name.t,
+    ~os: System.Platform.t,
+    ~arch: System.Arch.t,
     t
   ) =>
   RunAsync.t(list(OpamResolution.t));
@@ -23,5 +25,11 @@ let versions:
 /** Return an opam manifest for a given opam package name, version. */
 
 let version:
-  (~name: OpamPackage.Name.t, ~version: OpamPackage.Version.t, t) =>
+  (
+    ~name: OpamPackage.Name.t,
+    ~version: OpamPackage.Version.t,
+    ~os: System.Platform.t,
+    ~arch: System.Arch.t,
+    t
+  ) =>
   RunAsync.t(option(OpamManifest.t));

@@ -161,6 +161,8 @@ let resolve =
       ~ocamlVersion=?,
       ~name: OpamPackage.Name.t,
       ~version: OpamPackage.Version.t,
+      ~os: System.Platform.t,
+      ~arch: System.Arch.t,
       registry: registry,
     ) => {
   open RunAsync.Syntax;
@@ -180,6 +182,19 @@ let resolve =
             | (OpamVariable.Full.Global, "ocaml-version") =>
               let* ocamlVersion = ocamlVersion;
               return(string(OpamPackage.Version.to_string(ocamlVersion)));
+            | (OpamVariable.Full.Global, "arch") =>
+              Some(OpamVariable.string(System.Arch.show(arch)))
+            | (OpamVariable.Full.Global, "os") =>
+              let sys =
+                switch (os) {
+                | Darwin => "macos"
+                | Linux => "linux"
+                | Cygwin => "cygwin"
+                | Unix => "unix"
+                | Windows => "win32"
+                | Unknown => "unknown"
+                };
+              Some(OpamVariable.string(sys));
             | (OpamVariable.Full.Global, _) => None
             | (OpamVariable.Full.Self, _) => None
             | (OpamVariable.Full.Package(_), _) => None
@@ -209,7 +224,7 @@ let isEnabledForEsy = name =>
   | _ => true
   };
 
-let versions = (~ocamlVersion=?, ~name: OpamPackage.Name.t, registry) =>
+let versions = (~ocamlVersion=?, ~name: OpamPackage.Name.t, ~os, ~arch, registry) =>
   RunAsync.Syntax.(
     if (!isEnabledForEsy(name)) {
       return([]);
@@ -220,7 +235,7 @@ let versions = (~ocamlVersion=?, ~name: OpamPackage.Name.t, registry) =>
       | Some(index) =>
         let* resolutions = {
           let getPackageVersion = version =>
-            resolve(~ocamlVersion?, ~name, ~version, registry);
+            resolve(~ocamlVersion?, ~name, ~version, ~os, ~arch, registry);
 
           RunAsync.List.mapAndJoin(
             ~concurrency=2,
@@ -234,13 +249,13 @@ let versions = (~ocamlVersion=?, ~name: OpamPackage.Name.t, registry) =>
     }
   );
 
-let version = (~name: OpamPackage.Name.t, ~version, registry) =>
+let version = (~name: OpamPackage.Name.t, ~version, ~os, ~arch, registry) =>
   RunAsync.Syntax.(
     if (!isEnabledForEsy(name)) {
       return(None);
     } else {
       let* registry = initRegistry(registry);
-      switch%bind (resolve(~name, ~version, registry)) {
+      switch%bind (resolve(~name, ~version, ~os, ~arch, registry)) {
       | None => return(None)
       | Some(res) =>
         let* manifest = {

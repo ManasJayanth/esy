@@ -14,10 +14,17 @@ let makeResolution = source => {
 };
 
 let ofResolution =
-    (~gitUsername, ~gitPassword, cfg, spec, resolver, resolution) => {
+    (~gitUsername, ~gitPassword, ~os, ~arch, cfg, spec, resolver, resolution) => {
   open RunAsync.Syntax;
   switch%bind (
-    Resolver.package(~gitUsername, ~gitPassword, ~resolution, resolver)
+    Resolver.package(
+      ~gitUsername,
+      ~gitPassword,
+      ~resolution,
+      ~os,
+      ~arch,
+      resolver,
+    )
   ) {
   | Ok(root) =>
     let root = {
@@ -35,7 +42,15 @@ let ofResolution =
   };
 };
 
-let make = (~gitUsername, ~gitPassword, ~cfg, spec: EsyFetch.SandboxSpec.t) => {
+let make =
+    (
+      ~gitUsername,
+      ~gitPassword,
+      ~cfg,
+      ~os,
+      ~arch,
+      spec: EsyFetch.SandboxSpec.t,
+    ) => {
   open RunAsync.Syntax;
   let path = DistPath.make(~base=spec.path, spec.path);
   let makeSource = manifest =>
@@ -52,6 +67,8 @@ let make = (~gitUsername, ~gitPassword, ~cfg, spec: EsyFetch.SandboxSpec.t) => {
           ofResolution(
             ~gitUsername,
             ~gitPassword,
+            ~os,
+            ~arch,
             cfg,
             spec,
             resolver,
@@ -69,6 +86,8 @@ let make = (~gitUsername, ~gitPassword, ~cfg, spec: EsyFetch.SandboxSpec.t) => {
                 ~gitUsername,
                 ~gitPassword,
                 ~resolution,
+                ~os,
+                ~arch,
                 resolver,
               )
             ) {
@@ -139,7 +158,7 @@ let make = (~gitUsername, ~gitPassword, ~cfg, spec: EsyFetch.SandboxSpec.t) => {
   );
 };
 
-let digest = (solvespec, sandbox) => {
+let digest = (~os, ~arch, solvespec, sandbox) => {
   open RunAsync.Syntax;
 
   let ppDependencies = (fmt, deps) => {
@@ -241,6 +260,8 @@ let digest = (solvespec, sandbox) => {
             ~gitUsername=None,
             ~gitPassword=None, /* Doesn't seem to hit git+https. TODO: does it? */
             ~resolution,
+            ~os,
+            ~arch,
             sandbox.resolver,
           )
         ) {
